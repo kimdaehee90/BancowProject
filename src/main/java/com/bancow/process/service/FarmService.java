@@ -1,8 +1,10 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
+import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,30 +21,30 @@ public class FarmService {
     private final CertificationService certificationService;
     private final PasswordEncoder passwordEncoder;
 
-    public void join( String userName){
+    public void join(String userName) {
 
         // userName으로 번호가 있는지 조회
         Optional<Farm> user = farmRepository.findByUserName(userName);
 
         //인증번호 생성
-        Random rand  = new Random();
+        Random rand = new Random();
         String numStr = "";
-        for(int i=0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             String ran = Integer.toString(rand.nextInt(10));
-            numStr+=ran;
+            numStr += ran;
         }
 
         // 생성한 랜덤 인증번호를 인코딩
         String password = passwordEncoder.encode(numStr);
 
-        if(user.isEmpty()) {
+        if (user.isEmpty()) {
             //farm 객체 생성해서 userName과 인코딩한 password 저장
             Farm farm = new Farm();
             farm.setUserName(userName);
             farm.setPassword(password);
             farmRepository.save(farm);
 
-        }else{
+        } else {
             Farm farm = user.get();
             farm.setPassword(password);
             farmRepository.save(farm);
@@ -54,4 +56,9 @@ public class FarmService {
 
     }
 
+    @Transactional
+    public void createFarm(RequestDto requestDto) {
+        farmRepository.save(requestDto.toEntity());
+
+    }
 }
