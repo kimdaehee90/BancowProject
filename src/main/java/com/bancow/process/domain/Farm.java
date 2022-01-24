@@ -1,11 +1,17 @@
 package com.bancow.process.domain;
 
+import com.bancow.process.dto.FarmInfoDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+<<<<<<< Updated upstream
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+=======
+import lombok.*;
+>>>>>>> Stashed changes
 
 import javax.persistence.*;
+import java.lang.module.ModuleDescriptor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +20,11 @@ import java.util.List;
 @Table(name = "farm")
 @Data
 @NoArgsConstructor
+<<<<<<< Updated upstream
+=======
+@AllArgsConstructor
+@Builder
+>>>>>>> Stashed changes
 public class Farm extends BaseEntity {
 
     @Id
@@ -138,9 +149,17 @@ public class Farm extends BaseEntity {
     @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FarmFile> farmFile = new ArrayList<>();
 
+<<<<<<< Updated upstream
     @Builder
     public Farm(String userName, String password) {
         this.userName = userName;
         this.password = password;
+=======
+    public void putFarmInfo(FarmInfoDto farmInfoDto){
+        this.farmName = farmInfoDto.getFarmName();
+        this.farmAddress = farmInfoDto.getFarmAddress();
+        this.fodder = farmInfoDto.getFodder();
+        this.pageNum = farmInfoDto.getPageNum();
+>>>>>>> Stashed changes
     }
 }
