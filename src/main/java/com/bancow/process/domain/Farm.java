@@ -1,7 +1,9 @@
 package com.bancow.process.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "farm")
 @Data
+@NoArgsConstructor
 public class Farm extends BaseEntity {
 
     @Id
@@ -135,4 +138,9 @@ public class Farm extends BaseEntity {
     @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FarmFile> farmFile = new ArrayList<>();
 
+    @Builder
+    public Farm(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
 }
