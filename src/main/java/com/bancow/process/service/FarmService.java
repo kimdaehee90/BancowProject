@@ -1,6 +1,7 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
+import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -55,8 +56,8 @@ public class FarmService {
 
     }
 
-//    @Transactional
-//    public void createFarm(RequestDto requestDto) {
-//        farmRepository.save(requestDto.toEntity());
-//    }
+    @Transactional
+    public void createFarm(RequestDto requestDto) {
+        farmRepository.save(requestDto.toEntity());
+    }
 }
