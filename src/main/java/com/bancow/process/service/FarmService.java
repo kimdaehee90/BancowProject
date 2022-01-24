@@ -2,6 +2,8 @@ package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.repository.FarmRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,14 +39,12 @@ public class FarmService {
 
         if(user.isEmpty()) {
             //farm 객체 생성해서 userName과 인코딩한 password 저장
-            Farm farm = new Farm();
-            farm.setUserName(userName);
-            farm.setPassword(password);
+            Farm farm = new Farm(userName,password);
             farmRepository.save(farm);
 
         }else{
             Farm farm = user.get();
-            farm.setPassword(password);
+            farm.updateFarm(password);
             farmRepository.save(farm);
 
         }
