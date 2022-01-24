@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/process;
+    url: jdbc:h2:tcp://localhost/~/test;
     username: sa
     password:
 
@@ -19,7 +19,7 @@ spring:
   jpa:
     hibernate:
       # H2를 이용한 local 개발 단계에서 사용
-      ddl-auto: create
+      ddl-auto: update
 #      # MySQL을 이용한 배포 단계에서 사용
 #      ddl-auto: update
     properties:

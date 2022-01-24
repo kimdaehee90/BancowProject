@@ -143,4 +143,8 @@ public class Farm extends BaseEntity {
         this.userName = userName;
         this.password = password;
     }
+
+    public void updateFarm(String password){
+        this.password = password;
+    }
 }
