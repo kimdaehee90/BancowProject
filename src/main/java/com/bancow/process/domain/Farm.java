@@ -1,6 +1,7 @@
 package com.bancow.process.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,8 @@ import java.util.List;
 @Table(name = "farm")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Farm extends BaseEntity {
 
     @Id
@@ -143,6 +146,7 @@ public class Farm extends BaseEntity {
         this.userName = userName;
         this.password = password;
     }
+
 
     public void updateFarm(String password){
         this.password = password;
