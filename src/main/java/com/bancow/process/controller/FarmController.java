@@ -15,11 +15,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FarmController {
 
-    private final FarmRepository farmRepository;
+//    private final FarmRepository farmRepository;
 
-    @PutMapping("/{id}/info")
-    public Long farmInfo(@PathVariable Long id, @RequestBody FarmInfoDto farmInfoDto){
-        return FarmService.putFarminfo(id, farmInfoDto);
+//    @PutMapping("/{id}/info")
+//    public Long farmInfo(@PathVariable Long id, @RequestBody FarmInfoDto farmInfoDto){
+//        return FarmService.putFarminfo(id, farmInfoDto);
 
-    }
+
 }

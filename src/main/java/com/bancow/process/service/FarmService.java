@@ -12,14 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class FarmService {
-    private final FarmRepository farmRepository;
+//    private final FarmRepository farmRepository;
 
-    public void putFarmInfo(Long id, FarmInfoDto farmInfoDto){
-
-        Farm farm = farmRepository.findById(id).orElseThrow();
-        farm.putFarmInfo(farmInfoDto);
-
-
-    }
+//    public void putFarmInfo(Long id, FarmInfoDto farmInfoDto){
+//
+//        Farm farm = farmRepository.findById(id).orElseThrow();
+//        farm.putFarmInfo(farmInfoDto);
+//
+//
+//    }
 
 }
