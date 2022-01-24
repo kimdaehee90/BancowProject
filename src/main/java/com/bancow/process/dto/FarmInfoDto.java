@@ -8,11 +8,20 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class FarmInfoDto {
     private Long id;
     private String farmName;
     private String farmAddress;
     private String fodder;
     private Long pageNum;
+
+    @Builder
+    public void FarmInfoDto(String farmName, String farmAddress, String fodder, Long pageNum){
+        this.farmName = farmName;
+        this.farmAddress = farmAddress;
+        this.fodder = fodder;
+        this.pageNum = pageNum;
+    }
+
+
 }

@@ -1,15 +1,12 @@
 package com.bancow.process.domain;
 
-import com.bancow.process.dto.FarmInfoDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.*;
 
 import javax.persistence.*;
-import java.lang.module.ModuleDescriptor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -150,16 +147,8 @@ public class Farm extends BaseEntity {
         this.password = password;
     }
 
-<<<<<<< HEAD
-//    public void putFarmInfo(FarmInfoDto farmInfoDto){
-//        this.farmName = farmInfoDto.getFarmName();
-//        this.farmAddress = farmInfoDto.getFarmAddress();
-//        this.fodder = farmInfoDto.getFodder();
-//        this.pageNum = farmInfoDto.getPageNum();
-//    }
-=======
+
     public void updateFarm(String password){
         this.password = password;
     }
->>>>>>> 6e83b9710b003a5e84dd27e7b8dc94a7466abc75
 }
