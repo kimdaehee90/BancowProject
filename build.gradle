@@ -19,6 +19,9 @@ dependencies {
 
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
+	// https://mvnrepository.com/artifact/net.nurigo/javaSDK
+	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	runtimeOnly 'com.h2database:h2'
