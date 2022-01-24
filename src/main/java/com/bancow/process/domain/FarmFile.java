@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "farm_file")
 @Data
+@NoArgsConstructor
 public class FarmFile extends BaseEntity{
 
     @Id
@@ -36,4 +37,19 @@ public class FarmFile extends BaseEntity{
     @JsonManagedReference
     private Farm farm;
 
+    @Builder
+    public FarmFile(Farm farm, String originalFileName, String changedFileName, String fileUrl, FileType fileType) {
+        this.farm = farm;
+        this.originalFileName = originalFileName;
+        this.changedFileName = changedFileName;
+        this.fileUrl = fileUrl;
+        this.fileType = fileType;
+    }
+
+    public void updateFile(String originalFileName, String changedFileName, String fileUrl, FileType fileType) {
+        this.originalFileName = originalFileName;
+        this.changedFileName = changedFileName;
+        this.fileUrl = fileUrl;
+        this.fileType = fileType;
+    }
 }
