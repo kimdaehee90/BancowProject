@@ -150,10 +150,16 @@ public class Farm extends BaseEntity {
         this.password = password;
     }
 
+<<<<<<< HEAD
 //    public void putFarmInfo(FarmInfoDto farmInfoDto){
 //        this.farmName = farmInfoDto.getFarmName();
 //        this.farmAddress = farmInfoDto.getFarmAddress();
 //        this.fodder = farmInfoDto.getFodder();
 //        this.pageNum = farmInfoDto.getPageNum();
 //    }
+=======
+    public void updateFarm(String password){
+        this.password = password;
+    }
+>>>>>>> 6e83b9710b003a5e84dd27e7b8dc94a7466abc75
 }

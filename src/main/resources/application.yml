@@ -2,7 +2,11 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
+<<<<<<< HEAD
     url: jdbc:h2:tcp://localhost/~/test
+=======
+    url: jdbc:h2:tcp://localhost/~/test;
+>>>>>>> 6e83b9710b003a5e84dd27e7b8dc94a7466abc75
     username: sa
     password:
 
