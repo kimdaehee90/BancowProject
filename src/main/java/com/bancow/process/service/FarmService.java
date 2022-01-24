@@ -1,18 +1,9 @@
 package com.bancow.process.service;
 
-<<<<<<< HEAD
-
 import com.bancow.process.domain.Farm;
-import com.bancow.process.dto.FarmInfoDto;
+import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmRepository;
-=======
-import com.bancow.process.domain.Farm;
-import com.bancow.process.repository.FarmRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
->>>>>>> 6e83b9710b003a5e84dd27e7b8dc94a7466abc75
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,8 +62,8 @@ public class FarmService {
 
     }
 
-//    @Transactional
-//    public void createFarm(RequestDto requestDto) {
-//        farmRepository.save(requestDto.toEntity());
-//    }
+    @Transactional
+    public void createFarm(RequestDto requestDto) {
+        farmRepository.save(requestDto.toEntity());
+    }
 }
