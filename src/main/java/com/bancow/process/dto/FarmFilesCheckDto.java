@@ -1,12 +1,12 @@
 package com.bancow.process.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class FarmFilesCheckDto {
     private Long id;
     private Boolean livestockFarmingBusinessRegistration;
@@ -16,6 +16,7 @@ public class FarmFilesCheckDto {
     private Boolean businessLicense;
     private Long pageNum;
 
+    @Builder
     public void FarmFilesCheck(Boolean livestockFarmingBusinessRegistration, Boolean facilitiesStructure,
                                   Boolean annualFodderCostSpecification, Boolean annualInspectionReport,
                                   Boolean businessLicense, Long pageNum){
