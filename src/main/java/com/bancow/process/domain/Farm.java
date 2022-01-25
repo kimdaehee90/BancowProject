@@ -1,7 +1,5 @@
 package com.bancow.process.domain;
 
-import com.bancow.process.dto.FarmFilesCheckDto;
-import com.bancow.process.dto.FarmInfoCheckDto;
 import com.bancow.process.dto.FarmInfoDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
@@ -10,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -158,11 +155,32 @@ public class Farm extends BaseEntity {
     public void updatePageNum(Long pageNum) {
         this.pageNum = pageNum;
     }
-
     public void updateInvestigationRequest(Long pageNum, LocalDateTime investigationRequest) {
         this.pageNum = pageNum;
         this.investigationRequest = investigationRequest;
     }
+
+    public void updateFarmAgreement(Boolean serviceTerms1, Boolean serviceTerms2, Boolean serviceTerms3, Long pageNum){
+        this.serviceTerms1 = serviceTerms1;
+        this.serviceTerms2 = serviceTerms2;
+        this.serviceTerms3 = serviceTerms3;
+        this.pageNum = pageNum;
+    }
+
+    public void updateFarmOwnerInfo(String name, String email, Long pageNum){
+        this.name = name;
+        this.email = email;
+        this.pageNum = pageNum;
+    }
+
+    public void updateFarmInfo(String farmName, String farmAddress, String fodder, Long pageNum) {
+        this.farmName = farmName;
+        this.farmAddress = farmAddress;
+        this.fodder = fodder;
+        this.pageNum = pageNum;
+    }
+
+
     public void updateFarmInfo(FarmInfoDto farmInfoDto){
         this.farmName = farmInfoDto.getFarmName();
         this.farmAddress = farmInfoDto.getFarmAddress();
@@ -170,21 +188,23 @@ public class Farm extends BaseEntity {
         this.pageNum = farmInfoDto.getPageNum();
     }
 
-    public void updateFarmInfoCheck(FarmInfoCheckDto farmInfoCheckDto){
-        this.identification = farmInfoCheckDto.getIdentification();
-        this.ownFarm = farmInfoCheckDto.getOwnFarm();
-        this.breedingType = farmInfoCheckDto.getBreedingType();
-        this.population = farmInfoCheckDto.getPopulation();
-        this.pageNum = farmInfoCheckDto.getPageNum();
+    public void updateFarmInfoCheck(String identification, String ownFarm, String breedingType, String population, Long pageNum){
+        this.identification = identification;
+        this.ownFarm = ownFarm;
+        this.breedingType = breedingType;
+        this.population = population;
+        this.pageNum = pageNum;
     }
 
-    public void updateFilesInfoCheck(FarmFilesCheckDto farmFilesCheckDto){
-        this.livestockFarmingBusinessRegistration = farmFilesCheckDto.getLivestockFarmingBusinessRegistration();
-        this.facilitiesStructure = farmFilesCheckDto.getFacilitiesStructure();
-        this.annualFodderCostSpecification = farmFilesCheckDto.getAnnualFodderCostSpecification();
-        this.annualInspectionReport = farmFilesCheckDto.getAnnualInspectionReport();
-        this.businessLicense = farmFilesCheckDto.getBusinessLicense();
-        this.pageNum = farmFilesCheckDto.getPageNum();
+    public void updateFilesInfoCheck(Boolean livestockFarmingBusinessRegistration, Boolean facilitiesStructure,
+                                     Boolean annualFodderCostSpecification, Boolean annualInspectionReport,
+                                     Boolean businessLicense, Long pageNum){
+        this.livestockFarmingBusinessRegistration = livestockFarmingBusinessRegistration;
+        this.facilitiesStructure = facilitiesStructure;
+        this.annualFodderCostSpecification = annualFodderCostSpecification;
+        this.annualInspectionReport = annualInspectionReport;
+        this.businessLicense = businessLicense;
+        this.pageNum = pageNum;
     }
 
     public void updateInProgress(Long pageNum, InProgress inProgress) {
