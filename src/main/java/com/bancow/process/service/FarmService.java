@@ -1,6 +1,8 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
+import com.bancow.process.domain.FarmFile;
+import com.bancow.process.domain.FileType;
 import com.bancow.process.dto.*;
 import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.domain.InProgress;
@@ -8,6 +10,7 @@ import com.bancow.process.dto.FarmFilesCheckDto;
 import com.bancow.process.dto.FarmInfoCheckDto;
 import com.bancow.process.dto.FarmInfoDto;
 import com.bancow.process.dto.RequestDto;
+import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -26,6 +31,7 @@ import java.util.Random;
 public class FarmService {
 
     private final FarmRepository farmRepository;
+    private final FarmFileRepository farmFileRepository;
     private final CertificationService certificationService;
     private final PasswordEncoder passwordEncoder;
 
@@ -86,7 +92,7 @@ public class FarmService {
 
     @Transactional
     @Builder
-    public ResponseStep1 check(Long id){
+    public Object check(Long id){
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
@@ -115,7 +121,12 @@ public class FarmService {
             return responseStep1;
         }
         if(farm.getInProgress().equals("STEP2_COMPLETED")){
-            List<ResponseStep2> responseStep2List = new ArrayList<>();
+
+            FarmFile farmfile = farmFileRepository.findByFarmId(id);
+
+
+
+
 
         }
 
