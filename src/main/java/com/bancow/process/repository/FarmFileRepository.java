@@ -11,4 +11,6 @@ public interface FarmFileRepository extends JpaRepository<FarmFile, Long> {
     @Query("select ff from FarmFile ff " +
            "where ff.farm.id = :id and ff.fileType = :fileType")
     FarmFile findFile(@Param("id") Long id, @Param("fileType") FileType fileType);
+
+    FarmFile findByFarmId(Long farm_id);
 }
