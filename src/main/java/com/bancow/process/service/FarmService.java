@@ -1,6 +1,7 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
+import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.domain.InProgress;
 import com.bancow.process.dto.FarmFilesCheckDto;
 import com.bancow.process.dto.FarmInfoCheckDto;
@@ -43,7 +44,7 @@ public class FarmService {
 
         if (user.isEmpty()) {
             //farm 객체 생성해서 userName과 인코딩한 password 저장
-            Farm farm = new Farm(userName,password);
+            Farm farm = new Farm(userName, password);
             farmRepository.save(farm);
 
         } else {
@@ -65,6 +66,16 @@ public class FarmService {
 
 
     @Transactional
+    public void updatePageNum(Long farmId, PageNumUpdateRequestDto pageNumUpdateRequestDto) {
+        Farm farm = farmRepository.findById(farmId).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + farmId)
+        );
+
+        farm.updatePageNum(pageNumUpdateRequestDto.getPageNum());
+
+    }
+
+    @Transactional
     public void login(RequestDto requestDto) {
 
     }
@@ -80,7 +91,6 @@ public class FarmService {
         }
 
     }
-
 
     public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto){
         Farm farm = farmRepository.findById(id).orElseThrow(
