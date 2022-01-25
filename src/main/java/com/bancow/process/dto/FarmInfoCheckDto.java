@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 
 public class FarmInfoCheckDto {
     private Long id;
-    private String indentification;
+    private String identification;
     private String ownFarm;
     private String breedingType;
     private String population;
@@ -20,7 +19,7 @@ public class FarmInfoCheckDto {
     @Builder
     public void FarmInfoCheckDto(String identification, String ownFarm, String breedingType,
                                  String population, Long pageNum){
-        this.indentification = identification;
+        this.identification = identification;
         this.ownFarm = ownFarm;
         this.breedingType = breedingType;
         this.population = population;
