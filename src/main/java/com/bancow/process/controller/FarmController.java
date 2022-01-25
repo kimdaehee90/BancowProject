@@ -1,6 +1,7 @@
 package com.bancow.process.controller;
 
 import com.bancow.process.dto.FileUpdateRequestDto;
+import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.dto.RequestDto;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmService;
@@ -26,9 +27,15 @@ public class FarmController {
     }
 
     @PutMapping("/api/farm/{id}/files")
-    public void update(@PathVariable Long id,
+    public void updateFile(@PathVariable Long id,
                        @RequestBody FileUpdateRequestDto fileUpdateRequestDto) {
         farmFileService.updateFile(id, fileUpdateRequestDto);
+    }
+
+    @PutMapping("/api/farm/{id}/move")
+    public void updatePageNum(@PathVariable Long id,
+                              @RequestBody PageNumUpdateRequestDto pageNumUpdateRequestDto) {
+        farmService.updatePageNum(id, pageNumUpdateRequestDto);
     }
 
 

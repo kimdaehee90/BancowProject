@@ -1,12 +1,10 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
+import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +39,7 @@ public class FarmService {
 
         if (user.isEmpty()) {
             //farm 객체 생성해서 userName과 인코딩한 password 저장
-            Farm farm = new Farm(userName,password);
+            Farm farm = new Farm(userName, password);
             farmRepository.save(farm);
 
         } else {
@@ -59,5 +57,15 @@ public class FarmService {
     @Transactional
     public void createFarm(RequestDto requestDto) {
         farmRepository.save(requestDto.toEntity());
+    }
+
+    @Transactional
+    public void updatePageNum(Long farmId, PageNumUpdateRequestDto pageNumUpdateRequestDto) {
+        Farm farm = farmRepository.findById(farmId).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + farmId)
+        );
+
+        farm.updatePageNum(pageNumUpdateRequestDto.getPageNum());
+
     }
 }

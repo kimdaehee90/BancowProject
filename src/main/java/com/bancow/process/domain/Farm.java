@@ -147,4 +147,8 @@ public class Farm extends BaseEntity {
     public void updateFarm(String password){
         this.password = password;
     }
+
+    public void updatePageNum(Long pageNum){
+        this.pageNum = pageNum;
+    }
 }
