@@ -1,12 +1,8 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
-import com.bancow.process.dto.PageNumUpdateRequestDto;
+import com.bancow.process.dto.*;
 import com.bancow.process.domain.InProgress;
-import com.bancow.process.dto.FarmFilesCheckDto;
-import com.bancow.process.dto.FarmInfoCheckDto;
-import com.bancow.process.dto.FarmInfoDto;
-import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -81,18 +77,18 @@ public class FarmService {
     }
 
     @Transactional
-    public void check(Long id){
+    public void check(Long id) {
         Optional<Farm> farm = farmRepository.findById(id);
 
         InProgress farmInprogress = farm.get().getInProgress();
 
-        if(farmInprogress == null){
+        if (farmInprogress == null) {
 
         }
 
     }
 
-    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto){
+    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다.")
         );
@@ -104,7 +100,7 @@ public class FarmService {
         farmRepository.save(farm);
     }
 
-    public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto){
+    public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다.")
         );
@@ -117,7 +113,8 @@ public class FarmService {
 
         farmRepository.save(farm);
     }
-    public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto){
+
+    public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다.")
         );
@@ -130,6 +127,15 @@ public class FarmService {
         farm.setPageNum(farmFilesCheckDto.getPageNum());
 
         farmRepository.save(farm);
+    }
+
+    public void updateInvestigationRequest(Long farmId, InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto) {
+        Farm farm = farmRepository.findById(farmId).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + farmId)
+        );
+
+        farm.updateInvestigationRequest(investigationRequestUpdateRequestDto.getPageNum(),
+                investigationRequestUpdateRequestDto.getInvestigationRequest());
     }
 
 }
