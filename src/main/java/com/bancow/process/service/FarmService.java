@@ -113,9 +113,8 @@ public class FarmService {
         }
         if(farm.getInProgress().equals("STEP2_COMPLETED")){
 
-            FarmFile farmfile = farmFileRepository.findByFarmId(id);
-
-
+            List<String> farmfile = farmFileRepository.fileType(id);
+            return farmfile;
 
 
         }
