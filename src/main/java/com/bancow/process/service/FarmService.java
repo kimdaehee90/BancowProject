@@ -148,4 +148,13 @@ public class FarmService {
                 investigationRequestUpdateRequestDto.getInvestigationRequest());
     }
 
+    public void updateInProgress(Long farmId, InProgressUpdateRequestDto inProgressUpdateRequestDto) {
+        Farm farm = farmRepository.findById(farmId).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + farmId)
+        );
+
+        farm.updateInProgress(inProgressUpdateRequestDto.getPageNum(),
+                              inProgressUpdateRequestDto.getInProgress());
+    }
+
 }

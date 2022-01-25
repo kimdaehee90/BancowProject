@@ -186,4 +186,9 @@ public class Farm extends BaseEntity {
         this.businessLicense = farmFilesCheckDto.getBusinessLicense();
         this.pageNum = farmFilesCheckDto.getPageNum();
     }
+
+    public void updateInProgress(Long pageNum, InProgress inProgress) {
+        this.pageNum = pageNum;
+        this.inProgress = inProgress;
+    }
 }
