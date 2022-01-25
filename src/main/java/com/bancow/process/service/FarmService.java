@@ -6,11 +6,13 @@ import com.bancow.process.domain.FileType;
 import com.bancow.process.dto.*;
 import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.domain.InProgress;
+
 import com.bancow.process.dto.FarmFilesCheckDto;
 import com.bancow.process.dto.FarmInfoCheckDto;
 import com.bancow.process.dto.FarmInfoDto;
 import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmFileRepository;
+
 import com.bancow.process.repository.FarmRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -129,47 +131,47 @@ public class FarmService {
 
 
         }
+        return null;
+    }
+
+    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto) {
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+        );
+        farm.updateFarmInfo(farmInfoDto);
 
     }
 
-    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto){
+    public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("농장이 없습니다.")
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-
-        farm.setFarmName(farmInfoDto.getFarmName());
-        farm.setFarmAddress(farmInfoDto.getFarmAddress());
-        farm.setFodder(farmInfoDto.getFodder());
-        farm.setPageNum(farmInfoDto.getPageNum());
-        farmRepository.save(farm);
+        farm.updateFarmInfoCheck(farmInfoCheckDto);
     }
 
-    public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto){
+    public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("농장이 없습니다.")
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-
-        farm.setIdentification(farmInfoCheckDto.getIndentification());
-        farm.setOwnFarm(farmInfoCheckDto.getOwnFarm());
-        farm.setBreedingType(farmInfoCheckDto.getBreedingType());
-        farm.setPopulation(farmInfoCheckDto.getPopulation());
-        farm.setPageNum(farmInfoCheckDto.getPageNum());
-
-        farmRepository.save(farm);
+        farm.updateFilesInfoCheck(farmFilesCheckDto);
     }
-    public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto){
-        Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("농장이 없습니다.")
+
+    public void updateInvestigationRequest(Long farmId, InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto) {
+        Farm farm = farmRepository.findById(farmId).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + farmId)
         );
 
-        farm.setLivestockFarmingBusinessRegistration(farmFilesCheckDto.getLivestockFarmingBusinessRegistration());
-        farm.setFacilitiesStructure(farmFilesCheckDto.getFacilitiesStructure());
-        farm.setAnnualFodderCostSpecification(farmFilesCheckDto.getAnnualFodderCostSpecification());
-        farm.setAnnualInspectionReport(farmFilesCheckDto.getAnnualInspectionReport());
-        farm.setBusinessLicense(farmFilesCheckDto.getBusinessLicense());
-        farm.setPageNum(farmFilesCheckDto.getPageNum());
+        farm.updateInvestigationRequest(investigationRequestUpdateRequestDto.getPageNum(),
+                investigationRequestUpdateRequestDto.getInvestigationRequest());
+    }
 
-        farmRepository.save(farm);
+    public void updateInProgress(Long farmId, InProgressUpdateRequestDto inProgressUpdateRequestDto) {
+        Farm farm = farmRepository.findById(farmId).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + farmId)
+        );
+
+        farm.updateInProgress(inProgressUpdateRequestDto.getPageNum(),
+                              inProgressUpdateRequestDto.getInProgress());
     }
 
 }

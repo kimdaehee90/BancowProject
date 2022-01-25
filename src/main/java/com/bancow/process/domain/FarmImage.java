@@ -36,4 +36,19 @@ public class FarmImage extends BaseEntity{
     @JsonManagedReference
     private Farm farm;
 
+    @Builder
+    public FarmImage(Farm farm, String originalImageName, String changedImageName, String imageUrl, ImageType imageType) {
+        this.farm = farm;
+        this.originalImageName = originalImageName;
+        this.changedImageName = changedImageName;
+        this.imageUrl = imageUrl;
+        this.imageType = imageType;
+    }
+
+    public void updateImage(String originalImageName, String changedImageName, String imageUrl, ImageType imageType) {
+        this.originalImageName = originalImageName;
+        this.changedImageName = changedImageName;
+        this.imageUrl = imageUrl;
+        this.imageType = imageType;
+    }
 }
