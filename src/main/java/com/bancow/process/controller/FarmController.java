@@ -3,6 +3,7 @@ package com.bancow.process.controller;
 import com.bancow.process.dto.FileUpdateRequestDto;
 import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.dto.RequestDto;
+import com.bancow.process.dto.*;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class FarmController {
-
     private final FarmService farmService;
     private final FarmFileService farmFileService;
 
@@ -38,5 +38,24 @@ public class FarmController {
         farmService.updatePageNum(id, pageNumUpdateRequestDto);
     }
 
+    @PutMapping("login/auth/{id}")
+    public void login(@PathVariable Long id, @RequestBody RequestDto requestDto) {
+        farmService.login(requestDto);
+    }
 
+    @PutMapping("/api/farm/{id}/info")
+    public void farmInfo(@PathVariable Long id, @RequestBody FarmInfoDto farmInfoDto) {
+        farmService.updateFarmInfo(id, farmInfoDto);
+
+    }
+
+    @PutMapping("/api/farm/{id}/info-check")
+    public void farmInfoCheck(@PathVariable Long id, @RequestBody FarmInfoCheckDto farmInfoCheckDto){
+        farmService.updateFarmInfoCheck(id, farmInfoCheckDto);
+    }
+
+    @PutMapping("/api/farm/{id}/files-check")
+    public void farmInfoCheck(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto){
+        farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
+    }
 }

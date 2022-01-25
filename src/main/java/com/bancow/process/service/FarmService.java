@@ -2,6 +2,10 @@ package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.dto.PageNumUpdateRequestDto;
+import com.bancow.process.domain.InProgress;
+import com.bancow.process.dto.FarmFilesCheckDto;
+import com.bancow.process.dto.FarmInfoCheckDto;
+import com.bancow.process.dto.FarmInfoDto;
 import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,7 @@ public class FarmService {
     private final CertificationService certificationService;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void join(String userName) {
 
         // userName으로 번호가 있는지 조회
@@ -59,6 +64,7 @@ public class FarmService {
         farmRepository.save(requestDto.toEntity());
     }
 
+
     @Transactional
     public void updatePageNum(Long farmId, PageNumUpdateRequestDto pageNumUpdateRequestDto) {
         Farm farm = farmRepository.findById(farmId).orElseThrow(
@@ -68,4 +74,62 @@ public class FarmService {
         farm.updatePageNum(pageNumUpdateRequestDto.getPageNum());
 
     }
+
+    @Transactional
+    public void login(RequestDto requestDto) {
+
+    }
+
+    @Transactional
+    public void check(Long id){
+        Optional<Farm> farm = farmRepository.findById(id);
+
+        InProgress farmInprogress = farm.get().getInProgress();
+
+        if(farmInprogress == null){
+
+        }
+
+    }
+
+    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto){
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("농장이 없습니다.")
+        );
+
+        farm.setFarmName(farmInfoDto.getFarmName());
+        farm.setFarmAddress(farmInfoDto.getFarmAddress());
+        farm.setFodder(farmInfoDto.getFodder());
+        farm.setPageNum(farmInfoDto.getPageNum());
+        farmRepository.save(farm);
+    }
+
+    public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto){
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("농장이 없습니다.")
+        );
+
+        farm.setIdentification(farmInfoCheckDto.getIndentification());
+        farm.setOwnFarm(farmInfoCheckDto.getOwnFarm());
+        farm.setBreedingType(farmInfoCheckDto.getBreedingType());
+        farm.setPopulation(farmInfoCheckDto.getPopulation());
+        farm.setPageNum(farmInfoCheckDto.getPageNum());
+
+        farmRepository.save(farm);
+    }
+    public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto){
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("농장이 없습니다.")
+        );
+
+        farm.setLivestockFarmingBusinessRegistration(farmFilesCheckDto.getLivestockFarmingBusinessRegistration());
+        farm.setFacilitiesStructure(farmFilesCheckDto.getFacilitiesStructure());
+        farm.setAnnualFodderCostSpecification(farmFilesCheckDto.getAnnualFodderCostSpecification());
+        farm.setAnnualInspectionReport(farmFilesCheckDto.getAnnualInspectionReport());
+        farm.setBusinessLicense(farmFilesCheckDto.getBusinessLicense());
+        farm.setPageNum(farmFilesCheckDto.getPageNum());
+
+        farmRepository.save(farm);
+    }
+
 }
