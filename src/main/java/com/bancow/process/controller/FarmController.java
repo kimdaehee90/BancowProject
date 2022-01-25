@@ -58,4 +58,10 @@ public class FarmController {
     public void farmInfoCheck(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto){
         farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
     }
+
+    @PutMapping("/api/farm/{id}/request-date")
+    public void updateInvestigationRequest(@PathVariable Long id,
+                                           @RequestBody InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto){
+        farmService.updateInvestigationRequest(id, investigationRequestUpdateRequestDto);
+    }
 }

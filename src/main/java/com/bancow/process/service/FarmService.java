@@ -4,10 +4,6 @@ import com.bancow.process.domain.Farm;
 import com.bancow.process.dto.*;
 import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.domain.InProgress;
-import com.bancow.process.dto.FarmFilesCheckDto;
-import com.bancow.process.dto.FarmInfoCheckDto;
-import com.bancow.process.dto.FarmInfoDto;
-import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -118,10 +114,10 @@ public class FarmService {
             List<ResponseStep2> responseStep2List = new ArrayList<>();
 
         }
-
+        return null;
     }
 
-    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto){
+    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
@@ -129,18 +125,27 @@ public class FarmService {
 
     }
 
-    public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto){
+    public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
         farm.updateFarmInfoCheck(farmInfoCheckDto);
     }
 
-    public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto){
+    public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
         farm.updateFilesInfoCheck(farmFilesCheckDto);
+    }
+
+    public void updateInvestigationRequest(Long farmId, InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto) {
+        Farm farm = farmRepository.findById(farmId).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + farmId)
+        );
+
+        farm.updateInvestigationRequest(investigationRequestUpdateRequestDto.getPageNum(),
+                investigationRequestUpdateRequestDto.getInvestigationRequest());
     }
 
 }

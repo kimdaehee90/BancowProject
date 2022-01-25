@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -150,14 +151,18 @@ public class Farm extends BaseEntity {
         this.password = password;
     }
 
-    public void updateFarm(String password){
+    public void updateFarm(String password) {
         this.password = password;
     }
 
-    public void updatePageNum(Long pageNum){
+    public void updatePageNum(Long pageNum) {
         this.pageNum = pageNum;
     }
 
+    public void updateInvestigationRequest(Long pageNum, LocalDateTime investigationRequest) {
+        this.pageNum = pageNum;
+        this.investigationRequest = investigationRequest;
+    }
     public void updateFarmInfo(FarmInfoDto farmInfoDto){
         this.farmName = farmInfoDto.getFarmName();
         this.farmAddress = farmInfoDto.getFarmAddress();
