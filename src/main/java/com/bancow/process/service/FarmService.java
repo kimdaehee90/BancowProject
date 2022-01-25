@@ -2,12 +2,6 @@ package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.dto.*;
-import com.bancow.process.dto.PageNumUpdateRequestDto;
-import com.bancow.process.domain.InProgress;
-import com.bancow.process.dto.FarmFilesCheckDto;
-import com.bancow.process.dto.FarmInfoCheckDto;
-import com.bancow.process.dto.FarmInfoDto;
-import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -84,63 +78,101 @@ public class FarmService {
 
     }
 
-    @Transactional
-    @Builder
-    public ResponseStep1 check(Long id){
-        Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("농장이 없습니다. ")
-        );
+//    @Transactional
+//    @Builder
+//    public ResponseStep1 check(Long id) {
+//        Farm farm = farmRepository.findById(id).orElseThrow(
+//                () -> new NullPointerException("농장이 없습니다. ")
+//        );
+//
+//        // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
+//        if (farm.getInProgress() == null) {
+//            return null;
+//        }
+//
+//        if (farm.getInProgress().equals("STEP1_COMPLETED")) {
+//            ResponseStep1 responseStep1 = new ResponseStep1(
+//                    farm.getPageNum(),
+//                    farm.getFarmName(),
+//                    farm.getFarmAddress(),
+//                    farm.getFodder(),
+//                    farm.getIdentification(),
+//                    farm.getOwnFarm(),
+//                    farm.getBreedingType(),
+//                    farm.getPopulation(),
+//                    farm.getLivestockFarmingBusinessRegistration(),
+//                    farm.getFacilitiesStructure(),
+//                    farm.getAnnualFodderCostSpecification(),
+//                    farm.getAnnualInspectionReport(),
+//                    farm.getBusinessLicense()
+//            );
+//            return responseStep1;
+//        }
+//        if (farm.getInProgress().equals("STEP2_COMPLETED")) {
+//            List<ResponseStep2> responseStep2List = new ArrayList<>();
+//
+//        }
+//
+//    }
 
-        // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
-        if(farm.getInProgress() == null){
-            return null;
-        }
-
-        if(farm.getInProgress().equals("STEP1_COMPLETED")){
-            ResponseStep1 responseStep1 = new ResponseStep1(
-                    farm.getPageNum(),
-                    farm.getFarmName(),
-                    farm.getFarmAddress(),
-                    farm.getFodder(),
-                    farm.getIdentification(),
-                    farm.getOwnFarm(),
-                    farm.getBreedingType(),
-                    farm.getPopulation(),
-                    farm.getLivestockFarmingBusinessRegistration(),
-                    farm.getFacilitiesStructure(),
-                    farm.getAnnualFodderCostSpecification(),
-                    farm.getAnnualInspectionReport(),
-                    farm.getBusinessLicense()
-            );
-            return responseStep1;
-        }
-        if(farm.getInProgress().equals("STEP2_COMPLETED")){
-            List<ResponseStep2> responseStep2List = new ArrayList<>();
-
-        }
-
-    }
-
-    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto){
+    public void updateFarmAgreement(Long id, FarmAgreementDto farmAgreementDto){
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-        farm.updateFarmInfo(farmInfoDto);
+
+        farm.updateFarmAgreement(
+                farmAgreementDto.getServiceTerms1(),
+                farmAgreementDto.getServiceTerms2(),
+                farmAgreementDto.getServiceTerms3(),
+                farmAgreementDto.getPageNum());
+    }
+
+    public void updateFarmOwnerInfo(Long id, FarmOwnerInfoDto farmOwnerInfoDto){
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+        );
+
+        farm.updateFarmOwnerInfo(
+                farmOwnerInfoDto.getName(),
+                farmOwnerInfoDto.getEmail(),
+                farmOwnerInfoDto.getPageNum());
+    }
+
+    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto) {
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+        );
+
+        farm.updateFarmInfo(farmInfoDto.getFarmName(),
+                farmInfoDto.getFarmAddress(),
+                farmInfoDto.getFodder(),
+                farmInfoDto.getPageNum());
 
     }
+
 
     public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto){
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-        farm.updateFarmInfoCheck(farmInfoCheckDto);
+        farm.updateFarmInfoCheck(
+                farmInfoCheckDto.getIdentification(),
+                farmInfoCheckDto.getOwnFarm(),
+                farmInfoCheckDto.getBreedingType(),
+                farmInfoCheckDto.getPopulation(),
+                farmInfoCheckDto.getPageNum());
     }
 
     public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto){
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-        farm.updateFilesInfoCheck(farmFilesCheckDto);
+        farm.updateFilesInfoCheck(farmFilesCheckDto.getLivestockFarmingBusinessRegistration(),
+                farmFilesCheckDto.getFacilitiesStructure(),
+                farmFilesCheckDto.getAnnualFodderCostSpecification(),
+                farmFilesCheckDto.getAnnualInspectionReport(),
+                farmFilesCheckDto.getBusinessLicense(),
+                farmFilesCheckDto.getPageNum());
     }
 
 }

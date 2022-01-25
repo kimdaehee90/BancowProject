@@ -43,19 +43,29 @@ public class FarmController {
         farmService.login(requestDto);
     }
 
+
+    @PutMapping("/api/farm/{id}/agreement")
+    public void farmAgreement(@PathVariable Long id, @RequestBody FarmAgreementDto farmAgreementDto){
+        farmService.updateFarmAgreement(id, farmAgreementDto);
+    }
+
+    @PutMapping("/api/farm/{id}/owner-info")
+    public void farmOwnerInfo(@PathVariable Long id, @RequestBody FarmOwnerInfoDto farmOwnerInfoDto){
+        farmService.updateFarmOwnerInfo(id, farmOwnerInfoDto);
+    }
+
     @PutMapping("/api/farm/{id}/info")
     public void farmInfo(@PathVariable Long id, @RequestBody FarmInfoDto farmInfoDto) {
         farmService.updateFarmInfo(id, farmInfoDto);
 
     }
-
     @PutMapping("/api/farm/{id}/info-check")
     public void farmInfoCheck(@PathVariable Long id, @RequestBody FarmInfoCheckDto farmInfoCheckDto){
         farmService.updateFarmInfoCheck(id, farmInfoCheckDto);
     }
 
     @PutMapping("/api/farm/{id}/files-check")
-    public void farmInfoCheck(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto){
+    public void farmFilesCheck(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto){
         farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
     }
 }

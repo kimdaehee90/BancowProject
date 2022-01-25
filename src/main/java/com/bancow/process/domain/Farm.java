@@ -158,27 +158,43 @@ public class Farm extends BaseEntity {
         this.pageNum = pageNum;
     }
 
-    public void updateFarmInfo(FarmInfoDto farmInfoDto){
-        this.farmName = farmInfoDto.getFarmName();
-        this.farmAddress = farmInfoDto.getFarmAddress();
-        this.fodder = farmInfoDto.getFodder();
-        this.pageNum = farmInfoDto.getPageNum();
+    public void updateFarmAgreement(Boolean serviceTerms1, Boolean serviceTerms2, Boolean serviceTerms3, Long pageNum){
+        this.serviceTerms1 = serviceTerms1;
+        this.serviceTerms2 = serviceTerms2;
+        this.serviceTerms3 = serviceTerms3;
+        this.pageNum = pageNum;
     }
 
-    public void updateFarmInfoCheck(FarmInfoCheckDto farmInfoCheckDto){
-        this.identification = farmInfoCheckDto.getIdentification();
-        this.ownFarm = farmInfoCheckDto.getOwnFarm();
-        this.breedingType = farmInfoCheckDto.getBreedingType();
-        this.population = farmInfoCheckDto.getPopulation();
-        this.pageNum = farmInfoCheckDto.getPageNum();
+    public void updateFarmOwnerInfo(String name, String email, Long pageNum){
+        this.name = name;
+        this.email = email;
+        this.pageNum = pageNum;
     }
 
-    public void updateFilesInfoCheck(FarmFilesCheckDto farmFilesCheckDto){
-        this.livestockFarmingBusinessRegistration = farmFilesCheckDto.getLivestockFarmingBusinessRegistration();
-        this.facilitiesStructure = farmFilesCheckDto.getFacilitiesStructure();
-        this.annualFodderCostSpecification = farmFilesCheckDto.getAnnualFodderCostSpecification();
-        this.annualInspectionReport = farmFilesCheckDto.getAnnualInspectionReport();
-        this.businessLicense = farmFilesCheckDto.getBusinessLicense();
-        this.pageNum = farmFilesCheckDto.getPageNum();
+
+    public void updateFarmInfo(String farmName, String farmAddress, String fodder, Long pageNum){
+        this.farmName = farmName;
+        this.farmAddress = farmAddress;
+        this.fodder = fodder;
+        this.pageNum = pageNum;
+    }
+
+    public void updateFarmInfoCheck(String identification, String ownFarm, String breedingType, String population, Long pageNum){
+        this.identification = identification;
+        this.ownFarm = ownFarm;
+        this.breedingType = breedingType;
+        this.population = population;
+        this.pageNum = pageNum;
+    }
+
+    public void updateFilesInfoCheck(Boolean livestockFarmingBusinessRegistration, Boolean facilitiesStructure,
+                                     Boolean annualFodderCostSpecification, Boolean annualInspectionReport,
+                                     Boolean businessLicense, Long pageNum){
+        this.livestockFarmingBusinessRegistration = livestockFarmingBusinessRegistration;
+        this.facilitiesStructure = facilitiesStructure;
+        this.annualFodderCostSpecification = annualFodderCostSpecification;
+        this.annualInspectionReport = annualInspectionReport;
+        this.businessLicense = businessLicense;
+        this.pageNum = pageNum;
     }
 }
