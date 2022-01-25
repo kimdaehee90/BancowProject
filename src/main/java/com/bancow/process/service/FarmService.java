@@ -1,17 +1,16 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
-import com.bancow.process.domain.InProgress;
-import com.bancow.process.dto.FarmFilesCheckDto;
-import com.bancow.process.dto.FarmInfoCheckDto;
-import com.bancow.process.dto.FarmInfoDto;
-import com.bancow.process.dto.RequestDto;
+import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -70,12 +69,37 @@ public class FarmService {
     }
 
     @Transactional
-    public void check(Long id){
-        Optional<Farm> farm = farmRepository.findById(id);
+    @Builder
+    public ResponseStep1 check(Long id){
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("농장이 없습니다. ")
+        );
 
-        InProgress farmInprogress = farm.get().getInProgress();
+        // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
+        if(farm.getInProgress() == null){
+            return null;
+        }
 
-        if(farmInprogress == null){
+        if(farm.getInProgress().equals("STEP1_COMPLETED")){
+            ResponseStep1 responseStep1 = new ResponseStep1(
+                    farm.getPageNum(),
+                    farm.getFarmName(),
+                    farm.getFarmAddress(),
+                    farm.getFodder(),
+                    farm.getIdentification(),
+                    farm.getOwnFarm(),
+                    farm.getBreedingType(),
+                    farm.getPopulation(),
+                    farm.getLivestockFarmingBusinessRegistration(),
+                    farm.getFacilitiesStructure(),
+                    farm.getAnnualFodderCostSpecification(),
+                    farm.getAnnualInspectionReport(),
+                    farm.getBusinessLicense()
+            );
+            return responseStep1;
+        }
+        if(farm.getInProgress().equals("STEP2_COMPLETED")){
+            List<ResponseStep2> responseStep2List = new ArrayList<>();
 
         }
 
