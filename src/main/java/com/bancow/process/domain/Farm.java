@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -150,14 +151,15 @@ public class Farm extends BaseEntity {
         this.password = password;
     }
 
-    public void updateFarm(String password){
+    public void updateFarm(String password) {
         this.password = password;
     }
 
-    public void updatePageNum(Long pageNum){
+    public void updatePageNum(Long pageNum) {
         this.pageNum = pageNum;
     }
 
+<<<<<<< HEAD
     public void updateFarmAgreement(Boolean serviceTerms1, Boolean serviceTerms2, Boolean serviceTerms3, Long pageNum){
         this.serviceTerms1 = serviceTerms1;
         this.serviceTerms2 = serviceTerms2;
@@ -177,6 +179,17 @@ public class Farm extends BaseEntity {
         this.farmAddress = farmAddress;
         this.fodder = fodder;
         this.pageNum = pageNum;
+=======
+    public void updateInvestigationRequest(Long pageNum, LocalDateTime investigationRequest) {
+        this.pageNum = pageNum;
+        this.investigationRequest = investigationRequest;
+    }
+    public void updateFarmInfo(FarmInfoDto farmInfoDto){
+        this.farmName = farmInfoDto.getFarmName();
+        this.farmAddress = farmInfoDto.getFarmAddress();
+        this.fodder = farmInfoDto.getFodder();
+        this.pageNum = farmInfoDto.getPageNum();
+>>>>>>> 3bbfc9cf9b2f642d4e95f97fd07d2c6f26f573be
     }
 
     public void updateFarmInfoCheck(String identification, String ownFarm, String breedingType, String population, Long pageNum){
@@ -196,5 +209,10 @@ public class Farm extends BaseEntity {
         this.annualInspectionReport = annualInspectionReport;
         this.businessLicense = businessLicense;
         this.pageNum = pageNum;
+    }
+
+    public void updateInProgress(Long pageNum, InProgress inProgress) {
+        this.pageNum = pageNum;
+        this.inProgress = inProgress;
     }
 }
