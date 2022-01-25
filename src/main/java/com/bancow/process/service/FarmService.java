@@ -2,17 +2,8 @@ package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FileType;
 import com.bancow.process.dto.*;
-import com.bancow.process.dto.PageNumUpdateRequestDto;
-import com.bancow.process.domain.InProgress;
-
-import com.bancow.process.dto.FarmFilesCheckDto;
-import com.bancow.process.dto.FarmInfoCheckDto;
-import com.bancow.process.dto.FarmInfoDto;
-import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmFileRepository;
-
 import com.bancow.process.repository.FarmRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -92,6 +79,8 @@ public class FarmService {
 
     }
 
+
+
     @Transactional
     @Builder
     public Object check(Long id){
@@ -123,32 +112,78 @@ public class FarmService {
             return responseStep1;
         }
         if(farm.getInProgress().equals("STEP2_COMPLETED")){
+
             List<String> farmfile = farmFileRepository.fileType(id);
             return farmfile;
+
+
         }
         return null;
     }
+
+
+    public void updateFarmAgreement(Long id, FarmAgreementDto farmAgreementDto){
+
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+        );
+
+        farm.updateFarmAgreement(
+                farmAgreementDto.getServiceTerms1(),
+                farmAgreementDto.getServiceTerms2(),
+                farmAgreementDto.getServiceTerms3(),
+                farmAgreementDto.getPageNum());
+    }
+
+    public void updateFarmOwnerInfo(Long id, FarmOwnerInfoDto farmOwnerInfoDto) {
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+        );
+
+        farm.updateFarmOwnerInfo(
+                farmOwnerInfoDto.getName(),
+                farmOwnerInfoDto.getEmail(),
+                farmOwnerInfoDto.getPageNum());
+    }
+
+
 
     public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-        farm.updateFarmInfo(farmInfoDto);
+
+        farm.updateFarmInfo(farmInfoDto.getFarmName(),
+                farmInfoDto.getFarmAddress(),
+                farmInfoDto.getFodder(),
+                farmInfoDto.getPageNum());
 
     }
 
+
     public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto) {
+
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-        farm.updateFarmInfoCheck(farmInfoCheckDto);
+        farm.updateFarmInfoCheck(
+                farmInfoCheckDto.getIdentification(),
+                farmInfoCheckDto.getOwnFarm(),
+                farmInfoCheckDto.getBreedingType(),
+                farmInfoCheckDto.getPopulation(),
+                farmInfoCheckDto.getPageNum());
     }
 
     public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-        farm.updateFilesInfoCheck(farmFilesCheckDto);
+        farm.updateFilesInfoCheck(farmFilesCheckDto.getLivestockFarmingBusinessRegistration(),
+                farmFilesCheckDto.getFacilitiesStructure(),
+                farmFilesCheckDto.getAnnualFodderCostSpecification(),
+                farmFilesCheckDto.getAnnualInspectionReport(),
+                farmFilesCheckDto.getBusinessLicense(),
+                farmFilesCheckDto.getPageNum());
     }
 
     public void updateInvestigationRequest(Long farmId, InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto) {
