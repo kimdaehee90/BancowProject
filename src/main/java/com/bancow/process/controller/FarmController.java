@@ -31,5 +31,10 @@ public class FarmController {
         farmFileService.updateFile(id, fileUpdateRequestDto);
     }
 
+    @PutMapping("login/auth/{id}")
+    public void login(@PathVariable Long id, @RequestBody RequestDto requestDto){
+        farmService.login(requestDto);
+
+    }
 
 }

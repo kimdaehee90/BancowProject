@@ -1,6 +1,7 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
+import com.bancow.process.domain.InProgress;
 import com.bancow.process.dto.RequestDto;
 import com.bancow.process.repository.FarmRepository;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class FarmService {
     private final CertificationService certificationService;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void join(String userName) {
 
         // userName으로 번호가 있는지 조회
@@ -60,4 +62,22 @@ public class FarmService {
     public void createFarm(RequestDto requestDto) {
         farmRepository.save(requestDto.toEntity());
     }
+
+    @Transactional
+    public void login(RequestDto requestDto) {
+
+    }
+
+    @Transactional
+    public void check(Long id){
+        Optional<Farm> farm = farmRepository.findById(id);
+
+        InProgress farmInprogress = farm.get().getInProgress();
+
+        if(farmInprogress == null){
+
+        }
+
+    }
+
 }
