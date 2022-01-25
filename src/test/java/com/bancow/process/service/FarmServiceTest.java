@@ -24,16 +24,13 @@ public class FarmServiceTest {
     @Test
     public void updateFarmInfoTest(){
 
-        Farm farm = new Farm();
-        farm.setId(1L);
-        farm.setFarmName("농장명");
-        farmRepository.save(farm);
-
         FarmInfoDto testDto = new FarmInfoDto();
-        testDto.setFarmName("농장이름");
-        testDto.setFarmAddress("농장주소");
-        testDto.setFodder("사료");
-        testDto.setPageNum(2L);
+        testDto.builder()
+                .farmName("농장이름")
+                .farmAddress("농장주소")
+                .fodder("사료")
+                .pageNum(2L)
+                .build();
 
         farmService.updateFarmInfo(1L, testDto);
 
@@ -44,17 +41,14 @@ public class FarmServiceTest {
     @Test
     public void updateFarmInfoCheckTest(){
 
-//        Farm farm = new Farm();
-//        farm.setId(1L);
-//        farm.setFarmName("농장명");
-//        farmRepository.save(farm);
-
         FarmInfoCheckDto testDto = new FarmInfoCheckDto();
-        testDto.setIndentification("본인");
-        testDto.setOwnFarm("자가");
-        testDto.setBreedingType("비육");
-        testDto.setPopulation("100마리 이상");
-        testDto.setPageNum(3L);
+        testDto.builder()
+                .identification("본인")
+                .ownFarm("자가")
+                .breedingType("비육")
+                .population("100마리 이상")
+                .pageNum(3L)
+                .build();
 
         farmService.updateFarmInfoCheck(1L, testDto);
 
@@ -65,18 +59,15 @@ public class FarmServiceTest {
     @Test
     public void updateFarmFilesCheckTest(){
 
-//        Farm farm = new Farm();
-//        farm.setId(1L);
-//        farm.setFarmName("농장명");
-//        farmRepository.save(farm);
-
         FarmFilesCheckDto testDto = new FarmFilesCheckDto();
-        testDto.setLivestockFarmingBusinessRegistration(true);
-        testDto.setFacilitiesStructure(true);
-        testDto.setAnnualFodderCostSpecification(true);
-        testDto.setAnnualInspectionReport(true);
-        testDto.setBusinessLicense(true);
-        testDto.setPageNum(4L);
+        testDto.builder()
+                .livestockFarmingBusinessRegistration(true)
+                .facilitiesStructure(true)
+                .annualFodderCostSpecification(true)
+                .annualInspectionReport(true)
+                .businessLicense(true)
+                .pageNum(4L)
+                .build();
 
         farmService.updateFarmFilesCheck(1L, testDto);
 

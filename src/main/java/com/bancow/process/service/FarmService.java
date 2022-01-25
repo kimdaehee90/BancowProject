@@ -2,13 +2,17 @@ package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.dto.*;
+import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.domain.InProgress;
 import com.bancow.process.repository.FarmRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -77,56 +81,62 @@ public class FarmService {
     }
 
     @Transactional
-    public void check(Long id) {
-        Optional<Farm> farm = farmRepository.findById(id);
+    @Builder
+    public ResponseStep1 check(Long id){
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("농장이 없습니다. ")
+        );
 
-        InProgress farmInprogress = farm.get().getInProgress();
-
-        if (farmInprogress == null) {
-
+        // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
+        if(farm.getInProgress() == null){
+            return null;
         }
 
+        if(farm.getInProgress().equals("STEP1_COMPLETED")){
+            ResponseStep1 responseStep1 = new ResponseStep1(
+                    farm.getPageNum(),
+                    farm.getFarmName(),
+                    farm.getFarmAddress(),
+                    farm.getFodder(),
+                    farm.getIdentification(),
+                    farm.getOwnFarm(),
+                    farm.getBreedingType(),
+                    farm.getPopulation(),
+                    farm.getLivestockFarmingBusinessRegistration(),
+                    farm.getFacilitiesStructure(),
+                    farm.getAnnualFodderCostSpecification(),
+                    farm.getAnnualInspectionReport(),
+                    farm.getBusinessLicense()
+            );
+            return responseStep1;
+        }
+        if(farm.getInProgress().equals("STEP2_COMPLETED")){
+            List<ResponseStep2> responseStep2List = new ArrayList<>();
+
+        }
+        return null;
     }
 
     public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("농장이 없습니다.")
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
+        farm.updateFarmInfo(farmInfoDto);
 
-        farm.setFarmName(farmInfoDto.getFarmName());
-        farm.setFarmAddress(farmInfoDto.getFarmAddress());
-        farm.setFodder(farmInfoDto.getFodder());
-        farm.setPageNum(farmInfoDto.getPageNum());
-        farmRepository.save(farm);
     }
 
     public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("농장이 없습니다.")
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-
-        farm.setIdentification(farmInfoCheckDto.getIndentification());
-        farm.setOwnFarm(farmInfoCheckDto.getOwnFarm());
-        farm.setBreedingType(farmInfoCheckDto.getBreedingType());
-        farm.setPopulation(farmInfoCheckDto.getPopulation());
-        farm.setPageNum(farmInfoCheckDto.getPageNum());
-
-        farmRepository.save(farm);
+        farm.updateFarmInfoCheck(farmInfoCheckDto);
     }
 
     public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("농장이 없습니다.")
+                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-
-        farm.setLivestockFarmingBusinessRegistration(farmFilesCheckDto.getLivestockFarmingBusinessRegistration());
-        farm.setFacilitiesStructure(farmFilesCheckDto.getFacilitiesStructure());
-        farm.setAnnualFodderCostSpecification(farmFilesCheckDto.getAnnualFodderCostSpecification());
-        farm.setAnnualInspectionReport(farmFilesCheckDto.getAnnualInspectionReport());
-        farm.setBusinessLicense(farmFilesCheckDto.getBusinessLicense());
-        farm.setPageNum(farmFilesCheckDto.getPageNum());
-
-        farmRepository.save(farm);
+        farm.updateFilesInfoCheck(farmFilesCheckDto);
     }
 
     public void updateInvestigationRequest(Long farmId, InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto) {
