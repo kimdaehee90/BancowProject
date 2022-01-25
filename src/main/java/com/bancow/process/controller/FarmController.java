@@ -3,6 +3,7 @@ package com.bancow.process.controller;
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmFile;
 import com.bancow.process.domain.FileType;
+import com.bancow.process.domain.InProgress;
 import com.bancow.process.dto.FileUpdateRequestDto;
 import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.dto.RequestDto;
@@ -100,5 +101,9 @@ public class FarmController {
         farmImageService.updateImage(id, imageUpdateRequestDto);
     }
 
-
+    @GetMapping("api/test/{id}")
+    public Object test(@PathVariable Long id){
+        Object result = farmService.check(id);
+        return result;
+    }
 }

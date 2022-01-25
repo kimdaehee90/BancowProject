@@ -2,6 +2,7 @@ package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmFile;
+import com.bancow.process.domain.FileType;
 import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmRepository;
@@ -11,8 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -84,16 +87,19 @@ public class FarmService {
     @Transactional
     @Builder
     public Object check(Long id){
+
+        String step1 = "STEP1_COMPLETED";
+        String step2 = "STEP2_COMPLETED";
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
         // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
         if(farm.getInProgress() == null){
-            return null;
+            return "개인정보 동의로 가라";
         }
 
-        if(farm.getInProgress().equals("STEP1_COMPLETED")){
+        if(farm.getInProgress().toString().equals(step1)){
             ResponseStep1 responseStep1 = new ResponseStep1(
                     farm.getPageNum(),
                     farm.getFarmName(),
@@ -111,14 +117,17 @@ public class FarmService {
             );
             return responseStep1;
         }
-        if(farm.getInProgress().equals("STEP2_COMPLETED")){
+        if(farm.getInProgress().toString().equals(step2)){
 
-            List<String> farmfile = farmFileRepository.fileType(id);
-            return farmfile;
+            List<FileType> farmfile = farmFileRepository.fileType(id);
+            List<FarmFileTypeResponseDto> collect = farmfile.stream()
+                    .map(o -> new FarmFileTypeResponseDto(o))
+                    .collect(Collectors.toList());
+            return collect;
 
 
         }
-        return null;
+        return farm.getInProgress();
     }
 
 

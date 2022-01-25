@@ -1,5 +1,6 @@
 package com.bancow.process.dto;
 
+import com.bancow.process.domain.FarmFile;
 import com.bancow.process.domain.FileType;
 import lombok.*;
 
@@ -10,9 +11,5 @@ import lombok.*;
 public class FarmFileTypeResponseDto {
     private FileType fileType;
 
-//    public static FarmFileTypeResponseDto from(FileType type){
-//        return FarmFileTypeResponseDto.builder()
-//                .fileType(type)
-//                .build();
-//    }
+
 }
