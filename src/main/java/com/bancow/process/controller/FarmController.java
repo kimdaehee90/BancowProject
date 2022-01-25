@@ -1,14 +1,23 @@
 package com.bancow.process.controller;
 
+import com.bancow.process.domain.Farm;
+import com.bancow.process.domain.FarmFile;
+import com.bancow.process.domain.FileType;
 import com.bancow.process.dto.FileUpdateRequestDto;
 import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.dto.RequestDto;
 import com.bancow.process.dto.*;
+import com.bancow.process.repository.FarmFileRepository;
+import com.bancow.process.repository.FarmRepository;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +25,8 @@ public class FarmController {
     private final FarmService farmService;
     private final FarmFileService farmFileService;
     private final FarmImageService farmImageService;
+
+    private final FarmFileRepository farmFileRepository;
 
     @PostMapping("/login")
     public void sendUsername(@RequestParam String userName){
@@ -78,4 +89,6 @@ public class FarmController {
                             @RequestBody ImageUpdateRequestDto imageUpdateRequestDto) {
         farmImageService.updateImage(id, imageUpdateRequestDto);
     }
+
+
 }

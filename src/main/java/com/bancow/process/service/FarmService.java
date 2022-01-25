@@ -123,13 +123,8 @@ public class FarmService {
             return responseStep1;
         }
         if(farm.getInProgress().equals("STEP2_COMPLETED")){
-
-            FarmFile farmfile = farmFileRepository.findByFarmId(id);
-
-
-
-
-
+            List<String> farmfile = farmFileRepository.fileType(id);
+            return farmfile;
         }
         return null;
     }
