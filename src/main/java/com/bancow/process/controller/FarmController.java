@@ -64,4 +64,10 @@ public class FarmController {
                                            @RequestBody InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto){
         farmService.updateInvestigationRequest(id, investigationRequestUpdateRequestDto);
     }
+
+    @PutMapping("/api/farm/{id}/in-progress")
+    public void updateInProgress(@PathVariable Long id,
+                                 @RequestBody InProgressUpdateRequestDto inProgressUpdateRequestDto) {
+        farmService.updateInProgress(id, inProgressUpdateRequestDto);
+    }
 }
