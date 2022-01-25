@@ -5,6 +5,7 @@ import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.dto.RequestDto;
 import com.bancow.process.dto.*;
 import com.bancow.process.service.FarmFileService;
+import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class FarmController {
     private final FarmService farmService;
     private final FarmFileService farmFileService;
+    private final FarmImageService farmImageService;
 
     @PostMapping("/login")
     public void sendUsername(@RequestParam String userName){
@@ -69,5 +71,11 @@ public class FarmController {
     public void updateInProgress(@PathVariable Long id,
                                  @RequestBody InProgressUpdateRequestDto inProgressUpdateRequestDto) {
         farmService.updateInProgress(id, inProgressUpdateRequestDto);
+    }
+
+    @PutMapping("/api/farm/{id}/images")
+    public void updateImage(@PathVariable Long id,
+                            @RequestBody ImageUpdateRequestDto imageUpdateRequestDto) {
+        farmImageService.updateImage(id, imageUpdateRequestDto);
     }
 }
