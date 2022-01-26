@@ -1,6 +1,9 @@
 package com.bancow.process.dto;
 
+import com.bancow.process.domain.FarmImage;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +24,7 @@ public class ResponseStep1 {
     private Boolean businessLicense;
 
 
+
     public ResponseStep1(Long pageNum, String farmName, String farmAddress, String fodder,
                          String identification, String ownFarm, String breedingType,
                          String population, Boolean livestockFarmingBusinessRegistration,
@@ -38,6 +42,7 @@ public class ResponseStep1 {
         this.facilitiesStructure = facilitiesStructure;
         this.annualFodderCostSpecification = annualFodderCostSpecification;
         this.annualInspectionReport = annualInspectionReport;
-        this.businessLicense = businessLicense;
+        this.businessLicense = businessLicense
+        ;
     }
 }

@@ -2,9 +2,11 @@ package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmFile;
+import com.bancow.process.domain.FarmImage;
 import com.bancow.process.domain.FileType;
 import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
+import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -26,6 +29,7 @@ public class FarmService {
     private final FarmFileRepository farmFileRepository;
     private final CertificationService certificationService;
     private final PasswordEncoder passwordEncoder;
+    private final FarmImageRepository farmImageRepository;
 
     @Transactional
     public void join(String userName) {
@@ -96,7 +100,7 @@ public class FarmService {
 
         // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
         if(farm.getInProgress() == null){
-            return "개인정보 동의로 가라";
+            return null;
         }
 
         if(farm.getInProgress().toString().equals(step1)){
@@ -115,7 +119,14 @@ public class FarmService {
                     farm.getAnnualInspectionReport(),
                     farm.getBusinessLicense()
             );
-            return responseStep1;
+            List<String> farmImages = farmImageRepository.findUrl(id);
+            List<FarmImageResponseDto> collect = farmImages.stream()
+                    .map(o -> new FarmImageResponseDto(o))
+                    .collect(Collectors.toList());
+            HashMap<String,Object> responseMap = new HashMap<>();
+            responseMap.put("responseStep1",responseStep1);
+            responseMap.put("collect",collect);
+            return responseMap;
         }
         if(farm.getInProgress().toString().equals(step2)){
 
