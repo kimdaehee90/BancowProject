@@ -58,7 +58,7 @@ public class FarmServiceTest {
                 .farmName("농장이름")
                 .farmAddress("농장주소")
                 .fodder("사료")
-                .pageNum(3L)
+                .pageNum(31L)
                 .build();
 
         farmService.updateFarmInfo(1L, testDto);
