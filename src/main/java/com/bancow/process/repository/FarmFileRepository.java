@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface FarmFileRepository extends JpaRepository<FarmFile, Long> {
+public interface  FarmFileRepository extends JpaRepository<FarmFile, Long> {
 
     @Query("select ff from FarmFile ff " +
            "where ff.farm.id = :id and ff.fileType = :fileType")
