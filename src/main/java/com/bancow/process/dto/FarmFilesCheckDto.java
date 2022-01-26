@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class FarmFilesCheckDto {
-    private Long id;
     private Boolean livestockFarmingBusinessRegistration;
     private Boolean facilitiesStructure;
     private Boolean annualFodderCostSpecification;
@@ -16,16 +17,4 @@ public class FarmFilesCheckDto {
     private Boolean businessLicense;
     private Long pageNum;
 
-    @Builder
-    public void FarmFilesCheck(Boolean livestockFarmingBusinessRegistration, Boolean facilitiesStructure,
-                                  Boolean annualFodderCostSpecification, Boolean annualInspectionReport,
-                                  Boolean businessLicense, Long pageNum){
-        this.livestockFarmingBusinessRegistration = livestockFarmingBusinessRegistration;
-        this.facilitiesStructure = facilitiesStructure;
-        this.annualFodderCostSpecification = annualFodderCostSpecification;
-        this.annualInspectionReport = annualInspectionReport;
-        this.businessLicense = businessLicense;
-        this.pageNum = pageNum;
-
-    }
 }
