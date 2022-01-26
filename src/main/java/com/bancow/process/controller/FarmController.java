@@ -5,15 +5,20 @@ import com.bancow.process.dto.FileUpdateRequestDto;
 import com.bancow.process.dto.PageNumUpdateRequestDto;
 import com.bancow.process.dto.RequestDto;
 import com.bancow.process.dto.*;
+import com.bancow.process.dto.response.ResponseMessage;
+import com.bancow.process.dto.response.ResponseMessageHeader;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
+import com.google.inject.internal.Errors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,6 +85,14 @@ public class FarmController {
     @PutMapping("/api/farm/{id}/files-check")
     public void farmFilesCheck(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto){
         farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
+    }
+
+
+    @PutMapping("/api/farm/{id}/files-check1")
+    public ResponseEntity<?> farmFilesCheck1(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto, Errors errors){
+
+        farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
+        return ResponseEntity.ok().body(ResponseMessage.success());
     }
 
     @PutMapping("/api/farm/{id}/request-date")
