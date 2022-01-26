@@ -1,6 +1,8 @@
 package com.bancow.process.domain;
 
+import com.bancow.process.dto.FarmInfoDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,8 @@ import java.util.List;
 @Table(name = "farm")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Farm extends BaseEntity {
 
     @Id
@@ -144,7 +148,67 @@ public class Farm extends BaseEntity {
         this.password = password;
     }
 
-    public void updateFarm(String password){
+    public void updateFarm(String password) {
         this.password = password;
+    }
+
+    public void updatePageNum(Long pageNum) {
+        this.pageNum = pageNum;
+    }
+    public void updateInvestigationRequest(Long pageNum, LocalDateTime investigationRequest) {
+        this.pageNum = pageNum;
+        this.investigationRequest = investigationRequest;
+    }
+
+    public void updateFarmAgreement(Boolean serviceTerms1, Boolean serviceTerms2, Boolean serviceTerms3, Long pageNum){
+        this.serviceTerms1 = serviceTerms1;
+        this.serviceTerms2 = serviceTerms2;
+        this.serviceTerms3 = serviceTerms3;
+        this.pageNum = pageNum;
+    }
+
+    public void updateFarmOwnerInfo(String name, String email, Long pageNum){
+        this.name = name;
+        this.email = email;
+        this.pageNum = pageNum;
+    }
+
+    public void updateFarmInfo(String farmName, String farmAddress, String fodder, Long pageNum) {
+        this.farmName = farmName;
+        this.farmAddress = farmAddress;
+        this.fodder = fodder;
+        this.pageNum = pageNum;
+    }
+
+
+    public void updateFarmInfo(FarmInfoDto farmInfoDto){
+        this.farmName = farmInfoDto.getFarmName();
+        this.farmAddress = farmInfoDto.getFarmAddress();
+        this.fodder = farmInfoDto.getFodder();
+        this.pageNum = farmInfoDto.getPageNum();
+    }
+
+    public void updateFarmInfoCheck(String identification, String ownFarm, String breedingType, String population, Long pageNum){
+        this.identification = identification;
+        this.ownFarm = ownFarm;
+        this.breedingType = breedingType;
+        this.population = population;
+        this.pageNum = pageNum;
+    }
+
+    public void updateFilesInfoCheck(Boolean livestockFarmingBusinessRegistration, Boolean facilitiesStructure,
+                                     Boolean annualFodderCostSpecification, Boolean annualInspectionReport,
+                                     Boolean businessLicense, Long pageNum){
+        this.livestockFarmingBusinessRegistration = livestockFarmingBusinessRegistration;
+        this.facilitiesStructure = facilitiesStructure;
+        this.annualFodderCostSpecification = annualFodderCostSpecification;
+        this.annualInspectionReport = annualInspectionReport;
+        this.businessLicense = businessLicense;
+        this.pageNum = pageNum;
+    }
+
+    public void updateInProgress(Long pageNum, InProgress inProgress) {
+        this.pageNum = pageNum;
+        this.inProgress = inProgress;
     }
 }
