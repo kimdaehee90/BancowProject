@@ -27,22 +27,15 @@ public class ResponseMessage {
                 .build();
     }
 
-    public static ResponseMessage fail(String message) {
-        return fail(message, null);
-    }
-
-    public static ResponseMessage success(Object data) {
+    public static ResponseMessage success(String message, Object data) {
         return ResponseMessage.builder()
                 .header(ResponseMessageHeader.builder()
                         .result(true)
-                        .message("")
+                        .message(message)
                         .status(HttpStatus.OK.value())
                         .build())
                 .body(data)
                 .build();
     }
 
-    public static ResponseMessage success() {
-        return success(null);
-    }
 }

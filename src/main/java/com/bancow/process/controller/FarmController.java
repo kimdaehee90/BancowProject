@@ -85,14 +85,7 @@ public class FarmController {
     @PutMapping("/api/farm/{id}/files-check")
     public void farmFilesCheck(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto){
         farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
-    }
 
-
-    @PutMapping("/api/farm/{id}/files-check1")
-    public ResponseEntity<?> farmFilesCheck1(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto, Errors errors){
-
-        farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
-        return ResponseEntity.ok().body(ResponseMessage.success());
     }
 
     @PutMapping("/api/farm/{id}/request-date")
@@ -118,6 +111,5 @@ public class FarmController {
         Object result = farmService.check(id);
         return result;
     }
-
 
 }

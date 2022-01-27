@@ -148,12 +148,20 @@ public class FarmService {
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
 
-        farm.updateFarmAgreement(
-                farmAgreementDto.getServiceTerms1(),
-                farmAgreementDto.getServiceTerms2(),
-                farmAgreementDto.getServiceTerms3(),
-                farmAgreementDto.getPageNum());
+        if(((farmAgreementDto.getServiceTerms1() == null) && (farmAgreementDto.getServiceTerms2()) &&
+                (farmAgreementDto.getServiceTerms3() == null) && (farmAgreementDto.getPageNum() == null))){
+
+            farm.updateFarmAgreement(
+                    farmAgreementDto.getServiceTerms1(),
+                    farmAgreementDto.getServiceTerms2(),
+                    farmAgreementDto.getServiceTerms3(),
+                    farmAgreementDto.getPageNum());
+        }
+        else{
+            System.out.println("error");
+        }
     }
+
 
     public void updateFarmOwnerInfo(Long id, FarmOwnerInfoDto farmOwnerInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
