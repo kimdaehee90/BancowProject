@@ -11,5 +11,12 @@ import lombok.*;
 public class FarmFileTypeResponseDto {
     private FileType fileType;
 
-
+    public FarmFileTypeResponseDto(FarmFile farmFile) {
+        fileType = farmFile.getFileType();
+    }
+//    public static FarmFileTypeResponseDto from(FileType type){
+//        return FarmFileTypeResponseDto.builder()
+//                .fileType(type)
+//                .build();
+//    }
 }
