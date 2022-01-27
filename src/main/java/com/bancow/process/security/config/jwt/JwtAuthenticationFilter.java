@@ -1,5 +1,7 @@
 package com.bancow.process.security.config.jwt;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.bancow.process.dto.LoginRequestDto;
 import com.bancow.process.security.config.auth.PrincipalDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,9 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -50,6 +55,23 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
         System.out.println("Authentication : "+principalDetailis.getFarm().getUserName());
         return authentication;
-
     }
+    // JWT Token 생성해서 response에 담아주기
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+                                            Authentication authResult) throws IOException, ServletException {
+
+        PrincipalDetails principalDetailis = (PrincipalDetails) authResult.getPrincipal();
+
+        // 토큰 생성
+        String jwtToken = JWT.create()
+                .withSubject("BANCOW") // 발행자
+                .withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME)) // 토큰 유효기간
+                .withClaim("FarmName", principalDetailis.getFarm().getFarmName()) // 토큰에 담은 정보(농장 이름)
+                .withClaim("Email", principalDetailis.getFarm().getEmail()) // 토큰에 담은 정보(이메일)
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken);
+    }
+
 }
