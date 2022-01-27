@@ -1,5 +1,6 @@
 package com.bancow.process.security.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,11 +8,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final CorsFilter corsFilter;
     //BCryptPasswordEncoder Bean 등록
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -27,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 세션을 사용하지 않겠다.
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .addFilter(corsFilter)
                 .formLogin().disable() // 폼 로그인 형태 안씀
                 .httpBasic().disable() // httpBasic의 방식 안씀
                 .authorizeRequests()
