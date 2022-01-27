@@ -65,6 +65,7 @@ public class FarmService {
 
     }
 
+
     @Transactional
     public void createFarm(RequestDto requestDto) {
         farmRepository.save(requestDto.toEntity());

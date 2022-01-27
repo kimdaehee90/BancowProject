@@ -39,6 +39,11 @@ public class FarmController {
         System.out.println(loginRequestDto.getPassword());
 
     }
+    @GetMapping("api/farm/checkInfo/{id}")
+    public Object test(@PathVariable Long id){
+        Object result = farmService.check(id);
+        return result;
+    }
 
     // 김광현 사용중
     @PostMapping("/api/post")
@@ -107,11 +112,7 @@ public class FarmController {
         farmImageService.updateImage(id, imageUpdateRequestDto);
     }
 
-    @GetMapping("api/login/auth/checkInfo/{id}")
-    public Object test(@PathVariable Long id){
-        Object result = farmService.check(id);
-        return result;
-    }
+
 
 
 }

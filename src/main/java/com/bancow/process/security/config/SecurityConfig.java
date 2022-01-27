@@ -1,7 +1,9 @@
 package com.bancow.process.security.config;
 
+import com.bancow.process.repository.FarmRepository;
 import com.bancow.process.security.config.CorsConfig;
 import com.bancow.process.security.config.jwt.JwtAuthenticationFilter;
+import com.bancow.process.security.config.jwt.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CorsConfig corsConfig;
+    private final FarmRepository farmRepository;
     //BCryptPasswordEncoder Bean 등록
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -36,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().disable() // 폼 로그인 형태 안씀
                 .httpBasic().disable() // httpBasic의 방식 안씀
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), farmRepository))
                 .authorizeRequests()
                 .antMatchers("/api/sendSMS").permitAll() // /api/sendSMS 주소로 호출되는 api는 모두 허용
                 .antMatchers("/login").permitAll() // /api/login 주소로 호출되는 api는 모두 허용

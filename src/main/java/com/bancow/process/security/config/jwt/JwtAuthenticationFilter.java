@@ -65,12 +65,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // 토큰 생성
         String jwtToken = JWT.create()
-                .withSubject("BANCOW") // 발행자
+                .withIssuer("BANCOW") // 발행자
                 .withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME)) // 토큰 유효기간
-                .withClaim("FarmName", principalDetailis.getFarm().getFarmName()) // 토큰에 담은 정보(농장 이름)
-                .withClaim("Email", principalDetailis.getFarm().getEmail()) // 토큰에 담은 정보(이메일)
+                .withClaim("userName", principalDetailis.getFarm().getUserName()) // 토큰에 담은 정보(번호)
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
+        System.out.println(principalDetailis.getFarm().getUserName());
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken);
     }
 
