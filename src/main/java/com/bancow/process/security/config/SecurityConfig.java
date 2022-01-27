@@ -1,6 +1,7 @@
 package com.bancow.process.security.config;
 
 import com.bancow.process.security.config.CorsConfig;
+import com.bancow.process.security.config.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,9 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().disable() // 폼 로그인 형태 안씀
                 .httpBasic().disable() // httpBasic의 방식 안씀
+                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .authorizeRequests()
                 .antMatchers("/api/sendSMS").permitAll() // /api/sendSMS 주소로 호출되는 api는 모두 허용
-                .antMatchers("/api/login").permitAll() // /api/login 주소로 호출되는 api는 모두 허용
+                .antMatchers("/login").permitAll() // /api/login 주소로 호출되는 api는 모두 허용
                 .anyRequest().authenticated(); // 위의 주소로 호출하는 경우 이외의 모든 호출시에 인증 필요
     }
 }

@@ -28,9 +28,16 @@ public class FarmController {
 
     private final FarmFileRepository farmFileRepository;
 
-    @PostMapping("/login")
+    @PostMapping("/api/sendSMS")
     public void sendUsername(@RequestParam String userName){
         farmService.join(userName);
+    }
+
+    @PostMapping("/login")
+    public void login(@RequestBody LoginRequestDto loginRequestDto){
+        System.out.println(loginRequestDto.getUserName());
+        System.out.println(loginRequestDto.getPassword());
+
     }
 
     // 김광현 사용중

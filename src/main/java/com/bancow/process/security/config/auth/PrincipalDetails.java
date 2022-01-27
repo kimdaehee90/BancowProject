@@ -1,12 +1,13 @@
 package com.bancow.process.security.config.auth;
 
 import com.bancow.process.domain.Farm;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-
+@Data
 public class PrincipalDetails implements UserDetails {
 
 
