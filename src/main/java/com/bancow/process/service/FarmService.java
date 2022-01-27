@@ -65,7 +65,14 @@ public class FarmService {
 
     }
 
-
+    @Transactional
+    public LoginResponseDto loginResponse(LoginRequestDto loginRequestDto){
+        Farm farm = farmRepository.findByUserName(loginRequestDto.getUserName()).orElseThrow(
+                () -> new NullPointerException("해당 농장이 없습니다. ")
+        );
+        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getUserName());
+        return loginResponseDto;
+    }
     @Transactional
     public void createFarm(RequestDto requestDto) {
         farmRepository.save(requestDto.toEntity());
