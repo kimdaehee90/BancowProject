@@ -107,9 +107,12 @@ public class FarmController {
     }
 
     @GetMapping("api/login/auth/checkInfo/{id}")
-    public Object test(@PathVariable Long id){
+    public Object test(@PathVariable Long id) {
         Object result = farmService.check(id);
         return result;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 750b45c8eadd4a3d2a0d94ef7a96104f8d4e4eb1
 }
