@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.management.RuntimeErrorException;
@@ -149,7 +150,6 @@ public class FarmService {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-
         farm.updateFarmAgreement(
                 farmAgreementDto.getServiceTerms1(),
                 farmAgreementDto.getServiceTerms2(),

@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
-
-import static com.bancow.process.exception.ErrorCode.*;
+import static com.bancow.process.exception.ErrorCode.MIS_INFORMATION;
 
 @Slf4j
 @RestControllerAdvice
@@ -21,12 +19,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("handleCustomException throw CustomException : {}", e.getErrorCode());
         return ErrorResponse.toResponseEntity(e.getErrorCode());
     }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ErrorResponse> methodArgumentNotValidException(){
-        log.warn("handleCustomException throw CustomException : {}", MIS_INFORMATION);
-        return ErrorResponse.toResponseEntity(MIS_INFORMATION);
-    }
+    
 //    // 특정 Exception 처리 예제
 //    @ExceptionHandler(IllegalArgumentException.class)
 //    protected ResponseEntity<ErrorResponse> illegalargumentexception() {

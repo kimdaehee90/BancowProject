@@ -1,8 +1,6 @@
 package com.bancow.process.controller;
 
 import com.bancow.process.dto.*;
-import com.bancow.process.exception.CustomException;
-import com.bancow.process.exception.ErrorCode;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.service.FarmFileService;
@@ -53,7 +51,7 @@ public class FarmController {
 
 
     @PutMapping("/api/farm/{id}/agreement")
-    public void farmAgreement(@PathVariable Long id, @RequestBody @Valid FarmAgreementDto farmAgreementDto){
+    public void farmAgreement(@PathVariable Long id, @RequestBody @Valid FarmAgreementDto farmAgreementDto, ErrorResponse errorResponse){
         farmService.updateFarmAgreement(id, farmAgreementDto);
     }
 
