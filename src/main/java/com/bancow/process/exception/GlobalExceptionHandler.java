@@ -3,9 +3,12 @@ package com.bancow.process.exception;
 import com.bancow.process.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static com.bancow.process.exception.ErrorCode.*;
 
@@ -19,6 +22,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ErrorResponse.toResponseEntity(e.getErrorCode());
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    protected ResponseEntity<ErrorResponse> methodArgumentNotValidException(){
+        log.warn("handleCustomException throw CustomException : {}", MIS_INFORMATION);
+        return ErrorResponse.toResponseEntity(MIS_INFORMATION);
+    }
 //    // 특정 Exception 처리 예제
 //    @ExceptionHandler(IllegalArgumentException.class)
 //    protected ResponseEntity<ErrorResponse> illegalargumentexception() {

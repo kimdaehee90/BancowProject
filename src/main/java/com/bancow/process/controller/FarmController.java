@@ -1,27 +1,17 @@
 package com.bancow.process.controller;
 
-import com.bancow.process.domain.*;
-import com.bancow.process.dto.FileUpdateRequestDto;
-import com.bancow.process.dto.PageNumUpdateRequestDto;
-import com.bancow.process.dto.RequestDto;
 import com.bancow.process.dto.*;
-import com.bancow.process.dto.response.ResponseMessage;
-import com.bancow.process.dto.response.ResponseMessageHeader;
+import com.bancow.process.exception.CustomException;
+import com.bancow.process.exception.ErrorCode;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
-import com.bancow.process.repository.FarmRepository;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
-import com.google.inject.internal.Errors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -63,27 +53,27 @@ public class FarmController {
 
 
     @PutMapping("/api/farm/{id}/agreement")
-    public void farmAgreement(@PathVariable Long id, @RequestBody FarmAgreementDto farmAgreementDto){
+    public void farmAgreement(@PathVariable Long id, @RequestBody @Valid FarmAgreementDto farmAgreementDto){
         farmService.updateFarmAgreement(id, farmAgreementDto);
     }
 
     @PutMapping("/api/farm/{id}/owner-info")
-    public void farmOwnerInfo(@PathVariable Long id, @RequestBody FarmOwnerInfoDto farmOwnerInfoDto){
+    public void farmOwnerInfo(@PathVariable Long id, @RequestBody @Valid FarmOwnerInfoDto farmOwnerInfoDto){
         farmService.updateFarmOwnerInfo(id, farmOwnerInfoDto);
     }
 
     @PutMapping("/api/farm/{id}/info")
-    public void farmInfo(@PathVariable Long id, @RequestBody FarmInfoDto farmInfoDto) {
+    public void farmInfo(@PathVariable Long id, @RequestBody @Valid FarmInfoDto farmInfoDto) {
         farmService.updateFarmInfo(id, farmInfoDto);
 
     }
     @PutMapping("/api/farm/{id}/info-check")
-    public void farmInfoCheck(@PathVariable Long id, @RequestBody FarmInfoCheckDto farmInfoCheckDto){
+    public void farmInfoCheck(@PathVariable Long id, @RequestBody @Valid FarmInfoCheckDto farmInfoCheckDto){
         farmService.updateFarmInfoCheck(id, farmInfoCheckDto);
     }
 
     @PutMapping("/api/farm/{id}/files-check")
-    public void farmFilesCheck(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto){
+    public void farmFilesCheck(@PathVariable Long id, @RequestBody @Valid FarmFilesCheckDto farmFilesCheckDto){
         farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
 
     }
@@ -111,8 +101,5 @@ public class FarmController {
         Object result = farmService.check(id);
         return result;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 750b45c8eadd4a3d2a0d94ef7a96104f8d4e4eb1
 }
