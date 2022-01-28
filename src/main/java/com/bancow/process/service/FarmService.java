@@ -1,20 +1,23 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
-import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FarmImage;
 import com.bancow.process.domain.FileType;
 import com.bancow.process.dto.*;
+import com.bancow.process.exception.CustomException;
+import com.bancow.process.exception.ErrorCode;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.client.HttpClientErrorException;
 
-
+import javax.management.RuntimeErrorException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -137,7 +140,6 @@ public class FarmService {
                     .collect(Collectors.toList());
             return collect;
 
-
         }
         return farm.getInProgress();
     }
@@ -148,19 +150,17 @@ public class FarmService {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-
         farm.updateFarmAgreement(
                 farmAgreementDto.getServiceTerms1(),
                 farmAgreementDto.getServiceTerms2(),
                 farmAgreementDto.getServiceTerms3(),
                 farmAgreementDto.getPageNum());
-    }
 
+    }
     public void updateFarmOwnerInfo(Long id, FarmOwnerInfoDto farmOwnerInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-
         farm.updateFarmOwnerInfo(
                 farmOwnerInfoDto.getName(),
                 farmOwnerInfoDto.getEmail(),

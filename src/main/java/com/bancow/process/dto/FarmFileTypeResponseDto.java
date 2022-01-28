@@ -2,9 +2,12 @@ package com.bancow.process.dto;
 
 import com.bancow.process.domain.FarmFile;
 import com.bancow.process.domain.FileType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

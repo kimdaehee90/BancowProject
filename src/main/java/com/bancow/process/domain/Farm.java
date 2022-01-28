@@ -180,14 +180,6 @@ public class Farm extends BaseEntity {
         this.pageNum = pageNum;
     }
 
-
-    public void updateFarmInfo(FarmInfoDto farmInfoDto){
-        this.farmName = farmInfoDto.getFarmName();
-        this.farmAddress = farmInfoDto.getFarmAddress();
-        this.fodder = farmInfoDto.getFodder();
-        this.pageNum = farmInfoDto.getPageNum();
-    }
-
     public void updateFarmInfoCheck(String identification, String ownFarm, String breedingType, String population, Long pageNum){
         this.identification = identification;
         this.ownFarm = ownFarm;
