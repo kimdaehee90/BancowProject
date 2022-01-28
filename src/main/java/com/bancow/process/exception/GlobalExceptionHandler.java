@@ -19,7 +19,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("handleCustomException throw CustomException : {}", e.getErrorCode());
         return ErrorResponse.toResponseEntity(e.getErrorCode());
     }
-    
+
 //    // 특정 Exception 처리 예제
 //    @ExceptionHandler(IllegalArgumentException.class)
 //    protected ResponseEntity<ErrorResponse> illegalargumentexception() {
