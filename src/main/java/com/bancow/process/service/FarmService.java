@@ -65,15 +65,7 @@ public class FarmService {
 
     }
 
-    @Transactional
-    public LoginResponseDto loginResponse(LoginRequestDto loginRequestDto){
-        Optional<Farm> farm = farmRepository.findByUserName(loginRequestDto.getUserName());
 
-        System.out.println(farm.get().getUserName());
-        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.get().getId(),farm.get().getUserName());
-        System.out.println(loginResponseDto);
-        return loginResponseDto;
-    }
     @Transactional
     public void createFarm(RequestDto requestDto) {
         farmRepository.save(requestDto.toEntity());
@@ -89,14 +81,6 @@ public class FarmService {
         farm.updatePageNum(pageNumUpdateRequestDto.getPageNum());
 
     }
-
-//    @Transactional
-//    public Long login(String userName) {
-//        Optional<Farm> farm = farmRepository.findByUserName(userName);
-//        System.out.println(farm.get().getId());
-//        Long st = farm.get().getId();
-//        return st;
-//    }
 
 
 
