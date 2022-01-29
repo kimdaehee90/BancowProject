@@ -1,7 +1,8 @@
 package com.bancow.process.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import javax.persistence.*;
 

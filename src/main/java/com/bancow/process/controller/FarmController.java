@@ -1,25 +1,31 @@
 package com.bancow.process.controller;
 
-import com.bancow.process.domain.*;
-import com.bancow.process.dto.FileUpdateRequestDto;
-import com.bancow.process.dto.PageNumUpdateRequestDto;
-import com.bancow.process.dto.RequestDto;
 import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
+
 import com.bancow.process.repository.FarmRepository;
 import com.bancow.process.security.config.auth.PrincipalDetails;
 import com.bancow.process.security.config.auth.PrincipalDetailsService;
+
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.userdetails.UserDetails;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -56,15 +62,17 @@ public class FarmController {
     }
 
     @PutMapping("/api/farm/{id}/files")
-    public void updateFile(@PathVariable Long id,
-                       @RequestBody FileUpdateRequestDto fileUpdateRequestDto) {
+    public ApiResponseDto updateFile(@PathVariable Long id,
+                           @RequestBody @Valid FileUpdateRequestDto fileUpdateRequestDto) {
         farmFileService.updateFile(id, fileUpdateRequestDto);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
     @PutMapping("/api/farm/{id}/move")
-    public void updatePageNum(@PathVariable Long id,
-                              @RequestBody PageNumUpdateRequestDto pageNumUpdateRequestDto) {
+    public ApiResponseDto updatePageNum(@PathVariable Long id,
+                              @RequestBody @Valid PageNumUpdateRequestDto pageNumUpdateRequestDto) {
         farmService.updatePageNum(id, pageNumUpdateRequestDto);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
     @PutMapping("login/auth/{id}")
@@ -74,49 +82,62 @@ public class FarmController {
 
 
     @PutMapping("/api/farm/{id}/agreement")
-    public void farmAgreement(@PathVariable Long id, @RequestBody FarmAgreementDto farmAgreementDto){
+    public ApiResponseDto farmAgreement(@PathVariable Long id, @RequestBody @Valid FarmAgreementDto farmAgreementDto){
         farmService.updateFarmAgreement(id, farmAgreementDto);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
     @PutMapping("/api/farm/{id}/owner-info")
-    public void farmOwnerInfo(@PathVariable Long id, @RequestBody FarmOwnerInfoDto farmOwnerInfoDto){
+    public ApiResponseDto farmOwnerInfo(@PathVariable Long id, @RequestBody @Valid FarmOwnerInfoDto farmOwnerInfoDto){
         farmService.updateFarmOwnerInfo(id, farmOwnerInfoDto);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
     @PutMapping("/api/farm/{id}/info")
-    public void farmInfo(@PathVariable Long id, @RequestBody FarmInfoDto farmInfoDto) {
+    public ApiResponseDto farmInfo(@PathVariable Long id, @RequestBody @Valid FarmInfoDto farmInfoDto) {
         farmService.updateFarmInfo(id, farmInfoDto);
+        return ApiResponseDto.of(HttpStatus.OK);
 
     }
     @PutMapping("/api/farm/{id}/info-check")
-    public void farmInfoCheck(@PathVariable Long id, @RequestBody FarmInfoCheckDto farmInfoCheckDto){
+    public ApiResponseDto farmInfoCheck(@PathVariable Long id, @RequestBody @Valid FarmInfoCheckDto farmInfoCheckDto){
         farmService.updateFarmInfoCheck(id, farmInfoCheckDto);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
     @PutMapping("/api/farm/{id}/files-check")
-    public void farmFilesCheck(@PathVariable Long id, @RequestBody FarmFilesCheckDto farmFilesCheckDto){
+    public ApiResponseDto farmFilesCheck(@PathVariable Long id, @RequestBody @Valid FarmFilesCheckDto farmFilesCheckDto){
         farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
+        return ApiResponseDto.of(HttpStatus.OK);
+
     }
 
     @PutMapping("/api/farm/{id}/request-date")
-    public void updateInvestigationRequest(@PathVariable Long id,
-                                           @RequestBody InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto){
+    public ApiResponseDto updateInvestigationRequest(@PathVariable Long id,
+                                           @RequestBody @Valid InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto){
         farmService.updateInvestigationRequest(id, investigationRequestUpdateRequestDto);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
     @PutMapping("/api/farm/{id}/in-progress")
-    public void updateInProgress(@PathVariable Long id,
-                                 @RequestBody InProgressUpdateRequestDto inProgressUpdateRequestDto) {
+    public ApiResponseDto updateInProgress(@PathVariable Long id,
+                                 @RequestBody @Valid InProgressUpdateRequestDto inProgressUpdateRequestDto) {
         farmService.updateInProgress(id, inProgressUpdateRequestDto);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
-    @PutMapping("/api/farm/{id}/images")
-    public void updateImage(@PathVariable Long id,
-                            @RequestBody ImageUpdateRequestDto imageUpdateRequestDto) {
+    @PutMapping(value = "/api/farm/{id}/images")
+    public ApiResponseDto updateImage(@PathVariable Long id,
+                            @RequestBody @Valid ImageUpdateRequestDto imageUpdateRequestDto) {
         farmImageService.updateImage(id, imageUpdateRequestDto);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
-
+    @GetMapping("/api/login/auth/checkInfo/{id}")
+    public ApiResponseDto<Object> test(@PathVariable Long id) {
+        Object result = farmService.check(id);
+        return ApiResponseDto.of(result);
+    }
 
 
 }
