@@ -5,13 +5,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @NoArgsConstructor
 public class FileUpdateRequestDto {
 
+    @NotBlank
     private String originalFileName;
+
+    @NotBlank
     private String changedFileName;
+
+    @NotBlank
     private String fileUrl;
+
+    @NotNull
     private FileType fileType;
 
     @Builder
