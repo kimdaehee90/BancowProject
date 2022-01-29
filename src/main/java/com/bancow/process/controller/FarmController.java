@@ -133,9 +133,9 @@ public class FarmController {
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
-    @GetMapping("/api/login/auth/checkInfo/{id}")
-    public ApiResponseDto<Object> test(@PathVariable Long id) {
-        Object result = farmService.check(id);
+    @GetMapping("/api/login/auth/checkInfo/{userName}")
+    public ApiResponseDto<Object> test1(@RequestParam String userName) {
+        Object result = farmService.check(userName);
         return ApiResponseDto.of(result);
     }
 
