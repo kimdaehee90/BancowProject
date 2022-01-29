@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class FarmFileTypeResponseDto {
-    private FileType fileType;
+    private String fileType;
 
-    public FarmFileTypeResponseDto(FarmFile farmFile) {
-        fileType = farmFile.getFileType();
-    }
-//    public static FarmFileTypeResponseDto from(FileType type){
-//        return FarmFileTypeResponseDto.builder()
-//                .fileType(type)
-//                .build();
+//    public FarmFileTypeResponseDto(FarmFile farmFile) {
+//        fileType = farmFile.getFileType();
 //    }
+////    public static FarmFileTypeResponseDto from(FileType type){
+////        return FarmFileTypeResponseDto.builder()
+////                .fileType(type)
+////                .build();
+////    }
 }

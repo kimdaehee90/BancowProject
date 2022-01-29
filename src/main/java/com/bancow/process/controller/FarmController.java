@@ -38,15 +38,16 @@ public class FarmController {
     private final FarmFileRepository farmFileRepository;
 
     @PostMapping("/api/sendSMS")
-    public void sendUsername(@RequestParam String userName){
+    public ApiResponseDto sendUsername(@RequestParam String userName){
         farmService.join(userName);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
 
     @GetMapping("api/farm/checkInfo/{userName}")
-    public Object test(@PathVariable String userName){
+    public ApiResponseDto checkInfo(@PathVariable String userName){
         Object result = farmService.check(userName);
-        return result;
+        return ApiResponseDto.of(result);
     }
 
     // 김광현 사용중

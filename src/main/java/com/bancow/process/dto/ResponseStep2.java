@@ -10,7 +10,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class ResponseStep2 {
-//    private List<FileType> fileType;
+    private Long id;
     private List<FarmFileTypeResponseDto> farmFiles;
 
+    public ResponseStep2(Long id, List<FarmFileTypeResponseDto> farmFiles) {
+        this.id = id;
+        this.farmFiles = farmFiles;
+    }
 }
