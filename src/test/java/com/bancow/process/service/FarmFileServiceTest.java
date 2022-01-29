@@ -75,10 +75,10 @@ class FarmFileServiceTest {
 
         FileUpdateRequestDto fileUpdateRequestDto2 = FileUpdateRequestDto
                 .builder()
-                .originalFileName(originalFileName1)
-                .changedFileName(changedFileName1)
-                .fileUrl(fileUrl1)
-                .fileType(fileType1)
+                .originalFileName(originalFileName2)
+                .changedFileName(changedFileName2)
+                .fileUrl(fileUrl2)
+                .fileType(fileType2)
                 .build();
         //when
         farmFileService.updateFile(saveFarm.getId(), fileUpdateRequestDto2);
