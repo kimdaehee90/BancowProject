@@ -44,9 +44,9 @@ public class FarmController {
 
 
     @GetMapping("api/farm/checkInfo/{userName}")
-    public Object test(@PathVariable String userName){
+    public Object checkInfo(@PathVariable String userName){
         Object result = farmService.check(userName);
-        return result;
+        return ApiResponseDto.of(result);
     }
 
     // 김광현 사용중

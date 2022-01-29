@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bancow.process.domain.InProgress.*;
+
 @Entity
 @Table(name = "farm")
 @Data
@@ -110,7 +112,7 @@ public class Farm extends BaseEntity {
     // 입점 상태
     @Enumerated(EnumType.STRING)
     @Column(name = "in_progress")
-    private InProgress inProgress;
+    private InProgress inProgress = STEP1_IN_PROGRESS;
 
     // 1차 제출 완료
     @Column(name = "step1_completed")

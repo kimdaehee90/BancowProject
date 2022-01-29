@@ -23,7 +23,7 @@ public class ResponseStep1 {
     private Boolean annualFodderCostSpecification;
     private Boolean annualInspectionReport;
     private Boolean businessLicense;
-    private List<FarmImageResponseDto> farmImageResponseDtoList;
+    private List<FarmImageResponseDto> farmImageUrl;
 
 
     public ResponseStep1(Long id,Long pageNum, String farmName, String farmAddress, String fodder,
@@ -53,7 +53,7 @@ public class ResponseStep1 {
                          String population, Boolean livestockFarmingBusinessRegistration,
                          Boolean facilitiesStructure, Boolean annualFodderCostSpecification,
                          Boolean annualInspectionReport, Boolean businessLicense,
-                         List<FarmImageResponseDto> farmImageResponseDtoList) {
+                         List<FarmImageResponseDto> farmImageUrl) {
         this.id = id;
         this.pageNum = pageNum;
         this.farmName = farmName;
@@ -68,6 +68,6 @@ public class ResponseStep1 {
         this.annualFodderCostSpecification = annualFodderCostSpecification;
         this.annualInspectionReport = annualInspectionReport;
         this.businessLicense = businessLicense;
-        this.farmImageResponseDtoList = farmImageResponseDtoList;
+        this.farmImageUrl = farmImageUrl;
     }
 }
