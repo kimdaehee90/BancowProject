@@ -3,16 +3,14 @@ package com.bancow.process.exception;
 import com.bancow.process.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import static com.bancow.process.exception.ErrorCode.MIS_INFORMATION;
 
 @Slf4j
 @RestControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = { CustomException.class })
     protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
@@ -20,11 +18,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ErrorResponse.toResponseEntity(e.getErrorCode());
     }
 
-//    // 특정 Exception 처리 예제
-//    @ExceptionHandler(IllegalArgumentException.class)
-//    protected ResponseEntity<ErrorResponse> illegalargumentexception() {
-//        log.error("handleCustomException throw CustomException : {}", FARM_NOT_FOUND);
-//        return ErrorResponse.toResponseEntity(FARM_NOT_FOUND);
-//    }
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    protected ResponseEntity<ErrorResponse> MethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error("MethodArgumentNotValidException : {}", e.getMessage());
+        return ErrorResponse.toResponseEntity(ErrorCode.ARGUMENT_NOT_VALID, e.getBindingResult());
+    }
+
+    @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
+    protected ResponseEntity<ErrorResponse> HttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        log.error("HttpRequestMethodNotSupportedException : {}", e.getMessage());
+        return ErrorResponse.toResponseEntity(ErrorCode.NOT_SUPPORTED_HTTP_REQUEST_METHOD);
+    }
 
 }
