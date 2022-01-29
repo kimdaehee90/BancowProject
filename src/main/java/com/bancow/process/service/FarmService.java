@@ -70,6 +70,15 @@ public class FarmService {
     }
 
     @Transactional
+    public LoginResponseDto loginResponse(LoginRequestDto loginRequestDto){
+        Optional<Farm> farm = farmRepository.findByUserName(loginRequestDto.getUserName());
+
+        System.out.println(farm.get().getUserName());
+        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.get().getId(),farm.get().getUserName());
+        System.out.println(loginResponseDto);
+        return loginResponseDto;
+    }
+    @Transactional
     public void createFarm(RequestDto requestDto) {
         farmRepository.save(requestDto.toEntity());
     }
@@ -85,23 +94,27 @@ public class FarmService {
 
     }
 
-    @Transactional
-    public void login(RequestDto requestDto) {
-
-    }
+//    @Transactional
+//    public Long login(String userName) {
+//        Optional<Farm> farm = farmRepository.findByUserName(userName);
+//        System.out.println(farm.get().getId());
+//        Long st = farm.get().getId();
+//        return st;
+//    }
 
 
 
     @Transactional
     @Builder
-    public Object check(Long id){
+    public Object check(String userName){
 
         String step1 = "STEP1_COMPLETED";
         String step2 = "STEP2_COMPLETED";
-        Farm farm = farmRepository.findById(id).orElseThrow(
+        Farm farm = farmRepository.findByUserName(userName).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
+        System.out.println(userName);
         // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
         if(farm.getInProgress() == null){
             return null;
@@ -109,6 +122,7 @@ public class FarmService {
 
         if(farm.getInProgress().toString().equals(step1)){
             ResponseStep1 responseStep1 = new ResponseStep1(
+                    farm.getId(),
                     farm.getPageNum(),
                     farm.getFarmName(),
                     farm.getFarmAddress(),
@@ -123,7 +137,7 @@ public class FarmService {
                     farm.getAnnualInspectionReport(),
                     farm.getBusinessLicense()
             );
-            List<String> farmImages = farmImageRepository.findUrl(id);
+            List<String> farmImages = farmImageRepository.findUrl(farm.getId());
             List<FarmImageResponseDto> collect = farmImages.stream()
                     .map(o -> new FarmImageResponseDto(o))
                     .collect(Collectors.toList());
@@ -134,7 +148,7 @@ public class FarmService {
         }
         if(farm.getInProgress().toString().equals(step2)){
 
-            List<FileType> farmfile = farmFileRepository.fileType(id);
+            List<FileType> farmfile = farmFileRepository.fileType(farm.getId());
             List<FarmFileTypeResponseDto> collect = farmfile.stream()
                     .map(o -> new FarmFileTypeResponseDto(o))
                     .collect(Collectors.toList());

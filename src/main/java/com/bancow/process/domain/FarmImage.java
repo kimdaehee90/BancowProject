@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "farm_image")
 @Data
+@NoArgsConstructor
 public class FarmImage extends BaseEntity{
 
     @Id

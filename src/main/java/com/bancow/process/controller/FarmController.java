@@ -3,12 +3,21 @@ package com.bancow.process.controller;
 import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
+
+import com.bancow.process.repository.FarmRepository;
+import com.bancow.process.security.config.auth.PrincipalDetails;
+import com.bancow.process.security.config.auth.PrincipalDetailsService;
+
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +34,25 @@ public class FarmController {
     private final FarmFileService farmFileService;
     private final FarmImageService farmImageService;
     private final FarmImageRepository farmImageRepository;
-
+    private final FarmRepository farmRepository;
     private final FarmFileRepository farmFileRepository;
 
-    @PostMapping("/login")
+    @PostMapping("/api/sendSMS")
     public void sendUsername(@RequestParam String userName){
         farmService.join(userName);
+    }
+
+
+    @PostMapping("/api/login")
+    public void login(@RequestBody LoginRequestDto loginRequestDto){
+//       LoginResponseDto loginResponseDto = new LoginResponseDto(principalDetails.getFarm().getId());
+//        return loginResponseDto;
+        System.out.println("l;adkfj;lasjdfl;jasdf;l;sadjkfl;k");
+    }
+    @GetMapping("api/farm/checkInfo/{userName}")
+    public Object test(@PathVariable String userName){
+        Object result = farmService.check(userName);
+        return result;
     }
 
     // 김광현 사용중
@@ -55,7 +77,7 @@ public class FarmController {
 
     @PutMapping("login/auth/{id}")
     public void login(@PathVariable Long id, @RequestBody RequestDto requestDto) {
-        farmService.login(requestDto);
+//        farmService.login(requestDto);
     }
 
 
@@ -116,5 +138,6 @@ public class FarmController {
         Object result = farmService.check(id);
         return ApiResponseDto.of(result);
     }
+
 
 }
