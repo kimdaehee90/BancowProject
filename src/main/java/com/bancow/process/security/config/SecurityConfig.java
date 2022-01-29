@@ -1,17 +1,19 @@
 package com.bancow.process.security.config;
 
 import com.bancow.process.repository.FarmRepository;
-import com.bancow.process.security.config.CorsConfig;
 import com.bancow.process.security.config.jwt.JwtAuthenticationFilter;
 import com.bancow.process.security.config.jwt.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -26,11 +28,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-//        http.httpBasic().disable()
-//                    .csrf().disable();
-        http.addFilter(corsConfig.corsFilter())
+
+        http
+                .addFilter(corsConfig.corsFilter())
                 .csrf().disable();
         http.headers().frameOptions().disable();
         // 세션을 사용하지 않겠다.
@@ -40,9 +49,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable() // httpBasic의 방식 안씀
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), farmRepository))
+
                 .authorizeRequests()
+
                 .antMatchers("/api/sendSMS").permitAll() // /api/sendSMS 주소로 호출되는 api는 모두 허용
-                .antMatchers("/login").permitAll() // /api/login 주소로 호출되는 api는 모두 허용
+                .antMatchers("/api/login").permitAll() // /api/login 주소로 호출되는 api는 모두 허용
+                .antMatchers("/api/test").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated(); // 위의 주소로 호출하는 경우 이외의 모든 호출시에 인증 필요
     }
+
 }

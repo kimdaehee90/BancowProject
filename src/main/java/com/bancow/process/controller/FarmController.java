@@ -8,10 +8,13 @@ import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
+import com.bancow.process.security.config.auth.PrincipalDetails;
+import com.bancow.process.security.config.auth.PrincipalDetailsService;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +28,7 @@ public class FarmController {
     private final FarmFileService farmFileService;
     private final FarmImageService farmImageService;
     private final FarmImageRepository farmImageRepository;
-
+    private final FarmRepository farmRepository;
     private final FarmFileRepository farmFileRepository;
 
     @PostMapping("/api/sendSMS")
@@ -33,15 +36,16 @@ public class FarmController {
         farmService.join(userName);
     }
 
-    @PostMapping("/login")
-    public void login(@RequestBody LoginRequestDto loginRequestDto){
-        System.out.println(loginRequestDto.getUserName());
-        System.out.println(loginRequestDto.getPassword());
 
+    @PostMapping("/api/login")
+    public void login(@RequestBody LoginRequestDto loginRequestDto){
+//       LoginResponseDto loginResponseDto = new LoginResponseDto(principalDetails.getFarm().getId());
+//        return loginResponseDto;
+        System.out.println("l;adkfj;lasjdfl;jasdf;l;sadjkfl;k");
     }
-    @GetMapping("api/farm/checkInfo/{id}")
-    public Object test(@PathVariable Long id){
-        Object result = farmService.check(id);
+    @GetMapping("api/farm/checkInfo/{userName}")
+    public Object test(@PathVariable String userName){
+        Object result = farmService.check(userName);
         return result;
     }
 
@@ -65,7 +69,7 @@ public class FarmController {
 
     @PutMapping("login/auth/{id}")
     public void login(@PathVariable Long id, @RequestBody RequestDto requestDto) {
-        farmService.login(requestDto);
+//        farmService.login(requestDto);
     }
 
 

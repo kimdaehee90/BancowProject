@@ -15,6 +15,10 @@ public class PrincipalDetailsService implements UserDetailsService {
     @Autowired
     private FarmRepository farmRepository;
 
+    public PrincipalDetailsService(FarmRepository farmRepository) {
+        this.farmRepository = farmRepository;
+    }
+
     // 파라미터로 받아온 userName을 통해 db에서 userName이 있는지 확인
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {

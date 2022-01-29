@@ -9,6 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ResponseStep1 {
 
+    private Long id;
     private Long pageNum;
     private String farmName;
     private String farmAddress;
@@ -25,11 +26,12 @@ public class ResponseStep1 {
     private List<FarmImageResponseDto> farmImageResponseDtoList;
 
 
-    public ResponseStep1(Long pageNum, String farmName, String farmAddress, String fodder,
+    public ResponseStep1(Long id,Long pageNum, String farmName, String farmAddress, String fodder,
                          String identification, String ownFarm, String breedingType,
                          String population, Boolean livestockFarmingBusinessRegistration,
                          Boolean facilitiesStructure, Boolean annualFodderCostSpecification,
                          Boolean annualInspectionReport, Boolean businessLicense) {
+        this.id = id;
         this.pageNum = pageNum;
         this.farmName = farmName;
         this.farmAddress = farmAddress;
@@ -46,12 +48,13 @@ public class ResponseStep1 {
         ;
     }
 
-    public ResponseStep1(Long pageNum, String farmName, String farmAddress, String fodder,
+    public ResponseStep1(Long id,Long pageNum, String farmName, String farmAddress, String fodder,
                          String identification, String ownFarm, String breedingType,
                          String population, Boolean livestockFarmingBusinessRegistration,
                          Boolean facilitiesStructure, Boolean annualFodderCostSpecification,
                          Boolean annualInspectionReport, Boolean businessLicense,
                          List<FarmImageResponseDto> farmImageResponseDtoList) {
+        this.id = id;
         this.pageNum = pageNum;
         this.farmName = farmName;
         this.farmAddress = farmAddress;
