@@ -43,12 +43,6 @@ public class FarmController {
     }
 
 
-    @PostMapping("/api/login")
-    public void login(@RequestBody LoginRequestDto loginRequestDto){
-//       LoginResponseDto loginResponseDto = new LoginResponseDto(principalDetails.getFarm().getId());
-//        return loginResponseDto;
-        System.out.println("l;adkfj;lasjdfl;jasdf;l;sadjkfl;k");
-    }
     @GetMapping("api/farm/checkInfo/{userName}")
     public Object test(@PathVariable String userName){
         Object result = farmService.check(userName);
@@ -133,9 +127,9 @@ public class FarmController {
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
-    @GetMapping("/api/login/auth/checkInfo/{id}")
-    public ApiResponseDto<Object> test(@PathVariable Long id) {
-        Object result = farmService.check(id);
+    @GetMapping("/api/login/auth/checkInfo/{userName}")
+    public ApiResponseDto<Object> test1(@RequestParam String userName) {
+        Object result = farmService.check(userName);
         return ApiResponseDto.of(result);
     }
 
