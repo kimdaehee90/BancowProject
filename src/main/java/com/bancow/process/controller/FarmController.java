@@ -43,12 +43,6 @@ public class FarmController {
     }
 
 
-    @PostMapping("/api/login")
-    public void login(@RequestBody LoginRequestDto loginRequestDto){
-//       LoginResponseDto loginResponseDto = new LoginResponseDto(principalDetails.getFarm().getId());
-//        return loginResponseDto;
-        System.out.println("l;adkfj;lasjdfl;jasdf;l;sadjkfl;k");
-    }
     @GetMapping("api/farm/checkInfo/{userName}")
     public Object test(@PathVariable String userName){
         Object result = farmService.check(userName);
