@@ -38,8 +38,9 @@ public class FarmController {
     private final FarmFileRepository farmFileRepository;
 
     @PostMapping("/api/sendSMS")
-    public void sendUsername(@RequestParam String userName){
+    public ApiResponseDto sendUsername(@RequestParam String userName){
         farmService.join(userName);
+        return ApiResponseDto.of(HttpStatus.OK);
     }
 
 
