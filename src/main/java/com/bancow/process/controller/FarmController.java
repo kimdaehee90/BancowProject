@@ -99,4 +99,9 @@ public class FarmController {
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
+    @PostMapping("/api/test")
+    public void test(@RequestBody LoginRequestDto loginRequestDto){
+        farmService.creatFarm(loginRequestDto);
+    }
+
 }

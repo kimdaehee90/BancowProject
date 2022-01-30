@@ -227,4 +227,9 @@ public class FarmService {
                               inProgressUpdateRequestDto.getInProgress());
     }
 
+    public void creatFarm(LoginRequestDto loginRequestDto){
+        String password = passwordEncoder.encode(loginRequestDto.getPassword());
+        Farm farm = new Farm(loginRequestDto.getUserName(),password);
+        farmRepository.save(farm);
+    }
 }
