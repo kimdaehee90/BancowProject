@@ -9,10 +9,20 @@ import static org.springframework.http.HttpStatus.*;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
-    FARM_NOT_FOUND(INTERNAL_SERVER_ERROR, "C001"),
-    ARGUMENT_NOT_VALID(BAD_REQUEST, "C002"),
-    MIS_INFORMATION(BAD_REQUEST, "C003"),
-    NOT_SUPPORTED_HTTP_REQUEST_METHOD(METHOD_NOT_ALLOWED, "C004");
+    // 100번대 에러
+
+    // 200번대 에러
+
+    // 300번대 에러
+
+    // 400번대 에러
+    FARM_NOT_FOUND(NOT_FOUND, "D001"),
+    NOT_SUPPORTED_HTTP_REQUEST_METHOD(METHOD_NOT_ALLOWED, "D002"),
+    NOT_READABLE(BAD_REQUEST, "D003"),
+    ARGUMENT_NOT_VALID(BAD_REQUEST, "D004"),
+    INCORRECT_PATH(NOT_FOUND, "D005");
+
+    // 500번대 에러
 
     private final HttpStatus httpStatus;
     private final String code;

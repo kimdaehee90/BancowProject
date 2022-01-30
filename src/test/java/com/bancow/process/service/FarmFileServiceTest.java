@@ -34,7 +34,7 @@ class FarmFileServiceTest {
     }
 
     @Test
-    public void updateFile_success() throws Exception {
+    public void saveFile_success() throws Exception {
         //1. FarmFile 객체 생성 테스트
         //given
         Farm saveFarm = farmRepository.save(Farm
@@ -57,7 +57,7 @@ class FarmFileServiceTest {
                 .build();
 
         //when
-        farmFileService.updateFile(saveFarm.getId(), fileUpdateRequestDto1);
+        farmFileService.saveFile(saveFarm.getId(), fileUpdateRequestDto1);
         FarmFile farmFile1 = farmFileRepository.findFile(saveFarm.getId(), fileUpdateRequestDto1.getFileType());
 
         //then
@@ -81,7 +81,7 @@ class FarmFileServiceTest {
                 .fileType(fileType2)
                 .build();
         //when
-        farmFileService.updateFile(saveFarm.getId(), fileUpdateRequestDto2);
+        farmFileService.saveFile(saveFarm.getId(), fileUpdateRequestDto2);
         FarmFile farmFile2 = farmFileRepository.findFile(saveFarm.getId(), fileUpdateRequestDto2.getFileType());
 
         //then
