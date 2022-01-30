@@ -1,16 +1,14 @@
 package com.bancow.process.dto;
 
-import com.bancow.process.domain.FileType;
 import com.bancow.process.domain.InProgress;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class InProgressUpdateRequestDto {
 
     @NotNull
@@ -19,9 +17,4 @@ public class InProgressUpdateRequestDto {
     @NotBlank
     private InProgress inProgress;
 
-    @Builder
-    public InProgressUpdateRequestDto(Long pageNum, InProgress inProgress) {
-        this.pageNum = pageNum;
-        this.inProgress = inProgress;
-    }
 }

@@ -1,9 +1,6 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
-import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FarmImage;
-import com.bancow.process.domain.FileType;
 import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
@@ -14,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -65,13 +61,6 @@ public class FarmService {
 
     }
 
-
-    @Transactional
-    public void createFarm(RequestDto requestDto) {
-        farmRepository.save(requestDto.toEntity());
-    }
-
-
     @Transactional
     public void updatePageNum(Long farmId, PageNumUpdateRequestDto pageNumUpdateRequestDto) {
         Farm farm = farmRepository.findById(farmId).orElseThrow(
@@ -81,8 +70,6 @@ public class FarmService {
         farm.updatePageNum(pageNumUpdateRequestDto.getPageNum());
 
     }
-
-
 
     @Transactional
     @Builder
@@ -105,7 +92,7 @@ public class FarmService {
 
         if(farm.getInProgress().toString().equals(step1InProgress) || farm.getInProgress().toString().equals(step1Completed)){
            return step1Info(farm.getId());
-//
+
         }
 
         if(farm.getInProgress().toString().equals(step2InProgress) || farm.getInProgress().toString().equals(step2Completed) ){
@@ -143,6 +130,7 @@ public class FarmService {
 
         return responseStep1;
     }
+
     public ResponseStep2 step2Info(Long id){
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
@@ -182,8 +170,6 @@ public class FarmService {
                 farmOwnerInfoDto.getPageNum());
     }
 
-
-
     public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
@@ -195,7 +181,6 @@ public class FarmService {
                 farmInfoDto.getPageNum());
 
     }
-
 
     public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto) {
 

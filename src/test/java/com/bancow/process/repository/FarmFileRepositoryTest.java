@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import static com.bancow.process.domain.FileType.*;
 import static org.assertj.core.api.Assertions.*;

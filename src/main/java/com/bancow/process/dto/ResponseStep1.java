@@ -1,12 +1,11 @@
 package com.bancow.process.dto;
 
-import com.bancow.process.domain.FarmImage;
 import lombok.*;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseStep1 {
 
     private Long id;
@@ -24,29 +23,6 @@ public class ResponseStep1 {
     private Boolean annualInspectionReport;
     private Boolean businessLicense;
     private List<FarmImageResponseDto> farmImageUrl;
-
-
-    public ResponseStep1(Long id,Long pageNum, String farmName, String farmAddress, String fodder,
-                         String identification, String ownFarm, String breedingType,
-                         String population, Boolean livestockFarmingBusinessRegistration,
-                         Boolean facilitiesStructure, Boolean annualFodderCostSpecification,
-                         Boolean annualInspectionReport, Boolean businessLicense) {
-        this.id = id;
-        this.pageNum = pageNum;
-        this.farmName = farmName;
-        this.farmAddress = farmAddress;
-        this.fodder = fodder;
-        this.identification = identification;
-        this.ownFarm = ownFarm;
-        this.breedingType = breedingType;
-        this.population = population;
-        this.livestockFarmingBusinessRegistration = livestockFarmingBusinessRegistration;
-        this.facilitiesStructure = facilitiesStructure;
-        this.annualFodderCostSpecification = annualFodderCostSpecification;
-        this.annualInspectionReport = annualInspectionReport;
-        this.businessLicense = businessLicense
-        ;
-    }
 
     public ResponseStep1(Long id,Long pageNum, String farmName, String farmAddress, String fodder,
                          String identification, String ownFarm, String breedingType,
@@ -70,4 +46,5 @@ public class ResponseStep1 {
         this.businessLicense = businessLicense;
         this.farmImageUrl = farmImageUrl;
     }
+
 }

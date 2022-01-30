@@ -1,13 +1,14 @@
 package com.bancow.process.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class LoginRequestDto{
+
     private String userName;
+
     private String password;
+
 }

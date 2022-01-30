@@ -1,16 +1,14 @@
 package com.bancow.process.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "farm_image")
-@Data
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FarmImage extends BaseEntity{
 
     @Id

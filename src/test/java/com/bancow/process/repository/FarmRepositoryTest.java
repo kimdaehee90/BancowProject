@@ -25,7 +25,7 @@ class FarmRepositoryTest {
     @Test
     public void test(){
         Farm farm = new Farm();
-        farm.setFarmName("농장명");
+//        farm.setFarmName("농장명");
         farmRepository.save(farm);
 
         System.out.println(farmRepository.findAll());

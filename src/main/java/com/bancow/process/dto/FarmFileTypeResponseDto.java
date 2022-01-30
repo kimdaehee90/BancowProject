@@ -1,25 +1,12 @@
 package com.bancow.process.dto;
 
-import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FileType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 public class FarmFileTypeResponseDto {
+
     private String fileType;
 
-//    public FarmFileTypeResponseDto(FarmFile farmFile) {
-//        fileType = farmFile.getFileType();
-//    }
-////    public static FarmFileTypeResponseDto from(FileType type){
-////        return FarmFileTypeResponseDto.builder()
-////                .fileType(type)
-////                .build();
-////    }
 }

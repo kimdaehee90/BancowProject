@@ -1,11 +1,7 @@
 package com.bancow.process.domain;
 
-import com.bancow.process.dto.FarmInfoDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,10 +12,8 @@ import static com.bancow.process.domain.InProgress.*;
 
 @Entity
 @Table(name = "farm")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Farm extends BaseEntity {
 
     @Id
@@ -157,6 +151,7 @@ public class Farm extends BaseEntity {
     public void updatePageNum(Long pageNum) {
         this.pageNum = pageNum;
     }
+
     public void updateInvestigationRequest(Long pageNum, LocalDateTime investigationRequest) {
         this.pageNum = pageNum;
         this.investigationRequest = investigationRequest;
@@ -205,4 +200,5 @@ public class Farm extends BaseEntity {
         this.pageNum = pageNum;
         this.inProgress = inProgress;
     }
+
 }

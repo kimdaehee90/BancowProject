@@ -1,13 +1,12 @@
 package com.bancow.process.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FarmImageResponseDto {
+
     private String imageUrl;
 
 }
