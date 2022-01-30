@@ -1,14 +1,13 @@
 package com.bancow.process.dto;
 
-import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FileType;
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseStep2 {
     private Long id;
     private List<FarmFileTypeResponseDto> farmFiles;

@@ -1,21 +1,15 @@
 package com.bancow.process.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class PageNumUpdateRequestDto {
 
     @NotNull
     private Long pageNum;
-
-    @Builder
-    public PageNumUpdateRequestDto(Long pageNum) {
-        this.pageNum = pageNum;
-    }
 
 }

@@ -1,15 +1,15 @@
 package com.bancow.process.dto;
 
 import com.bancow.process.domain.ImageType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class ImageUpdateRequestDto {
 
     @NotBlank
@@ -24,14 +24,4 @@ public class ImageUpdateRequestDto {
     @NotNull
     private ImageType imageType;
 
-    @Builder
-    public ImageUpdateRequestDto(String originalImageName,
-                                 String changedImageName,
-                                 String imageUrl,
-                                 ImageType imageType) {
-        this.originalImageName = originalImageName;
-        this.changedImageName = changedImageName;
-        this.imageUrl = imageUrl;
-        this.imageType = imageType;
-    }
 }
