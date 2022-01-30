@@ -114,6 +114,7 @@ public class FarmService {
                 farm.getPageNum(),
                 farm.getFarmName(),
                 farm.getFarmAddress(),
+                farm.getFarmPostCode(),
                 farm.getFodder(),
                 farm.getIdentification(),
                 farm.getOwnFarm(),
@@ -177,6 +178,7 @@ public class FarmService {
 
         farm.updateFarmInfo(farmInfoDto.getFarmName(),
                 farmInfoDto.getFarmAddress(),
+                farmInfoDto.getFarmPostCode(),
                 farmInfoDto.getFodder(),
                 farmInfoDto.getPageNum());
 

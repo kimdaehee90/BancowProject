@@ -60,6 +60,10 @@ public class Farm extends BaseEntity {
     @Column(name = "farm_address")
     private String farmAddress;
 
+    // 농장 우편번호
+    @Column(name = "farm_postcode")
+    private String farmPostCode;
+
     // 농장 이름
     @Column(name = "farm_name")
     private String farmName;
@@ -170,9 +174,10 @@ public class Farm extends BaseEntity {
         this.pageNum = pageNum;
     }
 
-    public void updateFarmInfo(String farmName, String farmAddress, String fodder, Long pageNum) {
+    public void updateFarmInfo(String farmName, String farmAddress, String farmPostCode, String fodder, Long pageNum) {
         this.farmName = farmName;
         this.farmAddress = farmAddress;
+        this.farmPostCode = farmPostCode;
         this.fodder = fodder;
         this.pageNum = pageNum;
     }

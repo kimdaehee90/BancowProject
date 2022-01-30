@@ -18,6 +18,9 @@ public class FarmInfoDto {
     private String farmAddress;
 
     @NotBlank
+    private String farmPostCode;
+
+    @NotBlank
     private String fodder;
 
     @NotNull

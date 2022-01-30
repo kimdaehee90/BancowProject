@@ -75,6 +75,7 @@ public class FarmServiceTest {
         FarmInfoDto testDto = FarmInfoDto.builder()
                 .farmName("농장이름")
                 .farmAddress("농장주소")
+                .farmPostCode("123-456")
                 .fodder("사료")
                 .pageNum(31L)
                 .build();
