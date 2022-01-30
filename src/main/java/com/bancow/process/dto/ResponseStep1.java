@@ -12,6 +12,7 @@ public class ResponseStep1 {
     private Long pageNum;
     private String farmName;
     private String farmAddress;
+    private String farmPostCode;
     private String fodder;
     private String identification;
     private String ownFarm;
@@ -24,7 +25,7 @@ public class ResponseStep1 {
     private Boolean businessLicense;
     private List<FarmImageResponseDto> farmImageUrl;
 
-    public ResponseStep1(Long id,Long pageNum, String farmName, String farmAddress, String fodder,
+    public ResponseStep1(Long id,Long pageNum, String farmName, String farmAddress, String farmPostCode,String fodder,
                          String identification, String ownFarm, String breedingType,
                          String population, Boolean livestockFarmingBusinessRegistration,
                          Boolean facilitiesStructure, Boolean annualFodderCostSpecification,
@@ -34,6 +35,7 @@ public class ResponseStep1 {
         this.pageNum = pageNum;
         this.farmName = farmName;
         this.farmAddress = farmAddress;
+        this.farmPostCode = farmPostCode;
         this.fodder = fodder;
         this.identification = identification;
         this.ownFarm = ownFarm;
