@@ -33,7 +33,7 @@ class FarmImageServiceTest {
     }
 
     @Test
-    public void updateImage_success() throws Exception {
+    public void saveImage_success() throws Exception {
         //1. FarmImage 객체 생성 테스트
         //given
         Farm saveFarm = farmRepository.save(Farm
@@ -56,7 +56,7 @@ class FarmImageServiceTest {
                 .build();
 
         //when
-        farmImageService.updateImage(saveFarm.getId(), imageUpdateRequestDto1);
+        farmImageService.saveImage(saveFarm.getId(), imageUpdateRequestDto1);
         FarmImage farmImage1 = farmImageRepository.findImage(saveFarm.getId(), imageUpdateRequestDto1.getImageType());
 
         //then
@@ -80,7 +80,7 @@ class FarmImageServiceTest {
                 .imageType(imageType2)
                 .build();
         //when
-        farmImageService.updateImage(saveFarm.getId(), imageUpdateRequestDto2);
+        farmImageService.saveImage(saveFarm.getId(), imageUpdateRequestDto2);
         FarmImage farmImage2 = farmImageRepository.findImage(saveFarm.getId(), imageUpdateRequestDto2.getImageType());
 
         //then
