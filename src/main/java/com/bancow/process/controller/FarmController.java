@@ -1,6 +1,7 @@
 package com.bancow.process.controller;
 
 import com.bancow.process.dto.*;
+import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Stream;
 
 
 @RestController
@@ -20,6 +23,7 @@ public class FarmController {
     private final FarmService farmService;
     private final FarmFileService farmFileService;
     private final FarmImageService farmImageService;
+    private final FarmImageRepository farmImageRepository;
 
     @PostMapping("/api/sendSMS")
     public ApiResponseDto sendUsername(@RequestParam String userName){
@@ -27,9 +31,9 @@ public class FarmController {
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
-    @GetMapping("/api/farm/checkInfo/{userName}")
-    public ApiResponseDto checkInfo(@PathVariable String userName){
-        Object result = farmService.check(userName);
+    @GetMapping("/api/farm/checkInfo/{phoneNumber}")
+    public ApiResponseDto checkInfo(@PathVariable String phoneNumber){
+        Object result = farmService.check(phoneNumber);
         return ApiResponseDto.of(result);
     }
 
@@ -100,8 +104,14 @@ public class FarmController {
     }
 
     @PostMapping("/api/test")
-    public void test(@RequestBody LoginRequestDto loginRequestDto){
-        farmService.creatFarm(loginRequestDto);
+    public void test(@RequestBody LoginRequestDto loginRequestDto){farmService.creatFarm(loginRequestDto);
     }
 
+//    @PostMapping("/api/test")
+//    public void test(){
+//        System.out.println("=====================================");
+//        List<FarmImageResponseDto> farmImageResponseDtos = farmImageRepository.findByFarmId(1L);
+//        Stream<FarmImageResponseDto> stream = farmImageResponseDtos.stream();
+//        stream.forEach(a -> System.out.println(a));
+//    }
 }

@@ -21,9 +21,9 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     // 파라미터로 받아온 userName을 통해 db에서 userName이 있는지 확인
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Farm userEntity = farmRepository.findByUserName(userName)
-                .orElseThrow(() -> new UsernameNotFoundException(userName + "을 찾을 수 없습니다. "));
+    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
+        Farm userEntity = farmRepository.findByPhoneNumber(phoneNumber)
+                .orElseThrow(() -> new UsernameNotFoundException(phoneNumber + "을 찾을 수 없습니다. "));
         return new PrincipalDetails(userEntity);
     }
 }

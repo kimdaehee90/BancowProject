@@ -1,6 +1,7 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
+import com.bancow.process.domain.FarmImage;
 import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
@@ -28,10 +29,10 @@ public class FarmService {
     private final FarmImageRepository farmImageRepository;
 
     @Transactional
-    public void join(String userName) {
+    public void join(String phoneNumber) {
 
         // userName으로 번호가 있는지 조회
-        Optional<Farm> user = farmRepository.findByUserName(userName);
+        Optional<Farm> user = farmRepository.findByPhoneNumber(phoneNumber);
 
         //인증번호 생성
         Random rand = new Random();
@@ -46,7 +47,7 @@ public class FarmService {
 
         if (user.isEmpty()) {
             //farm 객체 생성해서 userName과 인코딩한 password 저장
-            Farm farm = new Farm(userName, password);
+            Farm farm = new Farm(phoneNumber, password);
             farmRepository.save(farm);
 
         } else {
@@ -57,7 +58,7 @@ public class FarmService {
         }
 
         // userName(폰 번호)과 인증번호 발송
-        certificationService.certifiedPhoneNumber(userName, numStr);
+        certificationService.certifiedPhoneNumber(phoneNumber, numStr);
 
     }
 
@@ -73,20 +74,20 @@ public class FarmService {
 
     @Transactional
     @Builder
-    public Object check(String userName){
+    public Object check(String phoneNumber){
 
         String step1InProgress = "STEP1_IN_PROGRESS";
         String step1Completed = "STEP1_COMPLETED";
         String step2InProgress = "STEP2_IN_PROGRESS";
         String step2Completed = "STEP2_COMPLETED";
-        Farm farm = farmRepository.findByUserName(userName).orElseThrow(
+        Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-        System.out.println(userName);
+        System.out.println(phoneNumber);
         // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
         if(farm.getInProgress() == null){
-            LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getUserName());
+            LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber());
             return loginResponseDto;
         }
 
@@ -107,12 +108,16 @@ public class FarmService {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-        List<String> farmImages = farmImageRepository.findUrl(id);
+        List<String> farmUrl = farmImageRepository.findUrl(id);
+
+
 
         ResponseStep1 responseStep1 = new ResponseStep1(
                 farm.getId(),
                 farm.getPageNum(),
                 farm.getFarmName(),
+                farm.getName(),
+                farm.getEmail(),
                 farm.getFarmAddress(),
                 farm.getFarmPostCode(),
                 farm.getFodder(),
@@ -125,7 +130,7 @@ public class FarmService {
                 farm.getAnnualFodderCostSpecification(),
                 farm.getAnnualInspectionReport(),
                 farm.getBusinessLicense(),
-                farmImages.stream().map(o -> new FarmImageResponseDto(o))
+                farmUrl.stream().map(o -> new FarmImageResponseDto(o))
                         .collect(Collectors.toList())
         );
 
@@ -229,7 +234,7 @@ public class FarmService {
 
     public void creatFarm(LoginRequestDto loginRequestDto){
         String password = passwordEncoder.encode(loginRequestDto.getPassword());
-        Farm farm = new Farm(loginRequestDto.getUserName(),password);
+        Farm farm = new Farm(loginRequestDto.getPhoneNumber(),password);
         farmRepository.save(farm);
     }
 }

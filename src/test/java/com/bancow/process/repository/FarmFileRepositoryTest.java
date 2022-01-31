@@ -33,7 +33,7 @@ class FarmFileRepositoryTest {
 
         // given
         Farm saveFarm = farmRepository.save(Farm.builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 
@@ -65,7 +65,7 @@ class FarmFileRepositoryTest {
     public void findFile_fail_IncorrectResultSizeDataAccessException() {
         // given
         Farm saveFarm = farmRepository.save(Farm.builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 
