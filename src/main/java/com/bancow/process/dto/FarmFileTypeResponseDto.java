@@ -1,5 +1,7 @@
 package com.bancow.process.dto;
 
+import com.bancow.process.domain.FarmFile;
+import com.bancow.process.domain.FileType;
 import lombok.*;
 
 @Getter
@@ -7,6 +9,11 @@ import lombok.*;
 @AllArgsConstructor
 public class FarmFileTypeResponseDto {
 
-    private String fileType;
+    private Long farmFileId;
+    private FileType fileType;
 
+    public FarmFileTypeResponseDto(FarmFile o) {
+        this.farmFileId = o.getId();
+        this.fileType = o.getFileType();
+    }
 }

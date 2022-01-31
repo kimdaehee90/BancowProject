@@ -1,6 +1,7 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
+import com.bancow.process.domain.FarmFile;
 import com.bancow.process.domain.FarmImage;
 import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
@@ -108,9 +109,8 @@ public class FarmService {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-        List<String> farmUrl = farmImageRepository.findUrl(id);
 
-
+        List<FarmImage> farmImageList = farmImageRepository.findByFarmId(id);
 
         ResponseStep1 responseStep1 = new ResponseStep1(
                 farm.getId(),
@@ -130,7 +130,7 @@ public class FarmService {
                 farm.getAnnualFodderCostSpecification(),
                 farm.getAnnualInspectionReport(),
                 farm.getBusinessLicense(),
-                farmUrl.stream().map(o -> new FarmImageResponseDto(o))
+                farmImageList.stream().map(o -> new FarmImageResponseDto(o))
                         .collect(Collectors.toList())
         );
 
@@ -141,11 +141,12 @@ public class FarmService {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
-        List<String> farmfile = farmFileRepository.fileType(id);
+
+        List<FarmFile> farmFileList = farmFileRepository.findByFarmId(id);
 
         ResponseStep2 responseStep2 = new ResponseStep2(
                 farm.getId(),
-                farmfile.stream().map(o -> new FarmFileTypeResponseDto(o))
+                farmFileList.stream().map(o -> new FarmFileTypeResponseDto(o))
                         .collect(Collectors.toList())
         );
 

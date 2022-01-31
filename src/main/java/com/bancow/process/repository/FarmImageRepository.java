@@ -20,10 +20,7 @@ public interface FarmImageRepository extends JpaRepository<FarmImage, Long> {
             "where fi.farm.id = :id")
     List<String> findUrl(@Param("id") Long id);
 
-//    @Query("select fi from FarmImage fi " +
-//            "where fi.farm.id = :id")
-//   FarmImage findImage(@Param("id") Long id);
-//    List<FarmImage> findByFarmId(Long id);
-//    FarmImage findByImageType(String imageType);
+    List<FarmImage> findByFarmId(Long id);
+
 }
 
