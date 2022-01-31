@@ -10,10 +10,10 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseStep2 {
     private Long id;
-    private List<FarmFileTypeResponseDto> farmFiles;
+    private List<FarmFileTypeResponseDto> farmFile;
 
-    public ResponseStep2(Long id, List<FarmFileTypeResponseDto> farmFiles) {
+    public ResponseStep2(Long id, List<FarmFileTypeResponseDto> farmFile) {
         this.id = id;
-        this.farmFiles = farmFiles;
+        this.farmFile = farmFile;
     }
 }
