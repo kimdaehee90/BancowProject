@@ -29,7 +29,7 @@ public class FarmServiceTest {
     public void updateFarmAgreementTest(){
         Farm saveFarm = farmRepository.save(Farm
                 .builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 
@@ -49,7 +49,7 @@ public class FarmServiceTest {
     public void updateFarmOwnerInfoTest(){
         Farm saveFarm = farmRepository.save(Farm
                 .builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 
@@ -68,7 +68,7 @@ public class FarmServiceTest {
     public void updateFarmInfoTest(){
         Farm saveFarm = farmRepository.save(Farm
                 .builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 
@@ -90,7 +90,7 @@ public class FarmServiceTest {
     public void updateFarmInfoCheckTest(){
         Farm saveFarm = farmRepository.save(Farm
                 .builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 
@@ -112,7 +112,7 @@ public class FarmServiceTest {
     public void updateFarmFilesCheckTest(){
         Farm saveFarm = farmRepository.save(Farm
                 .builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 

@@ -47,12 +47,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         System.out.println("1==================================================");
         // 토큰을 서명하고 검증해서 통과하면 FarmName을 가져옴
         String userName = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
-                .getClaim("userName").asString();
+                .getClaim("phoneNumber").asString();
 
         System.out.println("=====================================================");
         // 서명이 정상적으로 됐다면
         if(userName != null) {
-            Farm farmEntity = farmRepository.findByUserName(userName)
+            Farm farmEntity = farmRepository.findByPhoneNumber(userName)
                     .orElseThrow(() -> new UsernameNotFoundException("번호를 찾을 수 없습니다. "));
 
 

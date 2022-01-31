@@ -24,7 +24,7 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return farm.getUserName();
+        return farm.getPhoneNumber();
     }
 
     @Override

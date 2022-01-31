@@ -22,14 +22,14 @@ class FarmRepositoryTest {
     @Autowired
     FarmRepository farmRepository;
 
-    @Test
-    public void test(){
-        Farm farm = new Farm();
-//        farm.setFarmName("농장명");
-        farmRepository.save(farm);
-
-        System.out.println(farmRepository.findAll());
-
-    }
+//    @Test
+//    public void test(){
+//        Farm farm = new Farm();
+////        farm.setFarmName("농장명");
+//        farmRepository.save(farm);
+//
+//        System.out.println(farmRepository.findAll());
+//
+//    }
 
 }

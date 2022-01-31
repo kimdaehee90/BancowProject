@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 유저네임패스워드 토큰 생성
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                        loginRequestDto.getUserName(),
+                        loginRequestDto.getPhoneNumber(),
                         loginRequestDto.getPassword());
 
         System.out.println("JwtAuthenticationFilter : 토큰생성완료");
@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // authentication 객체가 session영역에 저장됨. -> 로그인 되었다는 뜻.
         PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
-        System.out.println("Authentication : "+principalDetailis.getFarm().getUserName());
+        System.out.println("Authentication : "+principalDetailis.getFarm().getPhoneNumber());
         return authentication;
     }
     // JWT Token 생성해서 response에 담아주기
@@ -69,10 +69,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String jwtToken = JWT.create()
                 .withIssuer("BANCOW") // 발행자
                 .withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME)) // 토큰 유효기간
-                .withClaim("userName", principalDetailis.getFarm().getUserName()) // 토큰에 담은 정보(번호)
+                .withClaim("phoneNumber", principalDetailis.getFarm().getPhoneNumber()) // 토큰에 담은 정보(번호)
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
-        System.out.println(principalDetailis.getFarm().getUserName());
+        System.out.println(principalDetailis.getFarm().getPhoneNumber());
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken);
 
     }

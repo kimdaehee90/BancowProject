@@ -8,6 +8,6 @@ import lombok.*;
 public class LoginResponseDto {
 
     private Long id;
-    private String userName;
+    private String phoneNumber;
 
 }

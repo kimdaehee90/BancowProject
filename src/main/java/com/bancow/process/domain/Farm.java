@@ -22,7 +22,7 @@ public class Farm extends BaseEntity {
 
     // 전화번호(필드이름 대체 예정)
     @Column(name = "phone_number")
-    private String userName;
+    private String phoneNumber;
 
     // 인증번호(필드이름 대체 예정)
     private String password;
@@ -143,8 +143,8 @@ public class Farm extends BaseEntity {
     private List<FarmFile> farmFile = new ArrayList<>();
 
     @Builder
-    public Farm(String userName, String password) {
-        this.userName = userName;
+    public Farm(String phoneNumber, String password) {
+        this.phoneNumber = phoneNumber;
         this.password = password;
     }
 

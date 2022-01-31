@@ -39,7 +39,7 @@ class FarmFileServiceTest {
         //given
         Farm saveFarm = farmRepository.save(Farm
                 .builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 
