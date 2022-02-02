@@ -1,19 +1,19 @@
 # H2를 이용한 local 개발 단계에서 사용
-spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/test
-    username: sa
-    password:
+#spring:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:tcp://localhost/~/test
+#    username: sa
+#    password:
 
 
 # MySQL을 이용한 배포 단계에서 사용
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://bancow5-database.cwxrdrylwixr.ap-northeast-2.rds.amazonaws.com/bancow5
-#    username: admin
-#    password: bancow5!
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://bancow5-database.cwxrdrylwixr.ap-northeast-2.rds.amazonaws.com/bancow5
+    username: admin
+    password: bancow5!
 
 
   jpa:

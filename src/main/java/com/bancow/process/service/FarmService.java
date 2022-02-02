@@ -87,10 +87,10 @@ public class FarmService {
 
         System.out.println(phoneNumber);
         // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
-        if(farm.getInProgress() == null){
-            LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber());
-            return loginResponseDto;
-        }
+//        if(farm.getInProgress() == null){
+//            LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
+//            return loginResponseDto;
+//        }
 
         if(farm.getInProgress().toString().equals(step1InProgress) || farm.getInProgress().toString().equals(step1Completed)){
            return step1Info(farm.getId());
@@ -102,7 +102,9 @@ public class FarmService {
             return step2Info(farm.getId());
 
         }
-        return farm.getInProgress();
+        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
+        return loginResponseDto;
+//        return farm.getInProgress();
     }
 
     public ResponseStep1 step1Info(Long id){
