@@ -7,6 +7,7 @@ import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
+import com.bancow.process.util.LocalDateTimeConverter;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+
+import static com.bancow.process.util.LocalDateTimeConverter.*;
 
 @Service
 @Transactional
@@ -223,7 +226,7 @@ public class FarmService {
         );
 
         farm.updateInvestigationRequest(investigationRequestUpdateRequestDto.getPageNum(),
-                investigationRequestUpdateRequestDto.getInvestigationRequest());
+                LocalDateToLocalDateTime(investigationRequestUpdateRequestDto.getInvestigationRequest()));
     }
 
     public void updateInProgress(Long farmId, InProgressUpdateRequestDto inProgressUpdateRequestDto) {
