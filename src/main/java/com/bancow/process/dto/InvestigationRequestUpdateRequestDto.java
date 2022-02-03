@@ -4,7 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,7 +15,7 @@ public class InvestigationRequestUpdateRequestDto {
     private Long pageNum;
 
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime investigationRequest;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate investigationRequest;
 
 }
