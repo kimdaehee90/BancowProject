@@ -3,7 +3,6 @@ package com.bancow.process.dto;
 import com.bancow.process.domain.InProgress;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -14,7 +13,7 @@ public class InProgressUpdateRequestDto {
     @NotNull
     private Long pageNum;
 
-    @NotBlank
+    @NotNull
     private InProgress inProgress;
 
 }
