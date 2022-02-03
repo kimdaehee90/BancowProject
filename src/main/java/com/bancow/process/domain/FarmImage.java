@@ -1,5 +1,6 @@
 package com.bancow.process.domain;
 
+import com.bancow.process.constant.ImageType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 

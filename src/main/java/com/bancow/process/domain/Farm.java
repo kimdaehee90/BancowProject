@@ -1,5 +1,6 @@
 package com.bancow.process.domain;
 
+import com.bancow.process.constant.InProgress;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bancow.process.domain.InProgress.*;
+import static com.bancow.process.constant.InProgress.*;
 
 @Entity
 @Table(name = "farm")

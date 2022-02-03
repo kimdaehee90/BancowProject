@@ -1,7 +1,7 @@
 package com.bancow.process.repository;
 
 import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FileType;
+import com.bancow.process.constant.FileType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

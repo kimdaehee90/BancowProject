@@ -1,4 +1,4 @@
-package com.bancow.process.exception;
+package com.bancow.process.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

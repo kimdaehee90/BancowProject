@@ -1,7 +1,7 @@
 package com.bancow.process.service;
 
+import com.bancow.process.constant.ImageType;
 import com.bancow.process.domain.*;
-import com.bancow.process.dto.FileUpdateRequestDto;
 import com.bancow.process.dto.ImageUpdateRequestDto;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.bancow.process.domain.ImageType.*;
+import static com.bancow.process.constant.ImageType.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class FarmImageServiceTest {

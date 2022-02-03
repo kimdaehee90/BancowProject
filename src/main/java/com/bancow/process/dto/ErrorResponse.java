@@ -1,6 +1,6 @@
 package com.bancow.process.dto;
 
-import com.bancow.process.exception.ErrorCode;
+import com.bancow.process.constant.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

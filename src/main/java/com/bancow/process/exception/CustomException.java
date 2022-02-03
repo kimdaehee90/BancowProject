@@ -1,5 +1,6 @@
 package com.bancow.process.exception;
 
+import com.bancow.process.constant.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

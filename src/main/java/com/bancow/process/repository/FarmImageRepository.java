@@ -1,9 +1,7 @@
 package com.bancow.process.repository;
 
-import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmImage;
-import com.bancow.process.domain.ImageType;
-import com.bancow.process.dto.FarmImageResponseDto;
+import com.bancow.process.constant.ImageType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

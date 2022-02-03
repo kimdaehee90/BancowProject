@@ -1,4 +1,4 @@
-package com.bancow.process.domain;
+package com.bancow.process.constant;
 
 public enum ImageType {
     FARM_OUTSIDE,       // 농장 외부

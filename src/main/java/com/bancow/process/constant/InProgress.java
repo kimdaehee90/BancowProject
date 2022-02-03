@@ -1,4 +1,4 @@
-package com.bancow.process.domain;
+package com.bancow.process.constant;
 
 public enum InProgress {
     STEP1_IN_PROGRESS,              // 1차 작성중
