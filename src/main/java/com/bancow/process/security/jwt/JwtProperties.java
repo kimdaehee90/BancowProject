@@ -1,4 +1,4 @@
-package com.bancow.process.security.config.jwt;
+package com.bancow.process.security.jwt;
 
 public interface JwtProperties {
     String SECRET = "bancow"; // 우리 서버만 알고 있는 비밀값

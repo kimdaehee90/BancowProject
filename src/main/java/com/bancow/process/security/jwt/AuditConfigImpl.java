@@ -1,4 +1,4 @@
-package com.bancow.process.security.config.jwt;
+package com.bancow.process.security.jwt;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
