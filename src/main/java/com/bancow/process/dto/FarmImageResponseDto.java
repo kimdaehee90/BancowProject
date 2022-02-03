@@ -1,11 +1,8 @@
 package com.bancow.process.dto;
 
 import com.bancow.process.domain.FarmImage;
-import com.bancow.process.domain.ImageType;
+import com.bancow.process.constant.ImageType;
 import lombok.*;
-import org.springframework.security.core.parameters.P;
-
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

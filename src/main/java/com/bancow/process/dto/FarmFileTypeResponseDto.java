@@ -1,7 +1,7 @@
 package com.bancow.process.dto;
 
 import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FileType;
+import com.bancow.process.constant.FileType;
 import lombok.*;
 
 @Getter

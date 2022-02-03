@@ -1,5 +1,6 @@
 package com.bancow.process.exception;
 
+import com.bancow.process.constant.ErrorCode;
 import com.bancow.process.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

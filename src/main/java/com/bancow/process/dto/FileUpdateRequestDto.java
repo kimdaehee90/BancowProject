@@ -1,6 +1,6 @@
 package com.bancow.process.dto;
 
-import com.bancow.process.domain.FileType;
+import com.bancow.process.constant.FileType;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;

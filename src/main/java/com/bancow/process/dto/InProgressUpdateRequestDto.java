@@ -1,6 +1,6 @@
 package com.bancow.process.dto;
 
-import com.bancow.process.domain.InProgress;
+import com.bancow.process.constant.InProgress;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;

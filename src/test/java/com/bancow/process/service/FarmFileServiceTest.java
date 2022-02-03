@@ -2,7 +2,7 @@ package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FileType;
+import com.bancow.process.constant.FileType;
 import com.bancow.process.dto.FileUpdateRequestDto;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmRepository;
@@ -11,9 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.bancow.process.domain.FileType.*;
+import static com.bancow.process.constant.FileType.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class FarmFileServiceTest {

@@ -1,4 +1,4 @@
-package com.bancow.process.domain;
+package com.bancow.process.constant;
 
 public enum FileType {
     LIVESTOCK_REGISTRATION,     // 가축 사업 등록증

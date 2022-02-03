@@ -2,15 +2,14 @@ package com.bancow.process.repository;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmImage;
-import com.bancow.process.domain.ImageType;
+import com.bancow.process.constant.ImageType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.bancow.process.domain.ImageType.*;
+import static com.bancow.process.constant.ImageType.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class FarmImageRepositoryTest {

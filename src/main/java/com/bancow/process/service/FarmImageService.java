@@ -4,7 +4,7 @@ import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmImage;
 import com.bancow.process.dto.ImageUpdateRequestDto;
 import com.bancow.process.exception.CustomException;
-import com.bancow.process.exception.ErrorCode;
+import com.bancow.process.constant.ErrorCode;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
 import lombok.RequiredArgsConstructor;
