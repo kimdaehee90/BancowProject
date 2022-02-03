@@ -1,10 +1,10 @@
-package com.bancow.process.security.config.jwt;
+package com.bancow.process.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.bancow.process.domain.Farm;
 import com.bancow.process.repository.FarmRepository;
-import com.bancow.process.security.config.auth.PrincipalDetails;
+import com.bancow.process.security.auth.PrincipalDetails;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

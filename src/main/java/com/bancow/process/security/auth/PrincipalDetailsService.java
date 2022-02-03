@@ -1,4 +1,4 @@
-package com.bancow.process.security.config.auth;
+package com.bancow.process.security.auth;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.repository.FarmRepository;
