@@ -2,6 +2,8 @@ package com.bancow.process.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +16,8 @@ import static com.bancow.process.domain.InProgress.*;
 @Table(name = "farm")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Farm extends BaseEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class Farm extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -141,6 +144,10 @@ public class Farm extends BaseEntity {
     @JsonBackReference
     @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FarmFile> farmFile = new ArrayList<>();
+
+    @LastModifiedBy
+    @Column(name = "last_modified_by")
+    private String lastModifiedBy;
 
     @Builder
     public Farm(String phoneNumber, String password) {
