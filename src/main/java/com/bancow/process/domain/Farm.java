@@ -21,7 +21,7 @@ public class Farm extends BaseEntity {
     private Long id;
 
     // 전화번호(필드이름 대체 예정)
-    @Column(name = "phone_number")
+    @Column(name = "phone_number",unique = true)
     private String phoneNumber;
 
     // 인증번호(필드이름 대체 예정)
