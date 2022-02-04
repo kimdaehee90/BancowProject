@@ -1,5 +1,6 @@
-package com.bancow.process.dto;
+package com.bancow.process.dto.response;
 
+import com.bancow.process.dto.response.FarmImageResponseDto;
 import lombok.*;
 
 import java.util.List;

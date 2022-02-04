@@ -1,7 +1,7 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
-import com.bancow.process.dto.*;
+import com.bancow.process.dto.request.*;
 import com.bancow.process.repository.FarmRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

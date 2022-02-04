@@ -2,7 +2,7 @@ package com.bancow.process.service;
 
 import com.bancow.process.constant.ImageType;
 import com.bancow.process.domain.*;
-import com.bancow.process.dto.ImageUpdateRequestDto;
+import com.bancow.process.dto.request.ImageUpdateRequestDto;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
 import org.junit.jupiter.api.AfterEach;

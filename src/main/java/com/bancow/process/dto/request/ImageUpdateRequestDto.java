@@ -1,4 +1,4 @@
-package com.bancow.process.dto;
+package com.bancow.process.dto.request;
 
 import com.bancow.process.constant.ImageType;
 import lombok.*;

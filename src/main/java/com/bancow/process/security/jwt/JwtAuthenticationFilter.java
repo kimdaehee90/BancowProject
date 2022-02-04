@@ -2,7 +2,7 @@ package com.bancow.process.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.bancow.process.dto.LoginRequestDto;
+import com.bancow.process.dto.request.LoginRequestDto;
 import com.bancow.process.security.auth.PrincipalDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

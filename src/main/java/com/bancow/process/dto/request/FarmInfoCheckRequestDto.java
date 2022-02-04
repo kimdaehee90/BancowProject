@@ -1,6 +1,5 @@
-package com.bancow.process.dto;
+package com.bancow.process.dto.request;
 
-import com.bancow.process.constant.FileType;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -10,19 +9,21 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class FileUpdateRequestDto {
+public class FarmInfoCheckRequestDto {
 
     @NotBlank
-    private String originalFileName;
+    private String identification;
 
     @NotBlank
-    private String changedFileName;
+    private String ownFarm;
 
     @NotBlank
-    private String fileUrl;
+    private String breedingType;
+
+    @NotBlank
+    private String population;
 
     @NotNull
-    private FileType fileType;
+    private Long pageNum;
 
 }
-
