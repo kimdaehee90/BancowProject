@@ -21,8 +21,8 @@ public class FarmController {
     private final FarmImageService farmImageService;
 
     @PostMapping("/api/sendSMS")
-    public ApiResponseDto sendUsername(@RequestParam String userName){
-        farmService.join(userName);
+    public ApiResponseDto sendUsername(@RequestParam String phoneNumber){
+        farmService.join(phoneNumber);
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
@@ -47,32 +47,32 @@ public class FarmController {
     }
 
     @PutMapping("/api/farm/{id}/agreement")
-    public ApiResponseDto farmAgreement(@PathVariable Long id, @RequestBody @Valid FarmAgreementDto farmAgreementDto){
+    public ApiResponseDto farmAgreement(@PathVariable Long id, @RequestBody @Valid FarmAgreementRequestDto farmAgreementDto){
         farmService.updateFarmAgreement(id, farmAgreementDto);
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
     @PutMapping("/api/farm/{id}/owner-info")
-    public ApiResponseDto farmOwnerInfo(@PathVariable Long id, @RequestBody @Valid FarmOwnerInfoDto farmOwnerInfoDto){
+    public ApiResponseDto farmOwnerInfo(@PathVariable Long id, @RequestBody @Valid FarmOwnerInfoRequestDto farmOwnerInfoDto){
         farmService.updateFarmOwnerInfo(id, farmOwnerInfoDto);
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
     @PutMapping("/api/farm/{id}/info")
-    public ApiResponseDto farmInfo(@PathVariable Long id, @RequestBody @Valid FarmInfoDto farmInfoDto) {
+    public ApiResponseDto farmInfo(@PathVariable Long id, @RequestBody @Valid FarmInfoRequestDto farmInfoDto) {
         farmService.updateFarmInfo(id, farmInfoDto);
         return ApiResponseDto.of(HttpStatus.OK);
 
     }
 
     @PutMapping("/api/farm/{id}/info-check")
-    public ApiResponseDto farmInfoCheck(@PathVariable Long id, @RequestBody @Valid FarmInfoCheckDto farmInfoCheckDto){
+    public ApiResponseDto farmInfoCheck(@PathVariable Long id, @RequestBody @Valid FarmInfoCheckRequestDto farmInfoCheckDto){
         farmService.updateFarmInfoCheck(id, farmInfoCheckDto);
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
     @PutMapping("/api/farm/{id}/files-check")
-    public ApiResponseDto farmFilesCheck(@PathVariable Long id, @RequestBody @Valid FarmFilesCheckDto farmFilesCheckDto){
+    public ApiResponseDto farmFilesCheck(@PathVariable Long id, @RequestBody @Valid FarmFilesCheckRequestDto farmFilesCheckDto){
         farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
         return ApiResponseDto.of(HttpStatus.OK);
     }

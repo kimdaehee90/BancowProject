@@ -7,7 +7,6 @@ import com.bancow.process.dto.*;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
-import com.bancow.process.util.LocalDateTimeConverter;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +37,7 @@ public class FarmService {
         // userName으로 번호가 있는지 조회
         Optional<Farm> user = farmRepository.findByPhoneNumber(phoneNumber);
 
-        //인증번호 생성
+        //인증번호 생성z
         Random rand = new Random();
         String numStr = "";
         for (int i = 0; i < 4; i++) {
@@ -110,14 +109,14 @@ public class FarmService {
 //        return farm.getInProgress();
     }
 
-    public ResponseStep1 step1Info(Long id){
+    public Step1ResponseDto step1Info(Long id){
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
 
         List<FarmImage> farmImageList = farmImageRepository.findByFarmId(id);
 
-        ResponseStep1 responseStep1 = new ResponseStep1(
+        Step1ResponseDto responseStep1 = new Step1ResponseDto(
                 farm.getId(),
                 farm.getPageNum(),
                 farm.getFarmName(),
@@ -142,14 +141,14 @@ public class FarmService {
         return responseStep1;
     }
 
-    public ResponseStep2 step2Info(Long id){
+    public Step2ResponseDto step2Info(Long id){
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
 
         List<FarmFile> farmFileList = farmFileRepository.findByFarmId(id);
 
-        ResponseStep2 responseStep2 = new ResponseStep2(
+        Step2ResponseDto responseStep2 = new Step2ResponseDto(
                 farm.getId(),
                 farmFileList.stream().map(o -> new FarmFileTypeResponseDto(o))
                         .collect(Collectors.toList())
@@ -158,7 +157,7 @@ public class FarmService {
         return responseStep2;
     }
 
-    public void updateFarmAgreement(Long id, FarmAgreementDto farmAgreementDto){
+    public void updateFarmAgreement(Long id, FarmAgreementRequestDto farmAgreementDto){
 
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
@@ -171,7 +170,7 @@ public class FarmService {
                 farmAgreementDto.getPageNum());
     }
 
-    public void updateFarmOwnerInfo(Long id, FarmOwnerInfoDto farmOwnerInfoDto) {
+    public void updateFarmOwnerInfo(Long id, FarmOwnerInfoRequestDto farmOwnerInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
@@ -182,7 +181,7 @@ public class FarmService {
                 farmOwnerInfoDto.getPageNum());
     }
 
-    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto) {
+    public void updateFarmInfo(Long id, FarmInfoRequestDto farmInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
@@ -196,7 +195,7 @@ public class FarmService {
 
     }
 
-    public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto) {
+    public void updateFarmInfoCheck(Long id, FarmInfoCheckRequestDto farmInfoCheckDto) {
 
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
@@ -209,7 +208,7 @@ public class FarmService {
                 farmInfoCheckDto.getPageNum());
     }
 
-    public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto) {
+    public void updateFarmFilesCheck(Long id, FarmFilesCheckRequestDto farmFilesCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
         );
@@ -245,7 +244,7 @@ public class FarmService {
         farmRepository.save(farm);
     }
 
-    public String extractProvince(FarmInfoDto farmInfoDto){
+    public String extractProvince(FarmInfoRequestDto farmInfoDto){
         return farmInfoDto.getFarmAddress().substring(0, 2);
     }
 }

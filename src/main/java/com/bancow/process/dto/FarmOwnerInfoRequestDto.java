@@ -9,19 +9,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class FarmInfoDto {
+public class FarmOwnerInfoRequestDto {
 
     @NotBlank
-    private String farmName;
+    private String name;
 
     @NotBlank
-    private String farmAddress;
-
-    @NotBlank
-    private String farmPostCode;
-
-    @NotBlank
-    private String fodder;
+    private String email;
 
     @NotNull
     private Long pageNum;
