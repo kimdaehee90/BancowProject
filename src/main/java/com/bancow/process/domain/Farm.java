@@ -22,6 +22,7 @@ public class Farm extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "farm_id")
     private Long id;
 
     // 전화번호(필드이름 대체 예정)
@@ -29,6 +30,7 @@ public class Farm extends BaseTimeEntity {
     private String phoneNumber;
 
     // 인증번호(필드이름 대체 예정)
+    @Column(name = "password")
     private String password;
 
     // 이용 약관 동의
@@ -63,6 +65,10 @@ public class Farm extends BaseTimeEntity {
     // 농장 주소
     @Column(name = "farm_address")
     private String farmAddress;
+
+    // 농장 소재 행정구역
+    @Column(name = "farm_province")
+    private String farmProvince;
 
     // 농장 우편번호
     @Column(name = "farm_postcode")
@@ -182,9 +188,10 @@ public class Farm extends BaseTimeEntity {
         this.pageNum = pageNum;
     }
 
-    public void updateFarmInfo(String farmName, String farmAddress, String farmPostCode, String fodder, Long pageNum) {
+    public void updateFarmInfo(String farmName, String farmAddress, String farmProvince, String farmPostCode, String fodder, Long pageNum) {
         this.farmName = farmName;
         this.farmAddress = farmAddress;
+        this.farmProvince = farmProvince;
         this.farmPostCode = farmPostCode;
         this.fodder = fodder;
         this.pageNum = pageNum;

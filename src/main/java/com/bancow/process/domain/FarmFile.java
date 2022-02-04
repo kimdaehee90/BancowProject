@@ -17,6 +17,7 @@ public class FarmFile extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "farm_file_id")
     private Long id;
 
     // 원래 파일 이름
