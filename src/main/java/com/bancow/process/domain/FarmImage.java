@@ -14,6 +14,7 @@ public class FarmImage extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "farm_image_id")
     private Long id;
 
     // 원래 이미지 이름
