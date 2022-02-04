@@ -2,7 +2,7 @@ package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmImage;
-import com.bancow.process.dto.ImageUpdateRequestDto;
+import com.bancow.process.dto.request.ImageUpdateRequestDto;
 import com.bancow.process.exception.CustomException;
 import com.bancow.process.constant.ErrorCode;
 import com.bancow.process.repository.FarmImageRepository;

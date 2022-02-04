@@ -1,4 +1,4 @@
-package com.bancow.process.dto;
+package com.bancow.process.dto.response;
 
 import com.bancow.process.domain.FarmFile;
 import com.bancow.process.constant.FileType;

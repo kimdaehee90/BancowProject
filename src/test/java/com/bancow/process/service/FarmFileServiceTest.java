@@ -3,7 +3,7 @@ package com.bancow.process.service;
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmFile;
 import com.bancow.process.constant.FileType;
-import com.bancow.process.dto.FileUpdateRequestDto;
+import com.bancow.process.dto.request.FileUpdateRequestDto;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmRepository;
 import org.junit.jupiter.api.AfterEach;

@@ -1,7 +1,7 @@
 package com.bancow.process.service;
 
 import com.bancow.process.domain.Farm;
-import com.bancow.process.dto.*;
+import com.bancow.process.dto.request.*;
 import com.bancow.process.repository.FarmRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class FarmServiceTest {
                 .password("1234")
                 .build());
 
-        FarmAgreementDto testDto = FarmAgreementDto.builder()
+        FarmAgreementRequestDto testDto = FarmAgreementRequestDto.builder()
                 .serviceTerms1(true)
                 .serviceTerms2(true)
                 .serviceTerms3(false)
@@ -53,7 +53,7 @@ public class FarmServiceTest {
                 .password("1234")
                 .build());
 
-        FarmOwnerInfoDto testDto = FarmOwnerInfoDto.builder()
+        FarmOwnerInfoRequestDto testDto = FarmOwnerInfoRequestDto.builder()
                 .name("농장주 이름")
                 .email("email@naver.com")
                 .pageNum(1L)
@@ -72,7 +72,7 @@ public class FarmServiceTest {
                 .password("1234")
                 .build());
 
-        FarmInfoDto testDto = FarmInfoDto.builder()
+        FarmInfoRequestDto testDto = FarmInfoRequestDto.builder()
                 .farmName("농장이름")
                 .farmAddress("농장주소")
                 .farmPostCode("123-456")
@@ -94,7 +94,7 @@ public class FarmServiceTest {
                 .password("1234")
                 .build());
 
-        FarmInfoCheckDto testDto = FarmInfoCheckDto.builder()
+        FarmInfoCheckRequestDto testDto = FarmInfoCheckRequestDto.builder()
                 .identification("본인")
                 .ownFarm("자가")
                 .breedingType("비육")
@@ -116,7 +116,7 @@ public class FarmServiceTest {
                 .password("1234")
                 .build());
 
-        FarmFilesCheckDto testDto = FarmFilesCheckDto.builder()
+        FarmFilesCheckRequestDto testDto = FarmFilesCheckRequestDto.builder()
                 .livestockFarmingBusinessRegistration(true)
                 .facilitiesStructure(true)
                 .annualFodderCostSpecification(true)

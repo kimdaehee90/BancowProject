@@ -1,4 +1,4 @@
-package com.bancow.process.dto;
+package com.bancow.process.dto.request;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class FarmInfoCheckDto {
+public class FarmInfoCheckRequestDto {
 
     @NotBlank
     private String identification;

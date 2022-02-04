@@ -1,4 +1,4 @@
-package com.bancow.process.dto;
+package com.bancow.process.dto.request;
 
 import lombok.*;
 

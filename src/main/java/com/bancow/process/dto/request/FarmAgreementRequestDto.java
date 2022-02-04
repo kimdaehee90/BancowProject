@@ -1,4 +1,4 @@
-package com.bancow.process.dto;
+package com.bancow.process.dto.request;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class FarmAgreementDto {
+public class FarmAgreementRequestDto {
 
     @NotNull
     private Boolean serviceTerms1;

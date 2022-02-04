@@ -1,15 +1,19 @@
-package com.bancow.process.dto;
+package com.bancow.process.dto.request;
 
 import com.bancow.process.constant.InProgress;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class LoginResponseDto {
+public class InProgressUpdateRequestDto {
 
-    private Long id;
-    private String phoneNumber;
+    @NotNull
+    private Long pageNum;
+
+    @NotNull
     private InProgress inProgress;
 
 }
