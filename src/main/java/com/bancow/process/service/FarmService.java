@@ -189,6 +189,7 @@ public class FarmService {
 
         farm.updateFarmInfo(farmInfoDto.getFarmName(),
                 farmInfoDto.getFarmAddress(),
+                extractProvince(farmInfoDto),
                 farmInfoDto.getFarmPostCode(),
                 farmInfoDto.getFodder(),
                 farmInfoDto.getPageNum());
@@ -242,5 +243,9 @@ public class FarmService {
         String password = passwordEncoder.encode(loginRequestDto.getPassword());
         Farm farm = new Farm(loginRequestDto.getPhoneNumber(),password);
         farmRepository.save(farm);
+    }
+
+    public String extractProvince(FarmInfoDto farmInfoDto){
+        return farmInfoDto.getFarmAddress().substring(0, 2);
     }
 }

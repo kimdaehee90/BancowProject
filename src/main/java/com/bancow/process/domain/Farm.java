@@ -66,6 +66,10 @@ public class Farm extends BaseTimeEntity {
     @Column(name = "farm_address")
     private String farmAddress;
 
+    // 농장 소재 행정구역
+    @Column(name = "farm_province")
+    private String farmProvince;
+
     // 농장 우편번호
     @Column(name = "farm_postcode")
     private String farmPostCode;
