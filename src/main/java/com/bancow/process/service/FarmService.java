@@ -96,7 +96,7 @@ public class FarmService {
 //        }
 
         if(farm.getInProgress().toString().equals(step1InProgress) || farm.getInProgress().toString().equals(step1Completed)){
-           return step1Info(farm.getId());
+            return step1Info(farm.getId());
 
         }
 
