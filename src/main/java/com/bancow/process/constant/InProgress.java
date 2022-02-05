@@ -9,4 +9,5 @@ public enum InProgress {
     INVESTIGATION_CONFIRM,          // 실사 확정일
     PROCESS_DONE                    // 입점 완료
 
+
 }

@@ -1,5 +1,6 @@
 package com.bancow.process.service;
 
+import com.bancow.process.constant.InProgress;
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmFile;
 import com.bancow.process.domain.FarmImage;
@@ -80,10 +81,6 @@ public class FarmService {
     @Builder
     public Object check(String phoneNumber){
 
-        String step1InProgress = "STEP1_IN_PROGRESS";
-        String step1Completed = "STEP1_COMPLETED";
-        String step2InProgress = "STEP2_IN_PROGRESS";
-        String step2Completed = "STEP2_COMPLETED";
         Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
@@ -95,12 +92,12 @@ public class FarmService {
 //            return loginResponseDto;
 //        }
 
-        if(farm.getInProgress().toString().equals(step1InProgress) || farm.getInProgress().toString().equals(step1Completed)){
+        if(farm.getInProgress().equals(InProgress.STEP1_IN_PROGRESS) || farm.getInProgress().equals(InProgress.STEP1_COMPLETED)){
            return step1Info(farm.getId());
 
         }
 
-        if(farm.getInProgress().toString().equals(step2InProgress) || farm.getInProgress().toString().equals(step2Completed) ){
+        if(farm.getInProgress().equals(InProgress.STEP2_IN_PROGRESS) || farm.getInProgress().equals(InProgress.STEP2_COMPLETED) ){
 
             return step2Info(farm.getId());
 
