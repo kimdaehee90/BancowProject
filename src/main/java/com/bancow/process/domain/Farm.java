@@ -81,11 +81,11 @@ public class Farm extends BaseTimeEntity {
 
     // 농장주 본인 확인
     @Column(name = "identification")
-    private String identification;
+    private Boolean identification;
 
     // 농장 자가 조사
     @Column(name = "own_farm")
-    private String ownFarm;
+    private Boolean ownFarm;
 
     // 농장 사육 형태 조사
     @Column(name = "breeding_type")
@@ -197,7 +197,7 @@ public class Farm extends BaseTimeEntity {
         this.pageNum = pageNum;
     }
 
-    public void updateFarmInfoCheck(String identification, String ownFarm, String breedingType, String population, Long pageNum){
+    public void updateFarmInfoCheck(Boolean identification, Boolean ownFarm, String breedingType, String population, Long pageNum){
         this.identification = identification;
         this.ownFarm = ownFarm;
         this.breedingType = breedingType;
