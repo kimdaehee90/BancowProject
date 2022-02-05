@@ -24,6 +24,9 @@ public class FarmInfoCheckRequestDto {
     private String population;
 
     @NotNull
+    private Boolean cctv;
+
+    @NotNull
     private Long pageNum;
 
 }

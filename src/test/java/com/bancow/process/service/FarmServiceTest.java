@@ -95,8 +95,8 @@ public class FarmServiceTest {
                 .build());
 
         FarmInfoCheckRequestDto testDto = FarmInfoCheckRequestDto.builder()
-                .identification("본인")
-                .ownFarm("자가")
+                .identification(true)
+                .ownFarm(true)
                 .breedingType("비육")
                 .population("100마리 이상")
                 .pageNum(4L)
