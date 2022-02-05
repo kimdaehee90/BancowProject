@@ -130,6 +130,7 @@ public class FarmService {
                 farm.getOwnFarm(),
                 farm.getBreedingType(),
                 farm.getPopulation(),
+                farm.getCctv(),
                 farm.getLivestockFarmingBusinessRegistration(),
                 farm.getFacilitiesStructure(),
                 farm.getAnnualFodderCostSpecification(),
@@ -206,6 +207,7 @@ public class FarmService {
                 farmInfoCheckDto.getOwnFarm(),
                 farmInfoCheckDto.getBreedingType(),
                 farmInfoCheckDto.getPopulation(),
+                farmInfoCheckDto.getCctv(),
                 farmInfoCheckDto.getPageNum());
     }
 
