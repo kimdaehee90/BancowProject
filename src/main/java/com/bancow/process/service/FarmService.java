@@ -34,7 +34,7 @@ public class FarmService {
     private final FarmImageRepository farmImageRepository;
 
     @Transactional
-    public void join(String phoneNumber) {
+    public PasswordResponseDto join(String phoneNumber) {
 
         // userName으로 번호가 있는지 조회
         Optional<Farm> user = farmRepository.findByPhoneNumber(phoneNumber);
@@ -65,6 +65,9 @@ public class FarmService {
         // userName(폰 번호)과 인증번호 발송
         certificationService.certifiedPhoneNumber(phoneNumber, numStr);
 
+        PasswordResponseDto passwordResponseDto = new PasswordResponseDto(numStr);
+
+        return passwordResponseDto;
     }
 
     @Transactional

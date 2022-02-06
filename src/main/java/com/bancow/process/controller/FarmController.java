@@ -2,6 +2,7 @@ package com.bancow.process.controller;
 
 import com.bancow.process.dto.*;
 import com.bancow.process.dto.request.*;
+import com.bancow.process.dto.response.PasswordResponseDto;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
@@ -23,8 +24,8 @@ public class FarmController {
 
     @PostMapping("/api/sendSMS")
     public ApiResponseDto sendUsername(@RequestParam String phoneNumber){
-        farmService.join(phoneNumber);
-        return ApiResponseDto.of(HttpStatus.OK);
+        PasswordResponseDto certificationNumber = farmService.join(phoneNumber);
+        return ApiResponseDto.of(certificationNumber);
     }
 
     @GetMapping("/api/farm/checkInfo/{phoneNumber}")

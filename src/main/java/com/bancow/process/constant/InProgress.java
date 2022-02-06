@@ -1,5 +1,7 @@
 package com.bancow.process.constant;
 
+import java.util.List;
+
 public enum InProgress {
     STEP1_IN_PROGRESS,              // 1차 작성중
     STEP1_COMPLETED,                // 1차 제출 완료
@@ -9,5 +11,7 @@ public enum InProgress {
     INVESTIGATION_CONFIRM,          // 실사 확정일
     PROCESS_DONE                    // 입점 완료
 
+
+//    List<InProgress> Step1InProgressList = List.of(STEP1_IN_PROGRESS,STEP1_COMPLETED);
 
 }
