@@ -32,6 +32,8 @@ public class FarmService {
     private final CertificationService certificationService;
     private final PasswordEncoder passwordEncoder;
     private final FarmImageRepository farmImageRepository;
+    private final FarmMapper farmMapper;
+
 
     @Transactional
     public PasswordResponseDto join(String phoneNumber) {
@@ -88,77 +90,18 @@ public class FarmService {
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-        System.out.println(phoneNumber);
-        // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
-//        if(farm.getInProgress() == null){
-//            LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
-//            return loginResponseDto;
-//        }
-
-
-        if(farm.getInProgress().equals(InProgress.STEP1_IN_PROGRESS) || farm.getInProgress().equals(InProgress.STEP1_COMPLETED)){
-           return step1Info(farm.getId());
-
+        if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
+            return  farmMapper.createResponseStep1FarmEntity(farm.getId());
         }
 
-        if(farm.getInProgress().equals(InProgress.STEP2_IN_PROGRESS) || farm.getInProgress().equals(InProgress.STEP2_COMPLETED) ){
-
-            return step2Info(farm.getId());
-
+        if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
+             return farmMapper.createResponseStep2FarmEntity(farm.getId());
         }
+
         LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
         return loginResponseDto;
-//        return farm.getInProgress();
     }
 
-    public Step1ResponseDto step1Info(Long id){
-        Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
-        );
-
-        List<FarmImage> farmImageList = farmImageRepository.findByFarmId(id);
-
-        Step1ResponseDto responseStep1 = new Step1ResponseDto(
-                farm.getId(),
-                farm.getPageNum(),
-                farm.getFarmName(),
-                farm.getName(),
-                farm.getEmail(),
-                farm.getFarmAddress(),
-                farm.getFarmPostCode(),
-                farm.getFodder(),
-                farm.getIdentification(),
-                farm.getOwnFarm(),
-                farm.getBreedingType(),
-                farm.getPopulation(),
-                farm.getCctv(),
-                farm.getLivestockFarmingBusinessRegistration(),
-                farm.getFacilitiesStructure(),
-                farm.getAnnualFodderCostSpecification(),
-                farm.getAnnualInspectionReport(),
-                farm.getBusinessLicense(),
-                farmImageList.stream().map(o -> new FarmImageResponseDto(o))
-                        .collect(Collectors.toList())
-        );
-
-        return responseStep1;
-    }
-
-    public Step2ResponseDto step2Info(Long id){
-        Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
-        );
-
-        List<FarmFile> farmFileList = farmFileRepository.findByFarmId(id);
-
-        Step2ResponseDto responseStep2 = new Step2ResponseDto(
-                farm.getId(),
-                farmFileList.stream().map(o -> new FarmFileTypeResponseDto(o))
-                        .collect(Collectors.toList())
-        );
-
-        return responseStep2;
-    }
 
     public void updateFarmAgreement(Long id, FarmAgreementRequestDto farmAgreementDto){
 
