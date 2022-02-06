@@ -11,17 +11,20 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class FarmInfoCheckRequestDto {
 
-    @NotBlank
-    private String identification;
+    @NotNull
+    private Boolean identification;
 
-    @NotBlank
-    private String ownFarm;
+    @NotNull
+    private Boolean ownFarm;
 
     @NotBlank
     private String breedingType;
 
     @NotBlank
     private String population;
+
+    @NotNull
+    private Boolean cctv;
 
     @NotNull
     private Long pageNum;

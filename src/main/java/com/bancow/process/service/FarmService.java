@@ -92,6 +92,7 @@ public class FarmService {
 //            return loginResponseDto;
 //        }
 
+
         if(farm.getInProgress().equals(InProgress.STEP1_IN_PROGRESS) || farm.getInProgress().equals(InProgress.STEP1_COMPLETED)){
            return step1Info(farm.getId());
 
@@ -127,6 +128,7 @@ public class FarmService {
                 farm.getOwnFarm(),
                 farm.getBreedingType(),
                 farm.getPopulation(),
+                farm.getCctv(),
                 farm.getLivestockFarmingBusinessRegistration(),
                 farm.getFacilitiesStructure(),
                 farm.getAnnualFodderCostSpecification(),
@@ -203,6 +205,7 @@ public class FarmService {
                 farmInfoCheckDto.getOwnFarm(),
                 farmInfoCheckDto.getBreedingType(),
                 farmInfoCheckDto.getPopulation(),
+                farmInfoCheckDto.getCctv(),
                 farmInfoCheckDto.getPageNum());
     }
 

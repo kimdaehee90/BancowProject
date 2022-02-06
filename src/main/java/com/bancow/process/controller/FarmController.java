@@ -53,7 +53,7 @@ public class FarmController {
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
-    @PutMapping("/api/farm/{id}/owner-info")
+    @PutMapping("/api/farm/{id}/ownerInfo")
     public ApiResponseDto farmOwnerInfo(@PathVariable Long id, @RequestBody @Valid FarmOwnerInfoRequestDto farmOwnerInfoDto){
         farmService.updateFarmOwnerInfo(id, farmOwnerInfoDto);
         return ApiResponseDto.of(HttpStatus.OK);
@@ -66,26 +66,26 @@ public class FarmController {
 
     }
 
-    @PutMapping("/api/farm/{id}/info-check")
+    @PutMapping("/api/farm/{id}/infoCheck")
     public ApiResponseDto farmInfoCheck(@PathVariable Long id, @RequestBody @Valid FarmInfoCheckRequestDto farmInfoCheckDto){
         farmService.updateFarmInfoCheck(id, farmInfoCheckDto);
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
-    @PutMapping("/api/farm/{id}/files-check")
+    @PutMapping("/api/farm/{id}/filesCheck")
     public ApiResponseDto farmFilesCheck(@PathVariable Long id, @RequestBody @Valid FarmFilesCheckRequestDto farmFilesCheckDto){
         farmService.updateFarmFilesCheck(id, farmFilesCheckDto);
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
-    @PutMapping("/api/farm/{id}/request-date")
+    @PutMapping("/api/farm/{id}/requestDate")
     public ApiResponseDto updateInvestigationRequest(@PathVariable Long id,
                                            @RequestBody @Valid InvestigationRequestUpdateRequestDto investigationRequestUpdateRequestDto){
         farmService.updateInvestigationRequest(id, investigationRequestUpdateRequestDto);
         return ApiResponseDto.of(HttpStatus.OK);
     }
 
-    @PutMapping("/api/farm/{id}/in-progress")
+    @PutMapping("/api/farm/{id}/inProgress")
     public ApiResponseDto updateInProgress(@PathVariable Long id,
                                  @RequestBody @Valid InProgressUpdateRequestDto inProgressUpdateRequestDto) {
         farmService.updateInProgress(id, inProgressUpdateRequestDto);

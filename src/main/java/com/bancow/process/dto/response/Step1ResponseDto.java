@@ -17,10 +17,11 @@ public class Step1ResponseDto {
     private String farmAddress;
     private String farmPostCode;
     private String fodder;
-    private String identification;
-    private String ownFarm;
+    private Boolean identification;
+    private Boolean ownFarm;
     private String breedingType;
     private String population;
+    private Boolean cctv;
     private Boolean livestockFarmingBusinessRegistration;
     private Boolean facilitiesStructure;
     private Boolean annualFodderCostSpecification;
@@ -29,8 +30,8 @@ public class Step1ResponseDto {
     private List<FarmImageResponseDto> farmImageUrl;
 //    private List<FarmImageResponseDto> farmImage;
     public Step1ResponseDto(Long id, Long pageNum, String farmName, String name, String email, String farmAddress, String farmPostCode, String fodder,
-                            String identification, String ownFarm, String breedingType,
-                            String population, Boolean livestockFarmingBusinessRegistration,
+                            Boolean identification, Boolean ownFarm, String breedingType,
+                            String population, Boolean cctv ,Boolean livestockFarmingBusinessRegistration,
                             Boolean facilitiesStructure, Boolean annualFodderCostSpecification,
                             Boolean annualInspectionReport, Boolean businessLicense,
                             List<FarmImageResponseDto> farmImageUrl) {
@@ -46,6 +47,7 @@ public class Step1ResponseDto {
         this.ownFarm = ownFarm;
         this.breedingType = breedingType;
         this.population = population;
+        this.cctv = cctv;
         this.livestockFarmingBusinessRegistration = livestockFarmingBusinessRegistration;
         this.facilitiesStructure = facilitiesStructure;
         this.annualFodderCostSpecification = annualFodderCostSpecification;
