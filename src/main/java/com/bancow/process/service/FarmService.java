@@ -94,7 +94,7 @@ public class FarmService {
         );
 
         if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
-            return  farmMapper.createResponseStep1FarmEntity(f.getId());
+            return  farmMapper.createResponseStep1FarmEntity(farm.getId());
         }
 
         if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
