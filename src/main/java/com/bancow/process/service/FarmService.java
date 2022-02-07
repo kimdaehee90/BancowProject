@@ -1,16 +1,19 @@
 package com.bancow.process.service;
 
+import com.bancow.process.constant.ErrorCode;
 import com.bancow.process.constant.InProgress;
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmFile;
 import com.bancow.process.domain.FarmImage;
 import com.bancow.process.dto.request.*;
 import com.bancow.process.dto.response.*;
+import com.bancow.process.exception.CustomException;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,7 +94,7 @@ public class FarmService {
         );
 
         if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
-            return  farmMapper.createResponseStep1FarmEntity(farm.getId());
+            return  farmMapper.createResponseStep1FarmEntity(f.getId());
         }
 
         if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
@@ -106,7 +109,7 @@ public class FarmService {
     public void updateFarmAgreement(Long id, FarmAgreementRequestDto farmAgreementDto){
 
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
 
         farm.updateFarmAgreement(
@@ -118,7 +121,7 @@ public class FarmService {
 
     public void updateFarmOwnerInfo(Long id, FarmOwnerInfoRequestDto farmOwnerInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
 
         farm.updateFarmOwnerInfo(
@@ -129,7 +132,7 @@ public class FarmService {
 
     public void updateFarmInfo(Long id, FarmInfoRequestDto farmInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
 
         farm.updateFarmInfo(farmInfoDto.getFarmName(),
@@ -144,7 +147,7 @@ public class FarmService {
     public void updateFarmInfoCheck(Long id, FarmInfoCheckRequestDto farmInfoCheckDto) {
 
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
         farm.updateFarmInfoCheck(
                 farmInfoCheckDto.getIdentification(),
@@ -157,7 +160,7 @@ public class FarmService {
 
     public void updateFarmFilesCheck(Long id, FarmFilesCheckRequestDto farmFilesCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
         farm.updateFilesInfoCheck(farmFilesCheckDto.getLivestockFarmingBusinessRegistration(),
                 farmFilesCheckDto.getFacilitiesStructure(),
