@@ -99,6 +99,7 @@ public class FarmServiceTest {
                 .ownFarm(true)
                 .breedingType("비육")
                 .population("100마리 이상")
+                .cctv(true)
                 .pageNum(4L)
                 .build();
 
