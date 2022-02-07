@@ -119,15 +119,11 @@ public class FarmService {
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-
         if(InProgress.getStep2InProgressList().contains(inprogressRequestDto.getInProgress())){
             return farmMapper.createResponseStep2FarmEntity(inprogressRequestDto.getId());
         }else
             throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
-
-
     }
-
 
     public void updateFarmAgreement(Long id, FarmAgreementRequestDto farmAgreementDto){
 
@@ -225,7 +221,7 @@ public class FarmService {
         Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. phoneNumber =" + phoneNumber)
         );
-        InprogressResponseDto inprogressResponseDto = new InprogressResponseDto(farm.getId(), farm.getInProgress());
+        InprogressResponseDto inprogressResponseDto = new InprogressResponseDto(farm.getId(), farm.getInProgress(),farm.getPageNum());
         return inprogressResponseDto;
     }
 }

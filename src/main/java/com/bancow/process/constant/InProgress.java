@@ -31,9 +31,17 @@ public enum InProgress {
     }
 
     public static List<InProgress> getStep2InProgressList() {
-        List<InProgress> step1ProgressList = new ArrayList<>();
-        step1ProgressList.add(STEP2_IN_PROGRESS);
-        step1ProgressList.add(STEP2_COMPLETED);
-        return step1ProgressList;
+        List<InProgress> step2ProgressList = new ArrayList<>();
+        step2ProgressList.add(STEP2_IN_PROGRESS);
+        step2ProgressList.add(STEP2_COMPLETED);
+        return step2ProgressList;
+    }
+
+    public static List<InProgress> getStep3InProgressList() {
+        List<InProgress> step3ProgressList = new ArrayList<>();
+        step3ProgressList.add(INVESTIGATION_REQUEST);
+        step3ProgressList.add(INVESTIGATION_CONFIRM);
+        step3ProgressList.add(PROCESS_DONE);
+        return step3ProgressList;
     }
 }

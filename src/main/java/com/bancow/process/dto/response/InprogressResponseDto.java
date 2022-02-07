@@ -10,9 +10,12 @@ public class InprogressResponseDto {
 
     private Long id;
     private InProgress inProgress;
+    private Long pageNum;
 
-    public InprogressResponseDto(Long id, InProgress inProgress) {
+    public InprogressResponseDto(Long id, InProgress inProgress, Long pageNum) {
         this.id = id;
         this.inProgress = inProgress;
+        this.pageNum = pageNum;
     }
+
 }
