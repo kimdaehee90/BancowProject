@@ -2,23 +2,18 @@ package com.bancow.process.service;
 
 import com.bancow.process.constant.InProgress;
 import com.bancow.process.domain.Farm;
-import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FarmImage;
 import com.bancow.process.dto.request.*;
 import com.bancow.process.dto.response.*;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import static com.bancow.process.util.LocalDateTimeConverter.*;
 
@@ -101,26 +96,26 @@ public class FarmService {
 //        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
 //        return loginResponseDto;
 //    }
-    public Step1ResponseDto getStep1(InprogressRequestDto inprogressRequestDto){
+    public Step1ResponseDto getStep1(InProgressRequestDto inProgressRequestDto){
 
-        Farm farm = farmRepository.findById(inprogressRequestDto.getId()).orElseThrow(
+        Farm farm = farmRepository.findById(inProgressRequestDto.getId()).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-        if(InProgress.getStep1InProgressList().contains(inprogressRequestDto.getInProgress())){
-            return farmMapper.createResponseStep1FarmEntity(inprogressRequestDto.getId());
+        if(InProgress.getStep1InProgressList().contains(inProgressRequestDto.getInProgress())){
+            return farmMapper.createResponseStep1FarmEntity(inProgressRequestDto.getId());
         }else
             throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
 
     }
-    public Step2ResponseDto getStep2(InprogressRequestDto inprogressRequestDto) {
+    public Step2ResponseDto getStep2(InProgressRequestDto inProgressRequestDto) {
 
-        Farm farm = farmRepository.findById(inprogressRequestDto.getId()).orElseThrow(
+        Farm farm = farmRepository.findById(inProgressRequestDto.getId()).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-        if(InProgress.getStep2InProgressList().contains(inprogressRequestDto.getInProgress())){
-            return farmMapper.createResponseStep2FarmEntity(inprogressRequestDto.getId());
+        if(InProgress.getStep2InProgressList().contains(inProgressRequestDto.getInProgress())){
+            return farmMapper.createResponseStep2FarmEntity(inProgressRequestDto.getId());
         }else
             throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
     }
@@ -217,11 +212,11 @@ public class FarmService {
         return farmInfoDto.getFarmAddress().substring(0, 2);
     }
 
-    public InprogressResponseDto getInprogress(String phoneNumber) {
+    public InProgressResponseDto getInprogress(String phoneNumber) {
         Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. phoneNumber =" + phoneNumber)
         );
-        InprogressResponseDto inprogressResponseDto = new InprogressResponseDto(farm.getId(), farm.getInProgress(),farm.getPageNum());
-        return inprogressResponseDto;
+        InProgressResponseDto inProgressResponseDto = new InProgressResponseDto(farm.getId(), farm.getInProgress(),farm.getPageNum());
+        return inProgressResponseDto;
     }
 }

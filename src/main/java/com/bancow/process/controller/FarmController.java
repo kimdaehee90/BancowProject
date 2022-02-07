@@ -2,7 +2,7 @@ package com.bancow.process.controller;
 
 import com.bancow.process.dto.*;
 import com.bancow.process.dto.request.*;
-import com.bancow.process.dto.response.InprogressResponseDto;
+import com.bancow.process.dto.response.InProgressResponseDto;
 import com.bancow.process.dto.response.PasswordResponseDto;
 import com.bancow.process.dto.response.Step1ResponseDto;
 import com.bancow.process.dto.response.Step2ResponseDto;
@@ -31,10 +31,10 @@ public class FarmController {
         return ApiResponseDto.of(certificationNumber);
     }
 
-    @GetMapping("api/farm/checkInprogress/{phoneNumber}")
+    @GetMapping("api/farm/checkInProgress/{phoneNumber}")
     public ApiResponseDto checkInprogress(@PathVariable String phoneNumber){
-        InprogressResponseDto inprogressResponseDto = farmService.getInprogress(phoneNumber);
-        return ApiResponseDto.of(inprogressResponseDto);
+        InProgressResponseDto inProgressResponseDto = farmService.getInprogress(phoneNumber);
+        return ApiResponseDto.of(inProgressResponseDto);
 
     }
 //    @GetMapping("/api/farm/checkInfo/{phoneNumber}")
@@ -43,14 +43,14 @@ public class FarmController {
 //        return ApiResponseDto.of(result);
 //    }
     @GetMapping("api/farm/checkStep1")
-    public ApiResponseDto checkStep1(@RequestBody InprogressRequestDto inprogressRequestDto){
-        Step1ResponseDto step1Info = farmService.getStep1(inprogressRequestDto);
+    public ApiResponseDto checkStep1(@RequestBody InProgressRequestDto inProgressRequestDto){
+        Step1ResponseDto step1Info = farmService.getStep1(inProgressRequestDto);
         return ApiResponseDto.of(step1Info);
     }
 
     @GetMapping("api/farm/checkStep2")
-    public ApiResponseDto checkStep2(@RequestBody InprogressRequestDto inprogressRequestDto){
-        Step2ResponseDto step2Info = farmService.getStep2(inprogressRequestDto);
+    public ApiResponseDto checkStep2(@RequestBody InProgressRequestDto inProgressRequestDto){
+        Step2ResponseDto step2Info = farmService.getStep2(inProgressRequestDto);
         return ApiResponseDto.of(step2Info);
     }
 
