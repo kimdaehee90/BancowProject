@@ -194,4 +194,12 @@ public class FarmService {
     public String extractProvince(FarmInfoRequestDto farmInfoDto){
         return farmInfoDto.getFarmAddress().substring(0, 2);
     }
+
+    public InprogressResponseDto getInprogress(String phoneNumber) {
+        Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. phoneNumber =" + phoneNumber)
+        );
+        InprogressResponseDto inprogressResponseDto = new InprogressResponseDto(farm.getInProgress());
+        return inprogressResponseDto;
+    }
 }

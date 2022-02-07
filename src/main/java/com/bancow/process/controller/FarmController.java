@@ -2,6 +2,7 @@ package com.bancow.process.controller;
 
 import com.bancow.process.dto.*;
 import com.bancow.process.dto.request.*;
+import com.bancow.process.dto.response.InprogressResponseDto;
 import com.bancow.process.dto.response.PasswordResponseDto;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
@@ -28,6 +29,12 @@ public class FarmController {
         return ApiResponseDto.of(certificationNumber);
     }
 
+    @GetMapping("api/farm/checkInprogress/{phoneNumber}")
+    public ApiResponseDto checkInprogress(@PathVariable String phoneNumber){
+        InprogressResponseDto inprogressResponseDto = farmService.getInprogress(phoneNumber);
+        return ApiResponseDto.of(inprogressResponseDto);
+
+    }
     @GetMapping("/api/farm/checkInfo/{phoneNumber}")
     public ApiResponseDto checkInfo(@PathVariable String phoneNumber){
         Object result = farmService.check(phoneNumber);
