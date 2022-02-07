@@ -4,6 +4,8 @@ import com.bancow.process.dto.*;
 import com.bancow.process.dto.request.*;
 import com.bancow.process.dto.response.InprogressResponseDto;
 import com.bancow.process.dto.response.PasswordResponseDto;
+import com.bancow.process.dto.response.Step1ResponseDto;
+import com.bancow.process.dto.response.Step2ResponseDto;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
@@ -35,10 +37,21 @@ public class FarmController {
         return ApiResponseDto.of(inprogressResponseDto);
 
     }
-    @GetMapping("/api/farm/checkInfo/{phoneNumber}")
-    public ApiResponseDto checkInfo(@PathVariable String phoneNumber){
-        Object result = farmService.check(phoneNumber);
-        return ApiResponseDto.of(result);
+//    @GetMapping("/api/farm/checkInfo/{phoneNumber}")
+//    public ApiResponseDto checkInfo(@PathVariable String phoneNumber){
+//        Object result = farmService.check(phoneNumber);
+//        return ApiResponseDto.of(result);
+//    }
+    @GetMapping("api/farm/checkStep1")
+    public ApiResponseDto checkStep1(@RequestBody InprogressRequestDto inprogressRequestDto){
+        Step1ResponseDto step1Info = farmService.getStep1(inprogressRequestDto);
+        return ApiResponseDto.of(step1Info);
+    }
+
+    @GetMapping("api/farm/checkStep2")
+    public ApiResponseDto checkStep2(@RequestBody InprogressRequestDto inprogressRequestDto){
+        Step2ResponseDto step2Info = farmService.getStep2(inprogressRequestDto);
+        return ApiResponseDto.of(step2Info);
     }
 
     @PutMapping("/api/farm/{id}/files")

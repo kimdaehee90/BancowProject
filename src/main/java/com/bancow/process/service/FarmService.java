@@ -82,24 +82,50 @@ public class FarmService {
 
     }
 
-    @Transactional
-    @Builder
-    public Object check(String phoneNumber){
+//    @Transactional
+//    @Builder
+//    public Object check(String phoneNumber){
+//
+//        Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
+//                () -> new NullPointerException("농장이 없습니다. ")
+//        );
+//
+//        if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
+//            return  farmMapper.createResponseStep1FarmEntity(farm.getId());
+//        }
+//
+//        if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
+//             return farmMapper.createResponseStep2FarmEntity(farm.getId());
+//        }
+//
+//        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
+//        return loginResponseDto;
+//    }
+    public Step1ResponseDto getStep1(InprogressRequestDto inprogressRequestDto){
 
-        Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
+        Farm farm = farmRepository.findById(inprogressRequestDto.getId()).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-        if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
-            return  farmMapper.createResponseStep1FarmEntity(farm.getId());
-        }
+        if(InProgress.getStep1InProgressList().contains(inprogressRequestDto.getInProgress())){
+            return farmMapper.createResponseStep1FarmEntity(inprogressRequestDto.getId());
+        }else
+            throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
 
-        if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
-             return farmMapper.createResponseStep2FarmEntity(farm.getId());
-        }
+    }
+    public Step2ResponseDto getStep2(InprogressRequestDto inprogressRequestDto) {
 
-        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
-        return loginResponseDto;
+        Farm farm = farmRepository.findById(inprogressRequestDto.getId()).orElseThrow(
+                () -> new NullPointerException("농장이 없습니다. ")
+        );
+
+
+        if(InProgress.getStep2InProgressList().contains(inprogressRequestDto.getInProgress())){
+            return farmMapper.createResponseStep2FarmEntity(inprogressRequestDto.getId());
+        }else
+            throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
+
+
     }
 
 
@@ -199,7 +225,7 @@ public class FarmService {
         Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
                 () -> new IllegalArgumentException("해당 농장이 없습니다. phoneNumber =" + phoneNumber)
         );
-        InprogressResponseDto inprogressResponseDto = new InprogressResponseDto(farm.getInProgress());
+        InprogressResponseDto inprogressResponseDto = new InprogressResponseDto(farm.getId(), farm.getInProgress());
         return inprogressResponseDto;
     }
 }

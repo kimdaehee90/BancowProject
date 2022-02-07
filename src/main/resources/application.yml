@@ -6,8 +6,8 @@ spring:
 
 ---
 ## local 환경에서 사용(H2 DB)
-#spring:
-#  profiles:
-#    active: local
-#
+spring:
+  profiles:
+    active: local
+
 #---
