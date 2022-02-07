@@ -96,6 +96,15 @@ public class FarmService {
 //        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
 //        return loginResponseDto;
 //    }
+
+    public InProgressResponseDto getInprogress(String phoneNumber) {
+        Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. phoneNumber =" + phoneNumber)
+        );
+        InProgressResponseDto inProgressResponseDto = new InProgressResponseDto(farm.getId(), farm.getInProgress(),farm.getPageNum());
+        return inProgressResponseDto;
+    }
+
     public Step1ResponseDto getStep1(InProgressRequestDto inProgressRequestDto){
 
         Farm farm = farmRepository.findById(inProgressRequestDto.getId()).orElseThrow(
@@ -212,11 +221,5 @@ public class FarmService {
         return farmInfoDto.getFarmAddress().substring(0, 2);
     }
 
-    public InProgressResponseDto getInprogress(String phoneNumber) {
-        Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. phoneNumber =" + phoneNumber)
-        );
-        InProgressResponseDto inProgressResponseDto = new InProgressResponseDto(farm.getId(), farm.getInProgress(),farm.getPageNum());
-        return inProgressResponseDto;
-    }
+
 }
