@@ -12,21 +12,24 @@ import com.bancow.process.exception.CustomException;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
+
 import com.bancow.process.util.HolidayApi;
 import lombok.Builder;
+
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import static com.bancow.process.util.CalendarCalculator.getDayAtEndOfMonthAfterAddNumToMonth;
 import static com.bancow.process.util.CalendarCalculator.getWeekendList;
@@ -93,26 +96,57 @@ public class FarmService {
 
     }
 
-    @Transactional
-    @Builder
-    public Object check(String phoneNumber){
+//    @Transactional
+//    @Builder
+//    public Object check(String phoneNumber){
+//
+//        Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
+//                () -> new NullPointerException("농장이 없습니다. ")
+//        );
+//
+//        if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
+//            return  farmMapper.createResponseStep1FarmEntity(farm.getId());
+//        }
+//
+//        if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
+//             return farmMapper.createResponseStep2FarmEntity(farm.getId());
+//        }
+//
+//        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
+//        return loginResponseDto;
+//    }
 
+    public InProgressResponseDto getInprogress(String phoneNumber) {
         Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. phoneNumber =" + phoneNumber)
+        );
+        InProgressResponseDto inProgressResponseDto = new InProgressResponseDto(farm.getId(), farm.getInProgress(),farm.getPageNum());
+        return inProgressResponseDto;
+    }
+
+    public Step1ResponseDto getStep1(InProgressRequestDto inProgressRequestDto){
+
+        Farm farm = farmRepository.findById(inProgressRequestDto.getId()).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-        if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
-            return  farmMapper.createResponseStep1FarmEntity(farm.getId());
-        }
+        if(InProgress.getStep1InProgressList().contains(inProgressRequestDto.getInProgress())){
+            return farmMapper.createResponseStep1FarmEntity(inProgressRequestDto.getId());
+        }else
+            throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
 
-        if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
-             return farmMapper.createResponseStep2FarmEntity(farm.getId());
-        }
-
-        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
-        return loginResponseDto;
     }
+    public Step2ResponseDto getStep2(InProgressRequestDto inProgressRequestDto) {
 
+        Farm farm = farmRepository.findById(inProgressRequestDto.getId()).orElseThrow(
+                () -> new NullPointerException("농장이 없습니다. ")
+        );
+
+        if(InProgress.getStep2InProgressList().contains(inProgressRequestDto.getInProgress())){
+            return farmMapper.createResponseStep2FarmEntity(inProgressRequestDto.getId());
+        }else
+            throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
+    }
 
     public void updateFarmAgreement(Long id, FarmAgreementRequestDto farmAgreementDto){
 
@@ -206,6 +240,7 @@ public class FarmService {
         return farmInfoDto.getFarmAddress().substring(0, 2);
     }
 
+
     public List<RequestDateResponseDto> getNoReservationAllowedList() throws IOException, ParseException {
 
         List<RequestDateResponseDto> requestDateResponseDtoList = new ArrayList<>();
@@ -231,5 +266,6 @@ public class FarmService {
 
         return ReservationList;
     }
+
 
 }
