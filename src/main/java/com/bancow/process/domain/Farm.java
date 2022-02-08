@@ -138,10 +138,6 @@ public class Farm extends BaseTimeEntity {
     @Column(name = "investigation_request")
     private LocalDateTime investigationRequest;
 
-    // 실사 확정일
-    @Column(name = "investigation_confirm")
-    private LocalDateTime investigationConfirm;
-
     // 입점 완료
     @Column(name = "process_done")
     private LocalDateTime processDone;

@@ -1,6 +1,6 @@
 package com.bancow.process.controller;
 
-import com.bancow.process.dto.*;
+import com.bancow.process.dto.ApiResponseDto;
 import com.bancow.process.dto.request.*;
 import com.bancow.process.dto.response.InProgressResponseDto;
 import com.bancow.process.dto.response.PasswordResponseDto;
@@ -10,11 +10,12 @@ import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
 import lombok.RequiredArgsConstructor;
-
+import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 
 @RestController
@@ -122,6 +123,11 @@ public class FarmController {
 
     @PostMapping("/api/test")
     public void test(@RequestBody LoginRequestDto loginRequestDto){farmService.creatFarm(loginRequestDto);
+    }
+
+    @GetMapping("/api/farm/checkStep3")
+    public ApiResponseDto checkStep3() throws IOException, ParseException {
+        return ApiResponseDto.of(farmService.getNoReservationAllowedList());
     }
 
 //    @PostMapping("/api/test")
