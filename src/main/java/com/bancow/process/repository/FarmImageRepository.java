@@ -14,10 +14,6 @@ public interface FarmImageRepository extends JpaRepository<FarmImage, Long> {
            "where fi.farm.id = :id and fi.imageType = :imageType")
     FarmImage findImage(@Param("id") Long id, @Param("imageType") ImageType imageType);
 
-    @Query("select fi.imageUrl from FarmImage fi " +
-            "where fi.farm.id = :id")
-    List<String> findUrl(@Param("id") Long id);
-
     List<FarmImage> findByFarmId(Long id);
 
 }

@@ -7,6 +7,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,8 @@ public class Farm extends BaseTimeEntity {
 
     // 전화번호(필드이름 대체 예정)
     @Column(name = "phone_number",unique = true)
+    @Pattern(regexp = "^01(?:0|1|[6-9])(\\d{3,4})(\\d{4})$",
+            message = "올바르지 않은 휴대폰 번호 양식입니다.")
     private String phoneNumber;
 
     // 인증번호(필드이름 대체 예정)
@@ -47,6 +51,7 @@ public class Farm extends BaseTimeEntity {
 
     // 이메일
     @Column(name = "email")
+    @Email
     private String email;
 
     // 페이지 저장

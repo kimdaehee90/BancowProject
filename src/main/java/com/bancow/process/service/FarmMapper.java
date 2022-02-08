@@ -10,12 +10,8 @@ import com.bancow.process.dto.response.Step2ResponseDto;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,5 +67,6 @@ public class FarmMapper {
                 farmFileList.stream().map(o -> new FarmFileTypeResponseDto(o))
                         .collect(Collectors.toList())
         );
+
     }
 }
