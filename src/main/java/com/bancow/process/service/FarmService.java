@@ -1,29 +1,37 @@
 package com.bancow.process.service;
 
+import com.bancow.process.constant.DateType;
 import com.bancow.process.constant.ErrorCode;
 import com.bancow.process.constant.InProgress;
 import com.bancow.process.domain.Farm;
-import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FarmImage;
 import com.bancow.process.dto.request.*;
-import com.bancow.process.dto.response.*;
+import com.bancow.process.dto.response.LoginResponseDto;
+import com.bancow.process.dto.response.RequestDateResponseDto;
+import com.bancow.process.dto.response.PasswordResponseDto;
 import com.bancow.process.exception.CustomException;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
+import com.bancow.process.util.HolidayApi;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.json.simple.parser.ParseException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import static com.bancow.process.util.LocalDateTimeConverter.*;
+import static com.bancow.process.util.CalendarCalculator.getDayAtEndOfMonthAfterAddNumToMonth;
+import static com.bancow.process.util.CalendarCalculator.getWeekendList;
+import static com.bancow.process.util.LocalDateTimeConverter.LocalDateTimeToLocalDate;
+import static com.bancow.process.util.LocalDateTimeConverter.LocalDateToLocalDateTime;
 
 @Service
 @Transactional
@@ -197,4 +205,31 @@ public class FarmService {
     public String extractProvince(FarmInfoRequestDto farmInfoDto){
         return farmInfoDto.getFarmAddress().substring(0, 2);
     }
+
+    public List<RequestDateResponseDto> getNoReservationAllowedList() throws IOException, ParseException {
+
+        List<RequestDateResponseDto> requestDateResponseDtoList = new ArrayList<>();
+        requestDateResponseDtoList.addAll(HolidayApi.getHoliday());
+        requestDateResponseDtoList.addAll(getWeekendList());
+        requestDateResponseDtoList.addAll(getFarmReservationList());
+
+        return requestDateResponseDtoList;
+    }
+
+    public List<RequestDateResponseDto> getFarmReservationList() {
+
+        LocalDate now = LocalDate.now();
+        LocalDate ReservationDate = getDayAtEndOfMonthAfterAddNumToMonth(now, 3);
+
+        List<Farm> farm = farmRepository.findFarmsByInvestigationRequestIsNotNull();
+        List<RequestDateResponseDto> ReservationList = farm.stream()
+                .filter(o -> LocalDateTimeToLocalDate(o.getInvestigationRequest()).isAfter(now)
+                        && LocalDateTimeToLocalDate(o.getInvestigationRequest()).isBefore(ReservationDate.plusDays(1)))
+                .map(o -> new RequestDateResponseDto("예약 불가"
+                        , LocalDateTimeToLocalDate(o.getInvestigationRequest()), DateType.RESERVED))
+                .collect(Collectors.toList());
+
+        return ReservationList;
+    }
+
 }
