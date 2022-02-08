@@ -38,11 +38,7 @@ public class FarmController {
         return ApiResponseDto.of(inProgressResponseDto);
 
     }
-//    @GetMapping("/api/farm/checkInfo/{phoneNumber}")
-//    public ApiResponseDto checkInfo(@PathVariable String phoneNumber){
-//        Object result = farmService.check(phoneNumber);
-//        return ApiResponseDto.of(result);
-//    }
+
     @GetMapping("api/farm/checkStep1")
     public ApiResponseDto checkStep1(@RequestBody InProgressRequestDto inProgressRequestDto){
         Step1ResponseDto step1Info = farmService.getStep1(inProgressRequestDto);
@@ -130,11 +126,5 @@ public class FarmController {
         return ApiResponseDto.of(farmService.getNoReservationAllowedList());
     }
 
-//    @PostMapping("/api/test")
-//    public void test(){
-//        System.out.println("=====================================");
-//        List<FarmImageResponseDto> farmImageResponseDtos = farmImageRepository.findByFarmId(1L);
-//        Stream<FarmImageResponseDto> stream = farmImageResponseDtos.stream();
-//        stream.forEach(a -> System.out.println(a));
-//    }
+
 }
