@@ -5,9 +5,7 @@ import com.bancow.process.constant.ErrorCode;
 import com.bancow.process.constant.InProgress;
 import com.bancow.process.domain.Farm;
 import com.bancow.process.dto.request.*;
-import com.bancow.process.dto.response.LoginResponseDto;
-import com.bancow.process.dto.response.RequestDateResponseDto;
-import com.bancow.process.dto.response.PasswordResponseDto;
+import com.bancow.process.dto.response.*;
 import com.bancow.process.exception.CustomException;
 import com.bancow.process.repository.FarmFileRepository;
 import com.bancow.process.repository.FarmImageRepository;
@@ -30,6 +28,7 @@ import java.util.List;
 
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static com.bancow.process.util.CalendarCalculator.getDayAtEndOfMonthAfterAddNumToMonth;
 import static com.bancow.process.util.CalendarCalculator.getWeekendList;
@@ -96,25 +95,6 @@ public class FarmService {
 
     }
 
-//    @Transactional
-//    @Builder
-//    public Object check(String phoneNumber){
-//
-//        Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
-//                () -> new NullPointerException("농장이 없습니다. ")
-//        );
-//
-//        if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
-//            return  farmMapper.createResponseStep1FarmEntity(farm.getId());
-//        }
-//
-//        if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
-//             return farmMapper.createResponseStep2FarmEntity(farm.getId());
-//        }
-//
-//        LoginResponseDto loginResponseDto = new LoginResponseDto(farm.getId(),farm.getPhoneNumber(),farm.getInProgress());
-//        return loginResponseDto;
-//    }
 
     public InProgressResponseDto getInprogress(String phoneNumber) {
         Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
