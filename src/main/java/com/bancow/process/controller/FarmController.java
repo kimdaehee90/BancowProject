@@ -40,18 +40,17 @@ public class FarmController {
 
     }
 
-    @GetMapping("api/farm/checkStep1")
-    public ApiResponseDto checkStep1(@RequestParam Long id,@RequestParam InProgress inProgress){
 
-        InProgressRequestDto inProgressRequestDto = new InProgressRequestDto(id,inProgress);
-        Step1ResponseDto step1Info = farmService.getStep1(inProgressRequestDto);
+    @GetMapping("api/farm/{id}/checkStep1")
+    public ApiResponseDto checkStep1(@PathVariable Long id){
+        Step1ResponseDto step1Info = farmService.getStep1(id);
 
         return ApiResponseDto.of(step1Info);
     }
 
-    @GetMapping("api/farm/checkStep2")
-    public ApiResponseDto checkStep2(@RequestBody InProgressRequestDto inProgressRequestDto){
-        Step2ResponseDto step2Info = farmService.getStep2(inProgressRequestDto);
+    @GetMapping("api/farm/{id}/checkStep2")
+    public ApiResponseDto checkStep2(@PathVariable Long id){
+        Step2ResponseDto step2Info = farmService.getStep2(id);
         return ApiResponseDto.of(step2Info);
     }
 
@@ -85,7 +84,6 @@ public class FarmController {
     public ApiResponseDto farmInfo(@PathVariable Long id, @RequestBody @Valid FarmInfoRequestDto farmInfoDto) {
         farmService.updateFarmInfo(id, farmInfoDto);
         return ApiResponseDto.of(HttpStatus.OK);
-
     }
 
     @PutMapping("/api/farm/{id}/infoCheck")
@@ -125,10 +123,11 @@ public class FarmController {
     public void test(@RequestBody LoginRequestDto loginRequestDto){farmService.creatFarm(loginRequestDto);
     }
 
-    @GetMapping("/api/farm/checkStep3")
-    public ApiResponseDto checkStep3() throws IOException, ParseException {
-        return ApiResponseDto.of(farmService.getNoReservationAllowedList());
+    @GetMapping("/api/farm/{id}/checkStep3")
+    public ApiResponseDto checkStep3(@PathVariable Long id) throws IOException, ParseException {
+        return ApiResponseDto.of(farmService.getNoReservationAllowedList(id));
     }
+
 
 
 }

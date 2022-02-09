@@ -18,11 +18,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bancow.process.util.CalendarCalculator.getDayAtEndOfMonthAfterAddNumToMonth;
-
 public class HolidayApi {
 
-    public static List<RequestDateResponseDto> getHoliday() throws IOException, ParseException {
+    public static List<RequestDateResponseDto> getHoliday(LocalDate startDate, LocalDate endDate) throws IOException, ParseException {
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=UaOu9X%2B3prfBISxCzEp3TAd0Q7rtqIHPAGC253MBw3AmJBqJfQuwU%2F%2BpZZyHR%2BaW%2FAQ%2BHvPXeAjs5W4ZSVVffA%3D%3D"); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
@@ -68,10 +66,7 @@ public class HolidayApi {
             String dateName =(String) item.get("dateName");
             LocalDate date = LocalDate.parse(String.valueOf(locdate), DateTimeFormatter.ofPattern("yyyyMMdd"));
 
-            LocalDate now = LocalDate.now();
-            LocalDate ReservationDate = getDayAtEndOfMonthAfterAddNumToMonth(now, 3);
-
-            if (date.isAfter(now) && date.isBefore(ReservationDate.plusDays(1))) {
+            if (date.isAfter(startDate) && date.isBefore(endDate.plusDays(1))) {
                 RequestDateResponseDto requestDateResponseDto
                         = new RequestDateResponseDto(dateName, date, DateType.HOLIDAY);
                 holidayList.add(requestDateResponseDto);
