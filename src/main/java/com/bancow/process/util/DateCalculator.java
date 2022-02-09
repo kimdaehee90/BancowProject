@@ -3,11 +3,11 @@ package com.bancow.process.util;
 import com.bancow.process.constant.DateType;
 import com.bancow.process.dto.response.RequestDateResponseDto;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.time.DayOfWeek.*;
 
 public class DateCalculator {
 
@@ -17,11 +17,11 @@ public class DateCalculator {
 
         while (!startDate.isEqual(endDate)) {
             startDate = startDate.plusDays(1);
-            if (startDate.getDayOfWeek() == SATURDAY) {
-                WeekendList.add(new RequestDateResponseDto("토요일", startDate, DateType.SATURDAY));
+            if (startDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
+                WeekendList.add(new RequestDateResponseDto(DateType.SATURDAY.getDateName(), startDate, DateType.SATURDAY));
             }
-            if (startDate.getDayOfWeek() == SUNDAY) {
-                WeekendList.add(new RequestDateResponseDto("일요일", startDate, DateType.SUNDAY));
+            if (startDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                WeekendList.add(new RequestDateResponseDto(DateType.SUNDAY.getDateName(), startDate, DateType.SUNDAY));
             }
         }
 
