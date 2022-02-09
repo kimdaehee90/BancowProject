@@ -6,8 +6,10 @@ import java.util.ArrayList;
 public enum InProgress {
     STEP1_IN_PROGRESS,              // 1차 작성중
     STEP1_COMPLETED,                // 1차 제출 완료
+    STEP2_START,                    // 2차 시작
     STEP2_IN_PROGRESS,              // 2차 작성중
     STEP2_COMPLETED,                // 2차 제출 완료
+    STEP3_START,                    // 3차 시작
     STEP3_IN_PROGRESS,              // 3차 작성중
     STEP3_COMPLETED,                // 3차 제출 완료
     PROCESS_DONE;                   // 입점 완료
