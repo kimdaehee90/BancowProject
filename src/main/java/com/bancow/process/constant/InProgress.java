@@ -8,11 +8,9 @@ public enum InProgress {
     STEP1_COMPLETED,                // 1차 제출 완료
     STEP2_IN_PROGRESS,              // 2차 작성중
     STEP2_COMPLETED,                // 2차 제출 완료
-    INVESTIGATION_REQUEST,          // 실사 요청일
+    STEP3_IN_PROGRESS,              // 3차 작성중
+    STEP3_COMPLETED,                // 3차 제출 완료
     PROCESS_DONE;                   // 입점 완료
-
-
-
 
     public static List<InProgress> getStep1InProgressList() {
         List<InProgress> step1ProgressList = new ArrayList<>();

@@ -37,7 +37,6 @@ public class FarmService {
     private final PasswordEncoder passwordEncoder;
     private final FarmMapper farmMapper;
 
-
     @Transactional
     public PasswordResponseDto join(String phoneNumber) {
 
@@ -107,6 +106,7 @@ public class FarmService {
             throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
 
     }
+
     public Step2ResponseDto getStep2(Long id) {
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
@@ -210,7 +210,6 @@ public class FarmService {
         return farmInfoDto.getFarmAddress().substring(0, 2);
     }
 
-
     public Step3ResponseDto getNoReservationAllowedList(Long id) throws IOException, ParseException {
 
         LocalDate startDate = LocalDate.now();
@@ -230,12 +229,11 @@ public class FarmService {
         List<RequestDateResponseDto> ReservationList = farm.stream()
                 .filter(o -> LocalDateTimeToLocalDate(o.getInvestigationRequest()).isAfter(startDate)
                         && LocalDateTimeToLocalDate(o.getInvestigationRequest()).isBefore(endDate.plusDays(1)))
-                .map(o -> new RequestDateResponseDto("예약 불가"
+                .map(o -> new RequestDateResponseDto(DateType.RESERVED.getDateName()
                         , LocalDateTimeToLocalDate(o.getInvestigationRequest()), DateType.RESERVED))
                 .collect(Collectors.toList());
 
         return ReservationList;
     }
-
 
 }
