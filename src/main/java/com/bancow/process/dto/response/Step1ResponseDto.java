@@ -1,7 +1,8 @@
 package com.bancow.process.dto.response;
 
-import com.bancow.process.dto.response.FarmImageResponseDto;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Step1ResponseDto {
     private Boolean annualInspectionReport;
     private Boolean businessLicense;
     private List<FarmImageResponseDto> farmImageUrl;
+
     public Step1ResponseDto(Long id, Long pageNum, String farmName, String name, String email, String farmAddress, String farmPostCode, String fodder,
                             Boolean identification, Boolean ownFarm, String breedingType,
                             String population, Boolean cctv ,Boolean livestockFarmingBusinessRegistration,
