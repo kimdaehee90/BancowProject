@@ -8,6 +8,7 @@ import com.bancow.process.dto.request.*;
 import com.bancow.process.dto.response.*;
 import com.bancow.process.exception.CustomException;
 import com.bancow.process.repository.FarmRepository;
+import com.bancow.process.util.DateCalculator;
 import com.bancow.process.util.HolidayApi;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
@@ -23,8 +24,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import static com.bancow.process.util.CalendarCalculator.getDayAtEndOfMonthAfterAddNumToMonth;
-import static com.bancow.process.util.CalendarCalculator.getWeekendList;
 import static com.bancow.process.util.LocalDateTimeConverter.LocalDateTimeToLocalDate;
 import static com.bancow.process.util.LocalDateTimeConverter.LocalDateToLocalDateTime;
 
@@ -214,23 +213,23 @@ public class FarmService {
 
     public List<RequestDateResponseDto> getNoReservationAllowedList() throws IOException, ParseException {
 
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = DateCalculator.getDayAtEndOfMonthAfterAddNumToMonth(startDate, 3);
+
         List<RequestDateResponseDto> requestDateResponseDtoList = new ArrayList<>();
-        requestDateResponseDtoList.addAll(HolidayApi.getHoliday());
-        requestDateResponseDtoList.addAll(getWeekendList());
-        requestDateResponseDtoList.addAll(getFarmReservationList());
+        requestDateResponseDtoList.addAll(HolidayApi.getHoliday(startDate, endDate));
+        requestDateResponseDtoList.addAll(DateCalculator.getWeekendList(startDate, endDate));
+        requestDateResponseDtoList.addAll(getFarmReservationList(startDate, endDate));
 
         return requestDateResponseDtoList;
     }
 
-    public List<RequestDateResponseDto> getFarmReservationList() {
-
-        LocalDate now = LocalDate.now();
-        LocalDate ReservationDate = getDayAtEndOfMonthAfterAddNumToMonth(now, 3);
-
+    public List<RequestDateResponseDto> getFarmReservationList(LocalDate startDate, LocalDate endDate) {
         List<Farm> farm = farmRepository.findFarmsByInvestigationRequestIsNotNull();
+
         List<RequestDateResponseDto> ReservationList = farm.stream()
-                .filter(o -> LocalDateTimeToLocalDate(o.getInvestigationRequest()).isAfter(now)
-                        && LocalDateTimeToLocalDate(o.getInvestigationRequest()).isBefore(ReservationDate.plusDays(1)))
+                .filter(o -> LocalDateTimeToLocalDate(o.getInvestigationRequest()).isAfter(startDate)
+                        && LocalDateTimeToLocalDate(o.getInvestigationRequest()).isBefore(endDate.plusDays(1)))
                 .map(o -> new RequestDateResponseDto("예약 불가"
                         , LocalDateTimeToLocalDate(o.getInvestigationRequest()), DateType.RESERVED))
                 .collect(Collectors.toList());

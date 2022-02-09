@@ -9,22 +9,19 @@ import java.util.List;
 
 import static java.time.DayOfWeek.*;
 
-public class CalendarCalculator {
+public class DateCalculator {
 
-    public static List<RequestDateResponseDto> getWeekendList() {
+    public static List<RequestDateResponseDto> getWeekendList(LocalDate startDate, LocalDate endDate) {
 
         List WeekendList = new ArrayList();
 
-        LocalDate now = LocalDate.now();
-        LocalDate ReservationDate = getDayAtEndOfMonthAfterAddNumToMonth(now, 3);
-
-        while (!now.isEqual(ReservationDate)) {
-            now = now.plusDays(1);
-            if (now.getDayOfWeek() == SATURDAY) {
-                WeekendList.add(new RequestDateResponseDto("토요일", now, DateType.SATURDAY));
+        while (!startDate.isEqual(endDate)) {
+            startDate = startDate.plusDays(1);
+            if (startDate.getDayOfWeek() == SATURDAY) {
+                WeekendList.add(new RequestDateResponseDto("토요일", startDate, DateType.SATURDAY));
             }
-            if (now.getDayOfWeek() == SUNDAY) {
-                WeekendList.add(new RequestDateResponseDto("일요일", now, DateType.SUNDAY));
+            if (startDate.getDayOfWeek() == SUNDAY) {
+                WeekendList.add(new RequestDateResponseDto("일요일", startDate, DateType.SUNDAY));
             }
         }
 
