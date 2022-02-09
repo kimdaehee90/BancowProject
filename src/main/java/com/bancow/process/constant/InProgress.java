@@ -13,7 +13,6 @@ public enum InProgress {
 
 
 
-//    List<InProgress> Step1InProgressList = List.of(STEP1_IN_PROGRESS,STEP1_COMPLETED);
 
     public static List<InProgress> getStep1InProgressList() {
         List<InProgress> step1ProgressList = new ArrayList<>();
