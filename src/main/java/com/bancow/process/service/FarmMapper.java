@@ -24,12 +24,9 @@ public class FarmMapper {
     private final FarmRepository farmRepository;
     private final FarmFileRepository farmFileRepository;
 
-    public Step1ResponseDto createResponseStep1FarmEntity(Long id){
-        Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
-        );
+    public Step1ResponseDto createResponseStep1FarmEntity(Farm farm){
 
-        List<FarmImage> farmImageList = farmImageRepository.findByFarmId(id);
+        List<FarmImage> farmImageList = farmImageRepository.findByFarmId(farm.getId());
 
         return new Step1ResponseDto(
                 farm.getId(),
@@ -55,12 +52,9 @@ public class FarmMapper {
         );
     }
 
-    public Step2ResponseDto createResponseStep2FarmEntity(Long id){
-        Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
-        );
+    public Step2ResponseDto createResponseStep2FarmEntity(Farm farm){
 
-        List<FarmFile> farmFileList = farmFileRepository.findByFarmId(id);
+        List<FarmFile> farmFileList = farmFileRepository.findByFarmId(farm.getId());
 
         return new Step2ResponseDto(
                 farm.getId(),

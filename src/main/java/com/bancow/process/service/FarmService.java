@@ -101,7 +101,7 @@ public class FarmService {
         );
 
         if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
-            return farmMapper.createResponseStep1FarmEntity(id);
+            return farmMapper.createResponseStep1FarmEntity(farm);
 
         }else
             throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
@@ -113,7 +113,7 @@ public class FarmService {
         );
 
         if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
-            return farmMapper.createResponseStep2FarmEntity(id);
+            return farmMapper.createResponseStep2FarmEntity(farm);
         }else
             throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
     }
