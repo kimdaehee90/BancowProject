@@ -44,17 +44,14 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(JwtProperties.HEADER_STRING)
                 .replace(JwtProperties.TOKEN_PREFIX, "");
 
-        System.out.println("1==================================================");
         // 토큰을 서명하고 검증해서 통과하면 FarmName을 가져옴
         String userName = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
                 .getClaim("phoneNumber").asString();
 
-        System.out.println("=====================================================");
         // 서명이 정상적으로 됐다면
         if(userName != null) {
             Farm farmEntity = farmRepository.findByPhoneNumber(userName)
                     .orElseThrow(() -> new UsernameNotFoundException("번호를 찾을 수 없습니다. "));
-
 
             // 시큐리티가 수행해주는 권한 처리를 위해 토큰을 만들어서 Authentication 객체를 강제로 만들고 그걸 세션에 저장!
             PrincipalDetails principalDetails = new PrincipalDetails(farmEntity);
