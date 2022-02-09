@@ -1,5 +1,6 @@
 package com.bancow.process.controller;
 
+import com.bancow.process.constant.InProgress;
 import com.bancow.process.dto.ApiResponseDto;
 import com.bancow.process.dto.request.*;
 import com.bancow.process.dto.response.InProgressResponseDto;
@@ -40,8 +41,11 @@ public class FarmController {
     }
 
     @GetMapping("api/farm/checkStep1")
-    public ApiResponseDto checkStep1(@RequestBody InProgressRequestDto inProgressRequestDto){
+    public ApiResponseDto checkStep1(@RequestParam Long id,@RequestParam InProgress inProgress){
+
+        InProgressRequestDto inProgressRequestDto = new InProgressRequestDto(id,inProgress);
         Step1ResponseDto step1Info = farmService.getStep1(inProgressRequestDto);
+
         return ApiResponseDto.of(step1Info);
     }
 

@@ -12,6 +12,7 @@ public class Step1ResponseDto {
 
     private Long id;
     private Long pageNum;
+
     private String farmName;
     private String name;
     private String email;

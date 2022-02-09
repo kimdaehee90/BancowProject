@@ -103,6 +103,7 @@ public class FarmService {
 
         if(InProgress.getStep1InProgressList().contains(inProgressRequestDto.getInProgress())){
             return farmMapper.createResponseStep1FarmEntity(inProgressRequestDto.getId());
+
         }else
             throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
 
