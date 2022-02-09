@@ -28,7 +28,6 @@ public class Step1ResponseDto {
     private Boolean annualInspectionReport;
     private Boolean businessLicense;
     private List<FarmImageResponseDto> farmImageUrl;
-//    private List<FarmImageResponseDto> farmImage;
     public Step1ResponseDto(Long id, Long pageNum, String farmName, String name, String email, String farmAddress, String farmPostCode, String fodder,
                             Boolean identification, Boolean ownFarm, String breedingType,
                             String population, Boolean cctv ,Boolean livestockFarmingBusinessRegistration,
@@ -53,7 +52,6 @@ public class Step1ResponseDto {
         this.annualFodderCostSpecification = annualFodderCostSpecification;
         this.annualInspectionReport = annualInspectionReport;
         this.businessLicense = businessLicense;
-//        this.farmImageUrl = farmImageUrl;
         this.farmImageUrl = farmImageUrl;
     }
 
