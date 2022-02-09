@@ -94,26 +94,25 @@ public class FarmService {
         return inProgressResponseDto;
     }
 
-    public Step1ResponseDto getStep1(InProgressRequestDto inProgressRequestDto){
+    public Step1ResponseDto getStep1(Long id){
 
-        Farm farm = farmRepository.findById(inProgressRequestDto.getId()).orElseThrow(
+        Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-        if(InProgress.getStep1InProgressList().contains(inProgressRequestDto.getInProgress())){
-            return farmMapper.createResponseStep1FarmEntity(inProgressRequestDto.getId());
+        if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
+            return farmMapper.createResponseStep1FarmEntity(id);
         }else
             throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
 
     }
-    public Step2ResponseDto getStep2(InProgressRequestDto inProgressRequestDto) {
-
-        Farm farm = farmRepository.findById(inProgressRequestDto.getId()).orElseThrow(
+    public Step2ResponseDto getStep2(Long id) {
+        Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-        if(InProgress.getStep2InProgressList().contains(inProgressRequestDto.getInProgress())){
-            return farmMapper.createResponseStep2FarmEntity(inProgressRequestDto.getId());
+        if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
+            return farmMapper.createResponseStep2FarmEntity(id);
         }else
             throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
     }
@@ -211,7 +210,7 @@ public class FarmService {
     }
 
 
-    public List<RequestDateResponseDto> getNoReservationAllowedList() throws IOException, ParseException {
+    public Step3ResponseDto getNoReservationAllowedList(Long id) throws IOException, ParseException {
 
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = DateCalculator.getDayAtEndOfMonthAfterAddNumToMonth(startDate, 3);
@@ -221,7 +220,7 @@ public class FarmService {
         requestDateResponseDtoList.addAll(DateCalculator.getWeekendList(startDate, endDate));
         requestDateResponseDtoList.addAll(getFarmReservationList(startDate, endDate));
 
-        return requestDateResponseDtoList;
+        return new Step3ResponseDto(id, requestDateResponseDtoList);
     }
 
     public List<RequestDateResponseDto> getFarmReservationList(LocalDate startDate, LocalDate endDate) {
