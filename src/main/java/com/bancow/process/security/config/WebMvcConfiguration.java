@@ -1,7 +1,9 @@
 package com.bancow.process.security.config;
 
-import com.bancow.process.util.CustomObjectMapper;
+import com.bancow.process.util.NullSerializer;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -25,6 +27,13 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     @Bean
     public ObjectMapper customObjectMapper() {
-        return new CustomObjectMapper();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        mapper.registerModule(new JavaTimeModule());
+        mapper.getSerializerProvider().setNullValueSerializer(new NullSerializer());
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        return mapper;
     }
 }

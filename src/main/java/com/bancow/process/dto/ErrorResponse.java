@@ -1,6 +1,8 @@
 package com.bancow.process.dto;
 
 import com.bancow.process.constant.ErrorCode;
+import com.bancow.process.util.LocalDateTimeSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @Builder
 @AllArgsConstructor
 public class ErrorResponse {
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private final LocalDateTime timestamp = LocalDateTime.now();
     private final int status;
     private final String message;
