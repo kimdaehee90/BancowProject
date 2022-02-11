@@ -16,5 +16,6 @@ public interface FarmImageRepository extends JpaRepository<FarmImage, Long> {
 
     List<FarmImage> findByFarmId(Long id);
 
+
 }
 

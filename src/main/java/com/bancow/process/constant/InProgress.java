@@ -25,6 +25,7 @@ public enum InProgress {
         List<InProgress> step2ProgressList = new ArrayList<>();
         step2ProgressList.add(STEP2_IN_PROGRESS);
         step2ProgressList.add(STEP2_COMPLETED);
+        step2ProgressList.add(STEP2_START);
         return step2ProgressList;
     }
 

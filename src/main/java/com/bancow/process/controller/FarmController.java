@@ -3,10 +3,7 @@ package com.bancow.process.controller;
 import com.bancow.process.constant.InProgress;
 import com.bancow.process.dto.ApiResponseDto;
 import com.bancow.process.dto.request.*;
-import com.bancow.process.dto.response.InProgressResponseDto;
-import com.bancow.process.dto.response.PasswordResponseDto;
-import com.bancow.process.dto.response.Step1ResponseDto;
-import com.bancow.process.dto.response.Step2ResponseDto;
+import com.bancow.process.dto.response.*;
 import com.bancow.process.service.FarmFileService;
 import com.bancow.process.service.FarmImageService;
 import com.bancow.process.service.FarmService;
@@ -39,7 +36,6 @@ public class FarmController {
         return ApiResponseDto.of(inProgressResponseDto);
 
     }
-
 
     @GetMapping("api/farm/{id}/checkStep1")
     public ApiResponseDto checkStep1(@PathVariable Long id){
