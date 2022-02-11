@@ -1,15 +1,17 @@
 package com.bancow.process.repository;
 
-import com.bancow.process.domain.Farm;
-import com.bancow.process.domain.FarmFile;
-import com.bancow.process.constant.FileType;
+import com.bancow.process.domain.farm.domain.Farm;
+import com.bancow.process.domain.farmFile.domain.FarmFile;
+import com.bancow.process.domain.model.FileType;
+import com.bancow.process.domain.farm.repository.FarmRepository;
+import com.bancow.process.domain.farmFile.repository.FarmFileRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 
-import static com.bancow.process.constant.FileType.*;
+import static com.bancow.process.domain.model.FileType.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
