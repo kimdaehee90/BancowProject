@@ -1,8 +1,9 @@
 package com.bancow.process.service;
 
-import com.bancow.process.domain.Farm;
-import com.bancow.process.dto.request.*;
-import com.bancow.process.repository.FarmRepository;
+import com.bancow.process.domain.farm.domain.Farm;
+import com.bancow.process.domain.farm.dto.request.*;
+import com.bancow.process.domain.farm.repository.FarmRepository;
+import com.bancow.process.domain.farm.service.FarmService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
