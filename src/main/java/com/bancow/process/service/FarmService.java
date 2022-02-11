@@ -2,11 +2,14 @@ package com.bancow.process.service;
 
 import com.bancow.process.constant.DateType;
 import com.bancow.process.constant.ErrorCode;
+import com.bancow.process.constant.ImageType;
 import com.bancow.process.constant.InProgress;
 import com.bancow.process.domain.Farm;
+import com.bancow.process.domain.FarmImage;
 import com.bancow.process.dto.request.*;
 import com.bancow.process.dto.response.*;
 import com.bancow.process.exception.CustomException;
+import com.bancow.process.repository.FarmImageRepository;
 import com.bancow.process.repository.FarmRepository;
 import com.bancow.process.util.DateCalculator;
 import com.bancow.process.util.HolidayApi;
@@ -36,6 +39,7 @@ public class FarmService {
     private final CertificationService certificationService;
     private final PasswordEncoder passwordEncoder;
     private final FarmMapper farmMapper;
+    private final FarmImageRepository farmImageRepository;
 
     @Transactional
     public PasswordResponseDto join(String phoneNumber) {
@@ -83,7 +87,6 @@ public class FarmService {
         farm.updatePageNum(pageNumUpdateRequestDto.getPageNum());
 
     }
-
 
     public InProgressResponseDto getInprogress(String phoneNumber) {
         Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
@@ -235,5 +238,6 @@ public class FarmService {
 
         return ReservationList;
     }
+
 
 }
