@@ -18,6 +18,7 @@ import com.bancow.process.domain.farm.mapper.FarmMapper;
 import com.bancow.process.global.response.RequestDateResponseDto;
 import com.bancow.process.global.util.DateCalculator;
 import com.bancow.process.global.util.HolidayApi;
+
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -219,6 +220,9 @@ public class FarmService {
     }
 
     public Step3ResponseDto getNoReservationAllowedList(Long id) throws IOException, ParseException {
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
+        );
 
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = DateCalculator.getDayAtEndOfMonthAfterAddNumToMonth(startDate, 3);
@@ -228,7 +232,7 @@ public class FarmService {
         requestDateResponseDtoList.addAll(DateCalculator.getWeekendList(startDate, endDate));
         requestDateResponseDtoList.addAll(getFarmReservationList(startDate, endDate));
 
-        return new Step3ResponseDto(id, requestDateResponseDtoList);
+        return new Step3ResponseDto(farm.getId(), requestDateResponseDtoList);
     }
 
     public List<RequestDateResponseDto> getFarmReservationList(LocalDate startDate, LocalDate endDate) {

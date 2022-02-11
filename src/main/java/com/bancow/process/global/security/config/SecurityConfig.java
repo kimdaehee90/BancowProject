@@ -68,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/sendSMS").permitAll() // /api/sendSMS 주소로 호출되는 api는 모두 허용
                 .antMatchers("/api/login").permitAll() // /api/login 주소로 호출되는 api는 모두 허용
                 .antMatchers("/api/test").permitAll()
+                .antMatchers("/api/auth/token").permitAll()
                 .anyRequest().authenticated(); // 위의 주소로 호출하는 경우 이외의 모든 호출시에 인증 필요
     }
 
