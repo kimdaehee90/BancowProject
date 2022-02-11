@@ -1,24 +1,31 @@
 package com.bancow.process.service;
 
+import com.bancow.process.constant.DateType;
+import com.bancow.process.constant.ErrorCode;
+import com.bancow.process.constant.InProgress;
 import com.bancow.process.domain.Farm;
-import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FarmImage;
-import com.bancow.process.domain.FileType;
-import com.bancow.process.dto.*;
-import com.bancow.process.repository.FarmFileRepository;
-import com.bancow.process.repository.FarmImageRepository;
+import com.bancow.process.dto.request.*;
+import com.bancow.process.dto.response.*;
+import com.bancow.process.exception.CustomException;
 import com.bancow.process.repository.FarmRepository;
-import lombok.Builder;
+import com.bancow.process.util.DateCalculator;
+import com.bancow.process.util.HolidayApi;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.parser.ParseException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
+
+import static com.bancow.process.util.LocalDateTimeConverter.LocalDateTimeToLocalDate;
+import static com.bancow.process.util.LocalDateTimeConverter.LocalDateToLocalDateTime;
 
 @Service
 @Transactional
@@ -26,18 +33,17 @@ import java.util.stream.Collectors;
 public class FarmService {
 
     private final FarmRepository farmRepository;
-    private final FarmFileRepository farmFileRepository;
     private final CertificationService certificationService;
     private final PasswordEncoder passwordEncoder;
-    private final FarmImageRepository farmImageRepository;
+    private final FarmMapper farmMapper;
 
     @Transactional
-    public void join(String userName) {
+    public PasswordResponseDto join(String phoneNumber) {
 
         // userName으로 번호가 있는지 조회
-        Optional<Farm> user = farmRepository.findByUserName(userName);
+        Optional<Farm> user = farmRepository.findByPhoneNumber(phoneNumber);
 
-        //인증번호 생성
+        //인증번호 생성z
         Random rand = new Random();
         String numStr = "";
         for (int i = 0; i < 4; i++) {
@@ -50,7 +56,7 @@ public class FarmService {
 
         if (user.isEmpty()) {
             //farm 객체 생성해서 userName과 인코딩한 password 저장
-            Farm farm = new Farm(userName, password);
+            Farm farm = new Farm(phoneNumber, password);
             farmRepository.save(farm);
 
         } else {
@@ -61,15 +67,12 @@ public class FarmService {
         }
 
         // userName(폰 번호)과 인증번호 발송
-        certificationService.certifiedPhoneNumber(userName, numStr);
+        certificationService.certifiedPhoneNumber(phoneNumber, numStr);
 
+        PasswordResponseDto passwordResponseDto = new PasswordResponseDto(numStr);
+
+        return passwordResponseDto;
     }
-
-    @Transactional
-    public void createFarm(RequestDto requestDto) {
-        farmRepository.save(requestDto.toEntity());
-    }
-
 
     @Transactional
     public void updatePageNum(Long farmId, PageNumUpdateRequestDto pageNumUpdateRequestDto) {
@@ -81,71 +84,44 @@ public class FarmService {
 
     }
 
-    @Transactional
-    public void login(RequestDto requestDto) {
 
+    public InProgressResponseDto getInprogress(String phoneNumber) {
+        Farm farm = farmRepository.findByPhoneNumber(phoneNumber).orElseThrow(
+                () -> new IllegalArgumentException("해당 농장이 없습니다. phoneNumber =" + phoneNumber)
+        );
+        InProgressResponseDto inProgressResponseDto = new InProgressResponseDto(farm.getId(), farm.getInProgress(),farm.getPageNum());
+        return inProgressResponseDto;
     }
 
+    public Step1ResponseDto getStep1(Long id){
 
-
-    @Transactional
-    @Builder
-    public Object check(Long id){
-
-        String step1 = "STEP1_COMPLETED";
-        String step2 = "STEP2_COMPLETED";
         Farm farm = farmRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("농장이 없습니다. ")
         );
 
-        // Inprogress가 비어 있다면 null 리턴하고 정보 동의부터 시작
-        if(farm.getInProgress() == null){
-            return null;
-        }
+        if(InProgress.getStep1InProgressList().contains(farm.getInProgress())){
+            return farmMapper.createResponseStep1FarmEntity(farm);
 
-        if(farm.getInProgress().toString().equals(step1)){
-            ResponseStep1 responseStep1 = new ResponseStep1(
-                    farm.getPageNum(),
-                    farm.getFarmName(),
-                    farm.getFarmAddress(),
-                    farm.getFodder(),
-                    farm.getIdentification(),
-                    farm.getOwnFarm(),
-                    farm.getBreedingType(),
-                    farm.getPopulation(),
-                    farm.getLivestockFarmingBusinessRegistration(),
-                    farm.getFacilitiesStructure(),
-                    farm.getAnnualFodderCostSpecification(),
-                    farm.getAnnualInspectionReport(),
-                    farm.getBusinessLicense()
-            );
-            List<String> farmImages = farmImageRepository.findUrl(id);
-            List<FarmImageResponseDto> collect = farmImages.stream()
-                    .map(o -> new FarmImageResponseDto(o))
-                    .collect(Collectors.toList());
-            HashMap<String,Object> responseMap = new HashMap<>();
-            responseMap.put("responseStep1",responseStep1);
-            responseMap.put("collect",collect);
-            return responseMap;
-        }
-        if(farm.getInProgress().toString().equals(step2)){
+        }else
+            throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
 
-            List<FileType> farmfile = farmFileRepository.fileType(id);
-            List<FarmFileTypeResponseDto> collect = farmfile.stream()
-                    .map(o -> new FarmFileTypeResponseDto(o))
-                    .collect(Collectors.toList());
-            return collect;
-
-
-        }
-        return farm.getInProgress();
     }
 
+    public Step2ResponseDto getStep2(Long id) {
+        Farm farm = farmRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("농장이 없습니다. ")
+        );
 
-    public void updateFarmAgreement(Long id, FarmAgreementDto farmAgreementDto){
+        if(InProgress.getStep2InProgressList().contains(farm.getInProgress())){
+            return farmMapper.createResponseStep2FarmEntity(farm);
+        }else
+            throw new IllegalArgumentException("잘못된 inprogress 입니다. ");
+    }
+
+    public void updateFarmAgreement(Long id, FarmAgreementRequestDto farmAgreementDto){
 
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
 
         farm.updateFarmAgreement(
@@ -155,9 +131,9 @@ public class FarmService {
                 farmAgreementDto.getPageNum());
     }
 
-    public void updateFarmOwnerInfo(Long id, FarmOwnerInfoDto farmOwnerInfoDto) {
+    public void updateFarmOwnerInfo(Long id, FarmOwnerInfoRequestDto farmOwnerInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
 
         farm.updateFarmOwnerInfo(
@@ -166,37 +142,37 @@ public class FarmService {
                 farmOwnerInfoDto.getPageNum());
     }
 
-
-
-    public void updateFarmInfo(Long id, FarmInfoDto farmInfoDto) {
+    public void updateFarmInfo(Long id, FarmInfoRequestDto farmInfoDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
 
         farm.updateFarmInfo(farmInfoDto.getFarmName(),
                 farmInfoDto.getFarmAddress(),
+                extractProvince(farmInfoDto),
+                farmInfoDto.getFarmPostCode(),
                 farmInfoDto.getFodder(),
                 farmInfoDto.getPageNum());
 
     }
 
-
-    public void updateFarmInfoCheck(Long id, FarmInfoCheckDto farmInfoCheckDto) {
+    public void updateFarmInfoCheck(Long id, FarmInfoCheckRequestDto farmInfoCheckDto) {
 
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
         farm.updateFarmInfoCheck(
                 farmInfoCheckDto.getIdentification(),
                 farmInfoCheckDto.getOwnFarm(),
                 farmInfoCheckDto.getBreedingType(),
                 farmInfoCheckDto.getPopulation(),
+                farmInfoCheckDto.getCctv(),
                 farmInfoCheckDto.getPageNum());
     }
 
-    public void updateFarmFilesCheck(Long id, FarmFilesCheckDto farmFilesCheckDto) {
+    public void updateFarmFilesCheck(Long id, FarmFilesCheckRequestDto farmFilesCheckDto) {
         Farm farm = farmRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 농장이 없습니다. farmId =" + id)
+                () -> new CustomException(ErrorCode.FARM_NOT_FOUND)
         );
         farm.updateFilesInfoCheck(farmFilesCheckDto.getLivestockFarmingBusinessRegistration(),
                 farmFilesCheckDto.getFacilitiesStructure(),
@@ -212,7 +188,7 @@ public class FarmService {
         );
 
         farm.updateInvestigationRequest(investigationRequestUpdateRequestDto.getPageNum(),
-                investigationRequestUpdateRequestDto.getInvestigationRequest());
+                LocalDateToLocalDateTime(investigationRequestUpdateRequestDto.getInvestigationRequest()));
     }
 
     public void updateInProgress(Long farmId, InProgressUpdateRequestDto inProgressUpdateRequestDto) {
@@ -222,6 +198,42 @@ public class FarmService {
 
         farm.updateInProgress(inProgressUpdateRequestDto.getPageNum(),
                               inProgressUpdateRequestDto.getInProgress());
+    }
+
+    public void creatFarm(LoginRequestDto loginRequestDto){
+        String password = passwordEncoder.encode(loginRequestDto.getPassword());
+        Farm farm = new Farm(loginRequestDto.getPhoneNumber(),password);
+        farmRepository.save(farm);
+    }
+
+    public String extractProvince(FarmInfoRequestDto farmInfoDto){
+        return farmInfoDto.getFarmAddress().substring(0, 2);
+    }
+
+    public Step3ResponseDto getNoReservationAllowedList(Long id) throws IOException, ParseException {
+
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = DateCalculator.getDayAtEndOfMonthAfterAddNumToMonth(startDate, 3);
+
+        List<RequestDateResponseDto> requestDateResponseDtoList = new ArrayList<>();
+        requestDateResponseDtoList.addAll(HolidayApi.getHoliday(startDate, endDate));
+        requestDateResponseDtoList.addAll(DateCalculator.getWeekendList(startDate, endDate));
+        requestDateResponseDtoList.addAll(getFarmReservationList(startDate, endDate));
+
+        return new Step3ResponseDto(id, requestDateResponseDtoList);
+    }
+
+    public List<RequestDateResponseDto> getFarmReservationList(LocalDate startDate, LocalDate endDate) {
+        List<Farm> farm = farmRepository.findFarmsByInvestigationRequestIsNotNull();
+
+        List<RequestDateResponseDto> ReservationList = farm.stream()
+                .filter(o -> LocalDateTimeToLocalDate(o.getInvestigationRequest()).isAfter(startDate)
+                        && LocalDateTimeToLocalDate(o.getInvestigationRequest()).isBefore(endDate.plusDays(1)))
+                .map(o -> new RequestDateResponseDto(DateType.RESERVED.getDateName()
+                        , LocalDateTimeToLocalDate(o.getInvestigationRequest()), DateType.RESERVED))
+                .collect(Collectors.toList());
+
+        return ReservationList;
     }
 
 }

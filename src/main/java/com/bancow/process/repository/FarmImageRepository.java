@@ -1,7 +1,7 @@
 package com.bancow.process.repository;
 
 import com.bancow.process.domain.FarmImage;
-import com.bancow.process.domain.ImageType;
+import com.bancow.process.constant.ImageType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,8 +14,7 @@ public interface FarmImageRepository extends JpaRepository<FarmImage, Long> {
            "where fi.farm.id = :id and fi.imageType = :imageType")
     FarmImage findImage(@Param("id") Long id, @Param("imageType") ImageType imageType);
 
-    @Query("select fi.imageUrl from FarmImage fi " +
-            "where fi.farm.id = :id")
-    List<String> findUrl(@Param("id") Long id);
+    List<FarmImage> findByFarmId(Long id);
+
 }
 

@@ -1,34 +1,40 @@
 package com.bancow.process.domain;
 
-import com.bancow.process.dto.FarmInfoDto;
+import com.bancow.process.constant.InProgress;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bancow.process.constant.InProgress.*;
+
 @Entity
 @Table(name = "farm")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Farm extends BaseEntity {
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
+public class Farm extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "farm_id")
     private Long id;
 
     // 전화번호(필드이름 대체 예정)
-    @Column(name = "phone_number")
-    private String userName;
+    @Column(name = "phone_number",unique = true)
+    @Pattern(regexp = "^01(?:0|1|[6-9])(\\d{3,4})(\\d{4})$",
+            message = "올바르지 않은 휴대폰 번호 양식입니다.")
+    private String phoneNumber;
 
     // 인증번호(필드이름 대체 예정)
+    @Column(name = "password")
     private String password;
 
     // 이용 약관 동의
@@ -45,6 +51,7 @@ public class Farm extends BaseEntity {
 
     // 이메일
     @Column(name = "email")
+    @Email
     private String email;
 
     // 페이지 저장
@@ -64,6 +71,14 @@ public class Farm extends BaseEntity {
     @Column(name = "farm_address")
     private String farmAddress;
 
+    // 농장 소재 행정구역
+    @Column(name = "farm_province")
+    private String farmProvince;
+
+    // 농장 우편번호
+    @Column(name = "farm_postcode")
+    private String farmPostCode;
+
     // 농장 이름
     @Column(name = "farm_name")
     private String farmName;
@@ -71,11 +86,11 @@ public class Farm extends BaseEntity {
 
     // 농장주 본인 확인
     @Column(name = "identification")
-    private String identification;
+    private Boolean identification;
 
     // 농장 자가 조사
     @Column(name = "own_farm")
-    private String ownFarm;
+    private Boolean ownFarm;
 
     // 농장 사육 형태 조사
     @Column(name = "breeding_type")
@@ -84,6 +99,10 @@ public class Farm extends BaseEntity {
     // 가축의 수
     @Column(name = "population")
     private String population;
+
+    // cctv 보유여부
+    @Column(name = "cctv")
+    private Boolean cctv;
 
 
     // 가축 사육업 등록증 유무
@@ -110,7 +129,7 @@ public class Farm extends BaseEntity {
     // 입점 상태
     @Enumerated(EnumType.STRING)
     @Column(name = "in_progress")
-    private InProgress inProgress;
+    private InProgress inProgress = STEP1_IN_PROGRESS;
 
     // 1차 제출 완료
     @Column(name = "step1_completed")
@@ -123,10 +142,6 @@ public class Farm extends BaseEntity {
     // 실사 요청일
     @Column(name = "investigation_request")
     private LocalDateTime investigationRequest;
-
-    // 실사 확정일
-    @Column(name = "investigation_confirm")
-    private LocalDateTime investigationConfirm;
 
     // 입점 완료
     @Column(name = "process_done")
@@ -142,9 +157,13 @@ public class Farm extends BaseEntity {
     @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<FarmFile> farmFile = new ArrayList<>();
 
+    @LastModifiedBy
+    @Column(name = "last_modified_by")
+    private String lastModifiedBy;
+
     @Builder
-    public Farm(String userName, String password) {
-        this.userName = userName;
+    public Farm(String phoneNumber, String password) {
+        this.phoneNumber = phoneNumber;
         this.password = password;
     }
 
@@ -155,6 +174,7 @@ public class Farm extends BaseEntity {
     public void updatePageNum(Long pageNum) {
         this.pageNum = pageNum;
     }
+
     public void updateInvestigationRequest(Long pageNum, LocalDateTime investigationRequest) {
         this.pageNum = pageNum;
         this.investigationRequest = investigationRequest;
@@ -173,26 +193,21 @@ public class Farm extends BaseEntity {
         this.pageNum = pageNum;
     }
 
-    public void updateFarmInfo(String farmName, String farmAddress, String fodder, Long pageNum) {
+    public void updateFarmInfo(String farmName, String farmAddress, String farmProvince, String farmPostCode, String fodder, Long pageNum) {
         this.farmName = farmName;
         this.farmAddress = farmAddress;
+        this.farmProvince = farmProvince;
+        this.farmPostCode = farmPostCode;
         this.fodder = fodder;
         this.pageNum = pageNum;
     }
 
-
-    public void updateFarmInfo(FarmInfoDto farmInfoDto){
-        this.farmName = farmInfoDto.getFarmName();
-        this.farmAddress = farmInfoDto.getFarmAddress();
-        this.fodder = farmInfoDto.getFodder();
-        this.pageNum = farmInfoDto.getPageNum();
-    }
-
-    public void updateFarmInfoCheck(String identification, String ownFarm, String breedingType, String population, Long pageNum){
+    public void updateFarmInfoCheck(Boolean identification, Boolean ownFarm, String breedingType, String population, Boolean cctv,Long pageNum){
         this.identification = identification;
         this.ownFarm = ownFarm;
         this.breedingType = breedingType;
         this.population = population;
+        this.cctv = cctv;
         this.pageNum = pageNum;
     }
 
@@ -211,4 +226,5 @@ public class Farm extends BaseEntity {
         this.pageNum = pageNum;
         this.inProgress = inProgress;
     }
+
 }

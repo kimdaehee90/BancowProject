@@ -2,15 +2,14 @@ package com.bancow.process.repository;
 
 import com.bancow.process.domain.Farm;
 import com.bancow.process.domain.FarmFile;
-import com.bancow.process.domain.FileType;
+import com.bancow.process.constant.FileType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import static com.bancow.process.domain.FileType.*;
+import static com.bancow.process.constant.FileType.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +33,7 @@ class FarmFileRepositoryTest {
 
         // given
         Farm saveFarm = farmRepository.save(Farm.builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 
@@ -66,7 +65,7 @@ class FarmFileRepositoryTest {
     public void findFile_fail_IncorrectResultSizeDataAccessException() {
         // given
         Farm saveFarm = farmRepository.save(Farm.builder()
-                .userName("01012345678")
+                .phoneNumber("01012345678")
                 .password("1234")
                 .build());
 
