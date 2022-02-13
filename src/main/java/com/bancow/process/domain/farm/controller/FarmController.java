@@ -35,20 +35,20 @@ public class FarmController {
     }
 
     @GetMapping("api/farm/checkInProgress/{phoneNumber}")
-    public ApiResponseDto checkInprogress(@PathVariable String phoneNumber){
+    public ApiResponseDto<InProgressResponseDto> checkInprogress(@PathVariable String phoneNumber){
         InProgressResponseDto inProgressResponseDto = farmService.getInprogress(phoneNumber);
         return ApiResponseDto.of(inProgressResponseDto);
 
     }
 
     @GetMapping("api/farm/{id}/checkStep1")
-    public ApiResponseDto checkStep1(@PathVariable Long id){
+    public ApiResponseDto<Step1ResponseDto> checkStep1(@PathVariable Long id){
         Step1ResponseDto step1Info = farmService.getStep1(id);
         return ApiResponseDto.of(step1Info);
     }
 
     @GetMapping("api/farm/{id}/checkStep2")
-    public ApiResponseDto checkStep2(@PathVariable Long id){
+    public ApiResponseDto<Step2ResponseDto> checkStep2(@PathVariable Long id){
         Step2ResponseDto step2Info = farmService.getStep2(id);
         return ApiResponseDto.of(step2Info);
     }
