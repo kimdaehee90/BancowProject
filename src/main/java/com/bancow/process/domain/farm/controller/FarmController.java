@@ -1,21 +1,21 @@
 package com.bancow.process.domain.farm.controller;
 
-import com.bancow.process.global.response.ApiResponseDto;
 import com.bancow.process.domain.farm.dto.request.*;
 import com.bancow.process.domain.farm.dto.response.InProgressResponseDto;
 import com.bancow.process.domain.farm.dto.response.PasswordResponseDto;
 import com.bancow.process.domain.farm.dto.response.Step1ResponseDto;
-import com.bancow.process.domain.farmFile.dto.request.FileUpdateRequestDto;
 import com.bancow.process.domain.farm.dto.response.Step2ResponseDto;
-import com.bancow.process.domain.farmFile.service.FarmFileService;
-import com.bancow.process.domain.farmImage.dto.request.ImageUpdateRequestDto;
-import com.bancow.process.domain.farmImage.service.FarmImageService;
 import com.bancow.process.domain.farm.service.FarmService;
+import com.bancow.process.domain.farmFile.service.FarmFileService;
+import com.bancow.process.domain.farmImage.service.FarmImageService;
+import com.bancow.process.global.response.ApiResponseDto;
+import com.bancow.process.global.security.jwt.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -44,7 +44,6 @@ public class FarmController {
     @GetMapping("api/farm/{id}/checkStep1")
     public ApiResponseDto checkStep1(@PathVariable Long id){
         Step1ResponseDto step1Info = farmService.getStep1(id);
-
         return ApiResponseDto.of(step1Info);
     }
 
@@ -110,6 +109,12 @@ public class FarmController {
         return ApiResponseDto.of(farmService.getNoReservationAllowedList(id));
     }
 
-
-
+    @PostMapping("/api/auth/token")
+    public ApiResponseDto checkJwtToken(HttpServletRequest request) {
+        String header = request.getHeader(JwtProperties.HEADER_STRING);
+        if(header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
+            return ApiResponseDto.of(HttpStatus.BAD_REQUEST);
+        }
+        return ApiResponseDto.of(HttpStatus.OK);
+    }
 }
